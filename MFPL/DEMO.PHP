@@ -852,657 +852,214 @@ session_start();
                             </div>
                         </div><!-- End Vertically centered Modal-->
 
-                        <div class="tab-pane fade show <?php echo $status2; ?>" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
+                      <div class="tab-pane fade show <?php echo $status2; ?>" id="bordered-justified-home" role="tabpanel" aria-labelledby="contact-tab">
                             <div class="col-lg-12">
 
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Add Store</h5>
-                                        <form class="row g-3 " autocomplete="off" id="store" action="" novalidate>
+                                        <h5 class="card-title">Create New Recipe</h5>
 
-                                            <div class="col-md-6">
+                                        <form class="row g-3" id="addrecipe">
+
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="rversion" name="rversion" placeholder="Your Name" autocomplete="off" required />
+                                                    <label for="floatingName">Recipe Version</label>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="heatingtemp" name="heatingtemp" placeholder="Your Name" autocomplete="off" required />
+                                                    <label for="floatingName">Pre Heating Temp</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="temp1" name="temp1" placeholder="Your Name" autocomplete="off" required />
+                                                    <label for="floatingName">Sleep Time Temp</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="sleeptime" name="sleeptime" placeholder="Your Name" autocomplete="off" required />
+                                                    <label for="floatingName">Sleep Time</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="deepsleep" name="deepsleep" placeholder="Your Name" autocomplete="off" required />
+                                                    <label for="floatingName">Deep Sleep Time</label>
+                                                </div>
+                                            </div>
+                                            <button type="submit" name="submit" id="submit" class="btn bg-primary text-white col-md-2">Add Version</button>
+
+                                        </form>
+
+
+
+
+
+                                        <form class="row g-3 " autocomplete="off" id="sendversion" action="">
+
+
+
+                                            <hr class="style4 mt-4" style="border-top: 1px solid black;">
+
+                                            <div class="col-md-3">
                                                 <div class="form-floating mb-3">
-                                                    <select class="form-select" id="storebrandid" name="storebrandid" aria-label="State">
-                                                        <option value="" selected></option>
+                                                    <select class="form-select" id="selectversion" aria-label="State" name="selectversion" placeholder="Machine Type" required>
+                                                        <option selected> </option>
                                                         <?php
-                                                        $brands = getBrands();
-                                                        $i = 0;
-                                                        //print_r($result);
-                                                        foreach ($brands as $row) {
-                                                            $i++;
-
-                                                            // print_r($row);
+                                                        $ptypes =  versionTypes();
+                                                        foreach ($ptypes as $ptype) {
+                                                            //print_r($ptype['name']);
                                                         ?>
-                                                            <option value="<?php echo $row['id']; ?>"><?php echo $row['brand_name']; ?></option>
+                                                            <option value="<?php echo $ptype['id']; ?>"><?php echo $ptype['recipe_version']; ?></option>
                                                         <?php
                                                         }
                                                         ?>
+
+
                                                     </select>
-                                                    <label for="floatingSelect">Brand</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input type="text" id="storename" name="storename" class="form-control" autocomplete="off" placeholder="" required>
-                                                    <label for="floatingName">Store Name</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input type="text" id="storeperson" name="storeperson" class="form-control" placeholder="Your Name" required>
-                                                    <label for="floatingName">Person Name</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input type="number" class="form-control" id="storecontact" name="storecontact" placeholder="Your Name" required>
-                                                    <label for="floatingName">Contact Number</label>
-
+                                                    <label for="floatingSelect">Select Version </label>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
-                                                <div class="form-floating mb-3">
+                                                <div class="col-md-12">
 
-                                                    <select class="form-select" id="storecountry" name="country" aria-label="country" required>
+                                                    <div class="form-floating mb-3">
+                                                        <select class="form-select" id="recipeid" aria-label="State" name="recipeid" placeholder="Machine Type" required>
+                                                            <option selected> 1</option>
+                                                            <option> 2</option>
+                                                            <option> 3</option>
+                                                            <option> 4</option>
+                                                            <option> 5</option>
+                                                            <option> 6</option>
+                                                            <option> 7</option>
+                                                            <option> 8</option>
+                                                            <option> 9</option>
+                                                            <option> 10</option>
+                                                        </select>
 
-                                                        <option value=""></option>
 
-                                                        <?php
 
-                                                        $result = getCountries();
-                                                        foreach ($result as $rowsingle) {
-                                                            //print_r($result);
-                                                        ?>
-                                                            <option value="<?php echo $rowsingle['id']; ?>"><?php echo $rowsingle["name"]; ?></option>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                    <label for="floatingSelect">Country</label>
+
+
+                                                        <label for="floatingSelect">Select Recipe ID</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-floating ">
+                                                    <input type="text" class="form-control " id="recipe_name" name="recipe_name" placeholder="PINCODE" required>
+                                                    <label for="designation">Recipe Name</label>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-3">
-                                                <div class="form-floating mb-3">
+                                                <div class="form-floating ">
+                                                    <button type="button" class="btn btn-primary col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne ">Add Recipe</button>
 
-                                                    <select class="form-select" id="storestate" name="state" aria-label="State" required>
-
-                                                    </select>
-                                                    <label for="state">State</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <div class="form-floating mb-3">
+                                            <div id="collapseOne" class="accordion-collapse collapse  col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <div class="row g-3 ">
+                                                        <div class="col-md-3 mt-5">
+                                                            <div class="col-md-12">
 
-                                                    <select class="form-select" id="storecity" name="city" aria-label="city" required>
+                                                                <div class="form-floating mb-3">
+                                                                    <select class="form-select" id="portion" aria-label="State" name="portion" placeholder="Machine Type" required>
+                                                                        <option selected> Portion 1</option>
+                                                                        <option>Portion 2</option>
+                                                                        <option>Portion 3</option>
+                                                                        <option>Portion 4</option>
+                                                                        <option>Portion 5</option>
 
+                                                                    </select>
+                                                                    <label for="floatingSelect">Select Portion 1-5</label>
+                                                                </div>
+                                                            </div>
 
-                                                    </select>
-                                                    <label for="city">City</label>
+                                                        </div>
+
+                                                        <div class="col-md-2">
+                                                            <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temperature</h5>
+                                                            <input type="text" class="form-control" id="rcpcutTemp" name="rcpcutTemp" autocomplete="off" required />
+                                                        </div>
+
+                                                        <div class="col-md-2 boxstyle">
+                                                            <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
+                                                            <div class="col-md-6">
+                                                                <div class="row g-3 ">
+                                                                    <div class="col-md-6">
+                                                                        <input type="text" class="form-control" id="T1Min" name="T1Min" autocomplete="off" required />
+
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <input type="text" class="form-control" id="T1Sec" name="T1Sec" autocomplete="off" required />
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-2 boxstyle">
+                                                            <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
+                                                            <div class="col-md-6">
+
+                                                                <div class="row g-3 ">
+                                                                    <div class="col-md-6">
+                                                                        <input type="text" class="form-control" id="htimeMin" name="htimeMin" autocomplete="off" required />
+
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <input type="text" class="form-control" id="htimeSec" name="htimeSec" autocomplete="off" required />
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-2 boxstyle">
+                                                            <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
+                                                            <div class="col-md-6">
+                                                                <div class="row g-3 ">
+                                                                    <div class="col-md-6">
+                                                                        <input type="text" class="form-control" id="T2Min" name="T2Min" autocomplete="off" required />
+
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <input type="text" class="form-control" id="T2Sec" name="T2Sec" autocomplete="off" required />
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <button type="submit" id="submit" name="submit" class="btn btn-primary">Submit</button>
+                                                        <button type="reset" class="btn btn-secondary"><a href="brand_registration.php" style="color:white">Reset</a></button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-floating">
-                                                    <input type="number" class="form-control" id="storepincode" name="pincode" placeholder="PINCODE" required>
-                                                    <label for="floatingName">PINCODE</label>
-                                                    <span id="storemessage"></span>
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="text-center">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                                <button type="reset" class="btn btn-secondary">Reset</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
+
+                                                        
+                               
                             </div>
 
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Stores List</h5>
 
-                                        <!-- Bordered Tabs -->
-                                        <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link active" id="storebrand-tab" data-bs-toggle="tab" data-bs-target="#bordered-storebrand" type="button" role="tab" aria-controls="storebrandtab" aria-selected="true">Stores List</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="storeupdate-tab" data-bs-toggle="tab" data-bs-target="#bordered-storeupdate" type="button" role="tab" aria-controls="storeupdatetab" aria-selected="false">Updates List</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="storedelete-tab" data-bs-toggle="tab" data-bs-target="#bordered-storedelete" type="button" role="tab" aria-controls="storedeletetab" aria-selected="false">Delete List</button>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content pt-2" id="borderedTabContent">
-                                            <div class="tab-pane fade show active" id="bordered-storebrand" role="tabpanel" aria-labelledby="storebrand-tab">
-                                                <div class="col-lg-12">
-
-                                                    <div class="card">
-                                                        <div class="card-body" style="overflow-x:auto;">
-                                                            <h5 class="card-title"></h5>
-
-
-                                                            <!-- Table with stripped rows -->
-                                                            <table class="table datatable" id="storelist">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th scope="col">#</th>
-                                                                        <th scope="col">Action</th>
-                                                                        <th scope="col">Brand Name</th>
-                                                                        <th scope="col">Store Name</th>
-                                                                        <th scope="col">Person Name</th>
-
-                                                                        <th scope="col">Phone</th>
-                                                                        <th style="display:none"></th>
-                                                                        <th style="display:none"></th>
-                                                                        <th scope="col">Country</th>
-                                                                        <th scope="col">state</th>
-                                                                        <th scope="col">city</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                    $stores = getStores();
-                                                                    //print_r($stores);
-                                                                    $y = 0;
-                                                                    foreach ($stores as $store) {
-                                                                        $y++;
-                                                                        $countryname = getCountriesById($store['country']);
-                                                                        $statename = getStatesById($store['state']);
-                                                                        $cityname = getCityById($store['city']);
-                                                                    ?>
-                                                                        <tr>
-                                                                            <th scope="row"><?php echo $y; ?></th>
-                                                                            <td><button type="submit" class="btn btn-success" onclick="viewstore(<?php echo $store['id'];
-                                                                                                                                                    ?>)"><i class="far fa-edit"></i></button></td>
-                                                                            <td><?php $brandname = getBrand($store['brand_id']);
-                                                                                echo $brandname['brand_name']; ?></td>
-                                                                            <td><?php echo $store['store_name']; ?></td>
-                                                                            <td><?php echo $store['p_name']; ?></td>
-
-                                                                            <!-- <td>Manager</td> -->
-                                                                            <td><?php echo $store['p_phone']; ?></td>
-                                                                            <td style="display:none"><?php echo $store['brand_id']; ?></td>
-                                                                            <td style="display:none"><?php echo $store['id']; ?></td>
-                                                                            <td style="display:none"><?php echo $store['country']; ?></td>
-                                                                            <td style="display:none"><?php echo $store['state']; ?></td>
-                                                                            <td style="display:none"><?php echo $store['city']; ?></td>
-                                                                            <td style="display:none"><?php echo $store['pincode']; ?></td>
-                                                                            <td><?php echo $countryname['name']; ?></td>
-                                                                            <td><?php echo $statename['name']; ?></td>
-                                                                            <td><?php echo $cityname['name']; ?></td>
-                                                                            <!-- <td>bapukhatavi@gmail.com</td> -->
-                                                                            <!-- <td><i class="bi bi-pencil"></i></td>
-                                                        <td><i class="bi bi-trash"></i></td> -->
-
-                                                                        </tr>
-                                                                    <?php
-                                                                    }
-                                                                    ?>
-
-
-
-                                                                </tbody>
-                                                            </table>
-                                                            <!-- End Table with stripped rows -->
-
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="bordered-storeupdate" role="tabpanel" aria-labelledby="storeupdate-tab">
-                                                <div class="col-lg-12">
-
-                                                    <div class="card">
-                                                        <div class="card-body" style="overflow-x:auto;">
-                                                            <h5 class="card-title">Store List</h5>
-
-
-                                                            <!-- Table with stripped rows -->
-                                                            <table class="table datatable" id="storelist">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th scope="col">#</th>
-                                                                        <th scope="col">Brand Name</th>
-                                                                        <th scope="col">Store Name</th>
-                                                                        <th scope="col">Person Name</th>
-
-                                                                        <th scope="col">Phone</th>
-
-                                                                        <th scope="col">Country</th>
-                                                                        <th scope="col">state</th>
-                                                                        <th scope="col">city</th>
-                                                                        <th scope="col">pincode</th>
-                                                                        <th scope="col">reason</th>
-                                                                        <th scope="col">Updated by</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                    $stores = getStoresUpdates();
-                                                                    //print_r($stores);
-                                                                    $y = 0;
-                                                                    foreach ($stores as $store) {
-                                                                        if ($store['record'] == 1) {
-
-
-                                                                            $y++;
-                                                                            $countryname = getCountriesById($store['country']);
-                                                                            $statename = getStatesById($store['state']);
-                                                                            $cityname = getCityById($store['city']);
-                                                                    ?>
-                                                                            <tr>
-                                                                                <th scope="row"><?php echo $y; ?></th>
-                                                                                <td><?php $brandname = getBrand($store['brand_id']);
-                                                                                    echo $brandname['brand_name']; ?></td>
-                                                                                <td><?php echo $store['store_name']; ?></td>
-                                                                                <td><?php echo $store['p_name']; ?></td>
-
-                                                                                <!-- <td>Manager</td> -->
-                                                                                <td><?php echo $store['p_phone']; ?></td>
-
-
-
-
-                                                                                <td><?php echo $countryname['name']; ?></td>
-                                                                                <td><?php echo $statename['name']; ?></td>
-                                                                                <td><?php echo $cityname['name']; ?></td>
-                                                                                <td><?php echo $store['pincode']; ?></td>
-                                                                                <td><?php echo $store['reason']; ?></td>
-                                                                                <td><?php echo $store['updateby']; ?></td>
-                                                                                <!-- <td>bapukhatavi@gmail.com</td> -->
-                                                                                <!-- <td><i class="bi bi-pencil"></i></td>
-                                                        <td><i class="bi bi-trash"></i></td> -->
-
-                                                                            </tr>
-                                                                    <?php
-                                                                        }
-                                                                    }
-                                                                    ?>
-
-
-
-                                                                </tbody>
-                                                            </table>
-                                                            <!-- End Table with stripped rows -->
-
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="bordered-storedelete" role="tabpanel" aria-labelledby="storedelete-tab">
-                                                <div class="col-lg-12">
-
-                                                    <div class="card">
-                                                        <div class="card-body" style="overflow-x:auto;">
-                                                            <h5 class="card-title">Delete List</h5>
-
-
-                                                            <!-- Table with stripped rows -->
-                                                            <table class="table datatable" id="storelist">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th scope="col">#</th>
-                                                                        <th scope="col">Brand Name</th>
-                                                                        <th scope="col">Store Name</th>
-                                                                        <th scope="col">Person Name</th>
-
-                                                                        <th scope="col">Phone</th>
-
-                                                                        <th scope="col">Country</th>
-                                                                        <th scope="col">state</th>
-                                                                        <th scope="col">city</th>
-                                                                        <th scope="col">pincode</th>
-                                                                        <th scope="col">reason</th>
-                                                                        <th scope="col">Updated by</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                    $stores = getStoresUpdates();
-                                                                    //print_r($stores);
-                                                                    $y = 0;
-                                                                    foreach ($stores as $store) {
-                                                                        if ($store['record'] == 2) {
-
-
-                                                                            $y++;
-                                                                            $countryname = getCountriesById($store['country']);
-                                                                            $statename = getStatesById($store['state']);
-                                                                            $cityname = getCityById($store['city']);
-                                                                    ?>
-                                                                            <tr>
-                                                                                <th scope="row"><?php echo $y; ?></th>
-                                                                                <td><?php $brandname = getBrand($store['brand_id']);
-                                                                                    echo $brandname['brand_name']; ?></td>
-                                                                                <td><?php echo $store['store_name']; ?></td>
-                                                                                <td><?php echo $store['p_name']; ?></td>
-
-                                                                                <!-- <td>Manager</td> -->
-                                                                                <td><?php echo $store['p_phone']; ?></td>
-
-
-
-
-                                                                                <td><?php echo $countryname['name']; ?></td>
-                                                                                <td><?php echo $statename['name']; ?></td>
-                                                                                <td><?php echo $cityname['name']; ?></td>
-                                                                                <td><?php echo $store['pincode']; ?></td>
-                                                                                <td><?php echo $store['reason']; ?></td>
-                                                                                <td><?php echo $store['updateby']; ?></td>
-                                                                                <!-- <td>bapukhatavi@gmail.com</td> -->
-                                                                                <!-- <td><i class="bi bi-pencil"></i></td>
-                                                                                       <td><i class="bi bi-trash"></i></td> -->
-
-                                                                            </tr>
-                                                                    <?php
-                                                                        }
-                                                                    }
-                                                                    ?>
-
-
-
-                                                                </tbody>
-                                                            </table>
-                                                            <!-- End Table with stripped rows -->
-
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div><!-- End Bordered Tabs -->
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                            <div class="modal hide fade" id="verticalycentered2" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Store Details</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-
-
-                                            <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link active" id="storehome-tab" data-bs-toggle="tab" data-bs-target="#bordered-storehome" type="button" role="tab" aria-controls="storehome" aria-selected="true">View</button>
-                                                </li>
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="storeedit-tab" data-bs-toggle="tab" data-bs-target="#bordered-storeedit" type="button" role="tab" aria-controls="storeedit" aria-selected="false">Edit</button>
-                                                </li>
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="storedelete1-tab" data-bs-toggle="tab" data-bs-target="#bordered-storedelete1" type="button" role="tab" aria-controls="storedelete1" aria-selected="false">Delete</button>
-                                                </li>
-                                            </ul>
-                                            <div class="tab-content pt-2" id="borderedTabContent">
-                                                <div class="tab-pane fade show active" id="bordered-storehome" role="tabpanel" aria-labelledby="storehome-tab">
-                                                    <?php
-                                                    //$single_brand = getBrand($id);
-                                                    //print_r($single_brand);
-                                                    ?>
-
-                                                    <form class="row g-3 needs-validation" autocomplete="off" novalidate>
-                                                        <input id="id1" class="form-control" type="hidden" name="id" required />
-                                                        <div class="col-md-6">
-                                                            <div class="form-floating mb-3">
-                                                                <select class="form-select" id="storebrandid1" name="storebrandid" aria-label="State">
-
-                                                                </select>
-                                                                <label for="floatingSelect">Brand</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-floating">
-                                                                <input type="text" id="storename1" name="storename" class="form-control" autocomplete="off" placeholder="PINCODE" readonly>
-                                                                <label for="floatingName">Store Name</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-floating">
-                                                                <input type="text" id="storeperson1" name="storeperson" class="form-control" placeholder="Your Name" readonly>
-                                                                <label for="floatingName">Person Name</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <div class="form-floating">
-                                                                <input type="number" class="form-control" id="storecontact1" name="storecontact" placeholder="Your Name" readonly>
-                                                                <label for="floatingName">Contact Number</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-floating mb-3">
-
-                                                                <select class="form-select" id="storecountry1" name="country" aria-label="country">
-
-                                                                </select>
-                                                                <label for="floatingSelect">Country</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-floating mb-3">
-
-                                                                <select class="form-select" id="storestate1" name="state" aria-label="State">
-
-                                                                </select>
-                                                                <label for="state">State</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-floating mb-3">
-
-                                                                <select class="form-select" id="storecity1" name="city" aria-label="city">
-
-                                                                </select>
-                                                                <label for="city">City</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="form-floating">
-                                                                <input type="number" class="form-control" id="storepincode1" name="pincode" placeholder="PINCODE" maxlength="6" min="100000" max="999999" readonly>
-                                                                <label for="floatingName">PINCODE</label>
-                                                            </div>
-                                                        </div>
-
-
-
-
-                                                        <div class="text-center">
-                                                            <button type="submit" id="submit" name="submit" class="btn btn-primary">Close</button>
-
-
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="tab-pane fade" id="bordered-storeedit" role="tabpanel" aria-labelledby="storeedit-tab">
-                                                    <?php
-                                                    //$single_brand = getBrand($row['id']);
-                                                    //print_r($single_brand);
-                                                    ?>
-
-                                                    <form class="row g-3 needs-validation" autocomplete="off" id="storeedit" action="" novalidate>
-                                                        <input id="idstore" class="form-control" type="hidden" name="id" required />
-                                                        <div class="col-md-6">
-                                                            <div class="form-floating mb-3">
-                                                                <select class="form-select" id="storebrandid2" name="storebrandid" aria-label="State" required>
-                                                                    <?php
-                                                                    $brands = getBrands();
-                                                                    $i = 0;
-                                                                    //print_r($result);
-                                                                    foreach ($brands as $row) {
-                                                                        $i++;
-
-                                                                        //print_r($row);
-                                                                    ?>
-                                                                        <option value="<?php echo $row['id']; ?>" selected><?php echo $row['brand_name']; ?></option>
-                                                                    <?php
-                                                                    }
-                                                                    ?>
-                                                                </select>
-                                                                <label for="floatingSelect">Brand</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-floating">
-                                                                <input type="text" id="storename2" name="storename" class="form-control" autocomplete="off" placeholder="PINCODE" required>
-                                                                <label for="floatingName">Store Name</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-floating">
-                                                                <input type="text" id="storeperson2" name="storeperson" class="form-control" placeholder="Your Name" required>
-                                                                <label for="floatingName">Person Name</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="storecontact2" name="storecontact" placeholder="Your Name" required>
-                                                                <label for="floatingName">Contact Number</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="form-floating mb-3">
-
-                                                                <select class="form-select" id="storecountry2" name="country" aria-label="country" required>
-
-                                                                    <option value=""></option>
-
-                                                                    <?php
-
-                                                                    $result = getCountries();
-                                                                    foreach ($result as $rowsingle) {
-                                                                        //print_r($result);
-                                                                    ?>
-                                                                        <option value="<?php echo $rowsingle['id']; ?>"><?php echo $rowsingle["name"]; ?></option>
-                                                                    <?php
-                                                                    }
-                                                                    ?>
-                                                                </select>
-                                                                <label for="floatingSelect">Country</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-3">
-                                                            <div class="form-floating mb-3">
-
-                                                                <select class="form-select" id="storestate2" name="state" aria-label="State" required>
-                                                                    <option value=""></option>
-
-
-                                                                </select>
-                                                                <label for="state">State</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="form-floating mb-3">
-
-                                                                <select class="form-select" id="storecity2" name="city" aria-label="city" required>
-
-
-                                                                </select>
-                                                                <label for="city">City</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="form-floating">
-                                                                <input type="number" class="form-control" id="storepincode2" name="pincode" placeholder="PINCODE" maxlength="6" min="100000" max="999999" required>
-                                                                <label for="floatingName">PINCODE</label>
-                                                                <span id="storemessage2"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="storereason2" name="reason" placeholder="Mac Id">
-                                                                <label for="floatingEmail">Reason to Update</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="storeupdateby2" name="updateby" placeholder="Mac Id">
-                                                                <label for="floatingEmail">Updating by</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <button type="submit" id="submit" name="submit" class="btn btn-primary">Submit</button>
-
-
-                                                        </div>
-                                                    </form>
-
-                                                </div>
-                                                <div class="tab-pane fade" id="bordered-storedelete1" role="tabpanel" aria-labelledby="storedelete1-tab">
-
-                                                    <form class="row g-3 needs-validation" autocomplete="off" id="storedelete" action="" novalidate>
-                                                        <input id="idstoredelete" class="form-control" type="hidden" name="id" required />
-                                                        <div class="col-md-6">
-                                                            <div class="form-floating mb-3">
-                                                                <select class="form-select" id="storebrandid3" name="storebrandid" aria-label="city" required>
-
-
-                                                                </select>
-                                                                <label for="floatingSelect">Brand</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-floating">
-                                                                <input type="text" id="storename3" name="storename" class="form-control" autocomplete="off" placeholder="PINCODE" readonly>
-                                                                <label for="floatingName">Store Name</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-12">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="storereason" name="reason" placeholder="Mac Id">
-                                                                <label for="floatingEmail">Reason to Remove</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-floating">
-                                                                <input type="text" class="form-control" id="storeremoveby" name="removeby" placeholder="Mac Id">
-                                                                <label for="floatingEmail">Romoving by</label>
-                                                            </div>
-                                                        </div>
-
-
-
-
-
-                                                        <div class="text-center">
-                                                            <button type="submit" id="submit" name="submit" class="btn btn-primary">Delete</button>
-
-
-                                                        </div>
-                                                    </form>
-
-                                                </div>
-                                            </div><!-- End Bordered Tabs -->
-
-                                            <!-- </div>
-                                                                            </div> -->
-
-
-
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div><!-- End Vertically centered Modal-->
                         </div>
                     </div><!-- End Bordered Tabs Justified -->
 
@@ -2519,7 +2076,7 @@ session_start();
                 success: function(result) {
 
                     var obj = jQuery.parseJSON(result);
-                   // console.log(obj);
+                    console.log(obj);
                     $("#verticalycentered2").modal("show");
                     var brand = obj['brandid'];
                     $.ajax({

@@ -1,4 +1,4 @@
-
+            
 <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -133,7 +133,30 @@
         <?php
         }
         ?>
-
+        
+        <?php
+        //echo basename(__FILE__);
+        if (strcmp($string, "machine_registration") != 0) {
+        ?>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="recipe_update.php">
+                    <i class="bi bi-display"></i>
+                    <span>RECIPE UPDATE</span>
+                </a>
+            </li>
+        <?php
+        } else {
+        ?>
+            <li class="nav-item">
+                <a class="nav-link " href="new_recipe_update.php">
+                    <i class="bi bi-display"></i>
+                    <span>RECIPE UPDATE</span>
+                </a>
+            </li>
+        <?php
+        }
+        ?>
+        
 
         <?php
         //echo basename(__FILE__);
