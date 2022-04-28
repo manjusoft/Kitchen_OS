@@ -92,8 +92,7 @@ function insertraw($slnum, $software_v, $app_v, $recipe_v, $app_name, $app_locat
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -103,7 +102,7 @@ function getdata()
 {
     $con = connectDB();
     $data = "";
-    $i=0;
+    $i = 0;
     if ($con) {
         $stmt = "SELECT * FROM `product`";
 
@@ -128,8 +127,7 @@ function getdata()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -140,7 +138,7 @@ function getdatasingle($prod)
 {
     $con = connectDB();
     $data = "";
-    $i=0;
+    $i = 0;
     if ($con) {
         $stmt = "SELECT * FROM `product` WHERE `location`='$prod' ORDER BY `product`.`date` DESC";
 
@@ -165,8 +163,7 @@ function getdatasingle($prod)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -176,7 +173,7 @@ function getcity()
 {
     $con = connectDB();
     $data = "";
-    $i=0;
+    $i = 0;
     if ($con) {
         $stmt = "SELECT * FROM `product`";
 
@@ -201,8 +198,7 @@ function getcity()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -213,7 +209,7 @@ function getdistinctdate()
 {
     $con = connectDB();
     $data = "";
-    $i=0;
+    $i = 0;
     if ($con) {
         $stmt = "SELECT DISTINCT(date) FROM `product` ORDER BY `product`.`date` DESC";
 
@@ -238,8 +234,7 @@ function getdistinctdate()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -265,8 +260,7 @@ function getCountriesById($country_id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -290,8 +284,7 @@ function getStatesById($state_id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -315,8 +308,7 @@ function getCityById($city_id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -326,7 +318,7 @@ function getCountries()
 {
     $con = connectDB();
     $data = "";
-
+    $products = [];
     if ($con) {
         $stmt = "SELECT * FROM `countries` ORDER BY `id` ASC";
         $i = 0;
@@ -351,8 +343,7 @@ function getCountries()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -363,7 +354,7 @@ function getStates($cid)
 {
     $con = connectDB();
     $data = "";
-
+    $products = [];
     if ($con) {
         $stmt = "SELECT * FROM `states` WHERE `country_id`='$cid' ORDER BY `name` ASC";
         //print_r($stmt);exit;
@@ -384,8 +375,7 @@ function getStates($cid)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -417,8 +407,7 @@ function getAllStates()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -453,8 +442,7 @@ function getCities($sid)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -489,8 +477,7 @@ function getAllCities()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -514,8 +501,7 @@ function brandname_check($sid)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -549,8 +535,7 @@ function addBrand($brandname, $outlets, $address, $pincode, $country, $state, $c
         } else {
             return 2;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -577,8 +562,7 @@ function editBrand($id, $brandname, $outlets, $address, $pincode, $country, $sta
         } else {
             return 1;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -615,8 +599,7 @@ function getBrands()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -647,8 +630,7 @@ function getBrand($id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -665,8 +647,8 @@ function deleteBrand($id, $reason, $removeby)
         $checkassigned = getAssignedDeviceBrandWise($id);
         //  print_r($checkassigned);exit;
         //$checkassigned=$checkassigned[1];
-        if($checkassigned==0){
-        
+        if ($checkassigned == 0) {
+
 
 
             $store = getBrandStores($id);
@@ -727,8 +709,7 @@ function deleteBrand($id, $reason, $removeby)
         } else {
             return 2;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -747,8 +728,8 @@ function getAssignedDeviceBrandWise($brandid)
 
         $data = mysqli_query($con, $stmt);
         // print_r($data->num_rows);exit;
-        $products=[];
-        if ($data->num_rows!=0) {
+        $products = [];
+        if ($data->num_rows != 0) {
             while ($row = mysqli_fetch_assoc($data)) {
 
 
@@ -764,8 +745,7 @@ function getAssignedDeviceBrandWise($brandid)
         } else {
             return 0;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -799,8 +779,7 @@ function addStore($brandname, $storename, $storeperson, $storecontact, $country,
         } else {
             return 2;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -837,8 +816,7 @@ function getStores()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -865,8 +843,7 @@ function editStore($id, $storebrandid, $storename, $storeperson, $storecontact, 
         } else {
             return 1;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -932,8 +909,7 @@ function deleteStore($id, $reason, $updateby)
         } else {
             return 2;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -967,8 +943,7 @@ function getAssignedDeviceStoreWise($storeid)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1002,8 +977,7 @@ function addUser($brandid,  $username, $useremail, $userphone, $password)
         } else {
             return 2;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1038,8 +1012,7 @@ function checkMob($brandid, $userphone)
                 return 0;
             }
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1074,8 +1047,7 @@ function getusers()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1102,8 +1074,7 @@ function getSingleuser($id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1142,8 +1113,7 @@ function editUser($id, $brandid, $username, $useremail, $userphone, $reason, $up
         } else {
             return 1;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1184,8 +1154,7 @@ function deleteUser($id, $reason, $updateby)
         } else {
             return 0;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1219,8 +1188,7 @@ function addProductType($name, $revision)
         } else {
             return 2;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1255,8 +1223,7 @@ function getProductTypes()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1286,8 +1253,7 @@ function getptype($mid)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1324,8 +1290,7 @@ function addMachine($name, $ptypeid, $macid, $sr, $mainboard, $manufacturedate, 
         } else {
             return 2;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1350,8 +1315,7 @@ function editMachine($id, $name, $ptypeid, $macid, $sr, $mainboard, $manufacture
         } else {
             return 1;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1388,8 +1352,7 @@ function getMachines()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1424,8 +1387,7 @@ function getUnAssignedMachines()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1450,8 +1412,7 @@ function getSingleMachine($id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1462,7 +1423,7 @@ function deleteMachine($id, $reason, $person)
 {
     $con = connectDB();
     $data = "";
-    $checkassigned=[];
+    $checkassigned = [];
     $checkassigned = getAssignedDeviceMachineWise($id);
     // print_r($checkassigned);exit;
     //$checkassigned=$checkassigned[1];
@@ -1509,7 +1470,7 @@ function deleteMachine($id, $reason, $person)
     } else {
         return 2;
     }
-    if (!$con){
+    if (!$con) {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1543,8 +1504,7 @@ function getAssignedDeviceMachineWise($id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1561,7 +1521,7 @@ function getBrandUsers($id)
         //print_r($stmt);exit;
 
         $i = 0;
-        $products=[];
+        $products = [];
         $data = mysqli_query($con, $stmt);
         if ($data) {
             while ($row = mysqli_fetch_assoc($data)) {
@@ -1580,8 +1540,7 @@ function getBrandUsers($id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1598,7 +1557,7 @@ function getBrandStores($id)
         //print_r($stmt);exit;
 
         $i = 0;
-        $products=[];
+        $products = [];
         $data = mysqli_query($con, $stmt);
         if ($data) {
             while ($row = mysqli_fetch_assoc($data)) {
@@ -1617,8 +1576,7 @@ function getBrandStores($id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1643,8 +1601,7 @@ function getSingleStore($id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1680,8 +1637,7 @@ function assignDevice($machineid, $brand, $user, $store)
         } else {
             return 2;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1717,8 +1673,7 @@ function getAssignedDevices()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1754,8 +1709,7 @@ function getAssignedStoppedDevice()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1790,8 +1744,7 @@ function getAssignedStartedDevice()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1817,8 +1770,33 @@ function getSingleAssignedDevice($id)
         } else {
             return false;
         }
+    } else {
+        die("Connection failed: " . mysqli_connect_error());
     }
-    else{
+    mysqli_close($con);
+}
+
+
+function getSingleAssignedDevice_TCP($id)
+{
+    $con = connectDB();
+    $data = "";
+
+    if ($con) {
+        $stmt = "SELECT * FROM `tcp_assign_machine` WHERE `id`='$id' ";
+        //print_r($stmt);exit;
+
+        $i = 0;
+
+        $data = mysqli_query($con, $stmt);
+
+        $row = mysqli_fetch_assoc($data);
+        if (!empty($row)) {
+            return $row;
+        } else {
+            return false;
+        }
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1868,8 +1846,57 @@ function updateDevice($id, $brand, $user, $store, $reason, $updateby)
         } else {
             return 1;
         }
+    } else {
+        die("Connection failed: " . mysqli_connect_error());
     }
-    else{
+    mysqli_close($con);
+}
+
+
+function updateDevice_TCP($id, $brand, $user, $store, $reason, $updateby)
+{
+    $con = connectDB();
+    $data = "";
+
+    if ($con) {
+
+        $stmt = "UPDATE `tcp_assign_machine` SET `tcp_brand`='$brand',`tcp_pri_user`='$user',`tcp_store`='$store' WHERE `id`='$id'";
+        // print_r($stmt);exit;
+        $i = 0;
+
+        $data = mysqli_query($con, $stmt);
+
+        if ($data) {
+
+            $stmt = "SELECT * FROM `tcp_assign_machine` WHERE `id`='$id'";
+            // print_r($stmt);
+
+
+            $data1 = mysqli_query($con, $stmt);
+            $row = mysqli_fetch_assoc($data1);
+            if (!empty($row)) {
+                $machineid = $row['tcp_machineid'];
+                $brand = $row['tcp_brand'];
+                $user = $row['tcp_pri_user'];
+                $store = $row['tcp_store'];
+                $stmt = "INSERT INTO `tcp_update_info`( `tcp_machine`, `tcp_brand`, `tcp_user`, `tcp_store`, `reason`, `person`, `status`) 
+                VALUES ('$id','$brand','$user','$store','$reason','$updateby','1')";
+                // print_r($stmt);
+
+
+                $data2 = mysqli_query($con, $stmt);
+                if (!empty($data2)) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            } else {
+                return 1;
+            }
+        } else {
+            return 1;
+        }
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1904,8 +1931,7 @@ function getUpdatesOfDevices()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -1942,8 +1968,7 @@ function getAssignedDevice($id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2002,13 +2027,71 @@ function removeDevice($Deviceid, $machine, $brand, $user, $store, $reason, $upda
         } else {
             return 1;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
 
+
+function removeDevice_TCP($id, $machine, $brand, $user, $store, $reason, $updateby)
+{
+    $con = connectDB();
+    $data = "";
+
+    if ($con) {
+        $stmt = "UPDATE `tcp_assign_machine` SET `tcp_machineid`='$machine', `tcp_brand`='$brand', `tcp_pri_user`='$user', `tcp_store`='$store', `status`='0'
+        WHERE `id`='$id'";
+        // print_r($stmt);
+        $data2 = mysqli_query($con, $stmt);
+        if ($data2) {
+            $stmt2 = "UPDATE `tcp_register` SET `status`='0'";
+            // print_r($stmt);exit;
+
+
+            $data = mysqli_query($con, $stmt2);
+            // print_r($data);exit;
+
+
+            if ($data2) {
+                $stmt3 = "INSERT INTO `tcp_update_info`( `tcp_machine`, `tcp_brand`, `tcp_user`, `tcp_store`, `reason`, `person`, `status`) 
+                 VALUES ('$machine','$brand','$user','$store','$reason','$updateby','2')";
+                // print_r($stmt3); exit;
+
+                $data2 = mysqli_query($con, $stmt3);
+
+
+
+
+                if ($data2) {
+
+                    //$row = mysqli_fetch_assoc($data2);
+                    //print_r($row[machine_id]);exit;
+                    // $stmt = "SELECT `tcp_machineid` FROM `tcp_assign_machine` WHERE `status`='1' AND `tcp_machineid`='$row[tcp_machineid]'";
+                    // $data = mysqli_query($con, $stmt);
+                    // // print_r($data->num_rows);exit;
+                    // // $row = mysqli_fetch_assoc($data);
+
+                    // if ($data->num_rows == 0) {
+                    //     $stmt = "UPDATE `machines` SET `assign_status`='0' WHERE  `id`='$row[tcp_machineid]'";
+                    //     //print_r($stmt);exit;
+
+
+                    //     $data = mysqli_query($con, $stmt);
+                    //     //$row = mysqli_fetch_assoc($data);
+                    // }
+
+                    return 0;
+                }
+            } else {
+                return 1;
+            }
+        }
+    } else {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    mysqli_close($con);
+}
 
 function startDevice($Deviceid, $reason, $updateby)
 {
@@ -2048,8 +2131,7 @@ function startDevice($Deviceid, $reason, $updateby)
         } else {
             return 1;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2094,8 +2176,7 @@ function stopDevice($Deviceid, $reason, $updateby)
         } else {
             return 1;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2150,8 +2231,7 @@ function getPtypeMachines($id)
         } else {
             return 1;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2188,8 +2268,7 @@ function getRecipeByMachineId($m_name, $fromdate, $todate)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2217,8 +2296,7 @@ function getUniqueRecepe()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2248,8 +2326,7 @@ function getUniqueRecepeType()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2285,8 +2362,7 @@ function getMachinesByPtype($ptype)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2323,8 +2399,7 @@ function getProductsByName($name)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2361,8 +2436,7 @@ function getMachinesBybranduserstore($brand, $user, $store)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2397,8 +2471,7 @@ function recipeCountByTypeDate($date, $unirecipe, $mname)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2434,8 +2507,7 @@ function getUniqueDates($fromdate, $todate)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2471,8 +2543,7 @@ function getrcByDate($date, $ptype)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2488,7 +2559,7 @@ function getLivemachines($value)
         $stmt = "SELECT `rawdata`.`SLN`,MAX(`rawdata`.`timestamp`) AS `timestamp` FROM `rawdata` JOIN `machines` ON `machines`.`name`=`rawdata`.`SLN` JOIN `product_type` ON `machines`.`ptype_id`=`product_type`.`id` JOIN `assigned_divices` ON `assigned_divices`.`machine_id`=`machines`.`id` AND `machines`.`assign_status`=1 AND `machines`.`status`=1 AND `assigned_divices`.`status`=1 JOIN `brand_tbl` ON `brand_tbl`.`id`=`assigned_divices`.`brand_id` JOIN `store` ON `store`.`id`=`assigned_divices`.`store_id` JOIN `users` ON `users`.`user_id`=`assigned_divices`.`user_id` $value GROUP BY `rawdata`.`SLN` ";
         //print_r($stmt);exit;
         $i = 0;
-        $products=[];
+        $products = [];
         $data = mysqli_query($con, $stmt);
         // print_r($data);exit;
         if ($data) {
@@ -2508,8 +2579,7 @@ function getLivemachines($value)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2545,8 +2615,7 @@ function getCountReport($query)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2582,8 +2651,7 @@ function getUpdatesUser()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2620,8 +2688,7 @@ function getRecipeCountReport($query, $date)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2659,8 +2726,7 @@ function getRecipeCountReportWeekly($query, $date)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2678,28 +2744,25 @@ function getRecipeCountBrandWise($query, $date)
         // print_r($stmt);
         // exit;
         $i = 0;
-        $products =[];
+        $products = [];
         $data = mysqli_query($con, $stmt);
         // print_r($data);exit;
         if ($data) {
             while ($row = mysqli_fetch_assoc($data)) {
-               
+
 
                 $products[$i] = $row;
                 //print_r($row['id']);
 
 
                 $i++;
-
-
             }
             //print_r($products);exit;
             return $products;
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2736,8 +2799,7 @@ function getErrorCountBrandWise($query, $ec, $date)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2774,8 +2836,7 @@ function getUniqueCodes()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2792,19 +2853,18 @@ function getEndCleaningCounter($query, $date)
         // print_r($stmt);
         // exit;
         $i = 0;
-        $products=[];
+        $products = [];
         $data = mysqli_query($con, $stmt);
         // print_r($data);exit;
         if ($data) {
             $row = mysqli_fetch_assoc($data);
-            
+
             // print_r($products);exit;
             return $row;
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2840,8 +2900,7 @@ function getUniqueBrands()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2878,8 +2937,7 @@ function getFailureCounts($query)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2915,8 +2973,7 @@ function getSingleMachineByName($query)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2952,8 +3009,7 @@ function getMostSellingCountReport($query)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -2988,8 +3044,7 @@ function getDistinctRecepeType()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -3025,8 +3080,7 @@ function getRecipeProcess($query, $date)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -3062,8 +3116,7 @@ function getBrandUpdates()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -3099,8 +3152,7 @@ function getStoresUpdates()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -3136,8 +3188,7 @@ function getMachinesupdate()
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -3173,8 +3224,7 @@ function getPtypeDistinctRctype($id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -3211,8 +3261,7 @@ function getMachineDistinctRctype($id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -3248,8 +3297,7 @@ function getPtypeBrands($id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -3285,8 +3333,7 @@ function getBrandRctypes($id)
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -3298,33 +3345,33 @@ function getRecipeCountFromMachinePacketReport($query, $date)
 {
     $con = connectDB();
     $data = "";
-    $products=[];
+    $products = [];
+    $row = [];
+
     if ($con) {
         $stmt = "SELECT `rawdata`.`rc` FROM `rawdata` JOIN `machines` ON `machines`.`name`=`rawdata`.`SLN` JOIN `assigned_divices` ON `assigned_divices`.`machine_id`=`machines`.`id` AND `machines`.`assign_status`=1 AND `machines`.`status`=1 AND `assigned_divices`.`status`=1 JOIN `brand_tbl` ON `brand_tbl`.`id`=`assigned_divices`.`brand_id` JOIN `store` ON `store`.`id`=`assigned_divices`.`store_id` JOIN `users` ON `users`.`user_id`=`assigned_divices`.`user_id` $query AND `rawdata`.`timestamp` LIKE '%$date%' ORDER BY `rawdata`.`id` DESC LIMIT 1;";
         //print_r($stmt);
         //exit;
-        $i = 0;
-
+        //$i = 0;
         $data = mysqli_query($con, $stmt);
         //$row = mysqli_fetch_assoc($data);
-       //  print_r($row);
+        //  print_r($row);
         if ($data) {
-          
 
-                $row = mysqli_fetch_assoc($data);
-                
-                    $products=$row['rc'];
-                
-                
-                //print_r($row['rc']);
 
-            
+            $row = mysqli_fetch_assoc($data);
+            //print_r($row);exit;
+            $products = $row['rc'];
+
+
+            //print_r($row['rc']);
+
+
             return $products;
         } else {
             return false;
         }
-    }
-    else{
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
@@ -3335,36 +3382,35 @@ function getRecipeCountFromMachinePacketMaxRcReport($query, $date)
 {
     $con = connectDB();
     $data = "";
-    $products=[];
+    $products = [];
     if ($con) {
         $stmt = "SELECT max(`rawdata`.`rc`) as `rc`,`rawdata`.`SLN` FROM `rawdata` JOIN `machines` ON `machines`.`name`=`rawdata`.`SLN` JOIN `assigned_divices` ON `assigned_divices`.`machine_id`=`machines`.`id` AND `machines`.`assign_status`=1 AND `machines`.`status`=1 AND `assigned_divices`.`status`=1 JOIN `brand_tbl` ON `brand_tbl`.`id`=`assigned_divices`.`brand_id` JOIN `store` ON `store`.`id`=`assigned_divices`.`store_id` JOIN `users` ON `users`.`user_id`=`assigned_divices`.`user_id` $query AND `rawdata`.`timestamp` LIKE '%$date%' GROUP BY `rawdata`.`SLN`;";
-       //print_r($stmt);
-       // exit;
+        //print_r($stmt);
+        // exit;
         $i = 0;
 
-        $data = mysqli_query($con, $stmt); 
+        $data = mysqli_query($con, $stmt);
         //$row = mysqli_fetch_assoc($data);
-       //  print_r($row);
-     // print_r($row);exit;
-      if ($data) {
-        while ($row = mysqli_fetch_assoc($data)) {
-            $i++;
+        //  print_r($row);
+        // print_r($row);exit;
+        if ($data) {
+            while ($row = mysqli_fetch_assoc($data)) {
+                $i++;
 
-            $products[$i] = $row;
-           // print_r($row);
+                $products[$i] = $row;
+                // print_r($row);
 
 
 
-   
 
+
+            }
+            //print_r($products);exit;
+            return $products;
+        } else {
+            return false;
         }
-        //print_r($products);exit;
-        return $products;
     } else {
-        return false;
-    }
-    }
-    else{
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);

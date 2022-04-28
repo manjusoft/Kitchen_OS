@@ -136,7 +136,7 @@
         
         <?php
         //echo basename(__FILE__);
-        if (strcmp($string, "machine_registration") != 0) {
+        if (strcmp($string, "recipe_update") != 0) {
         ?>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="recipe_update.php">
@@ -148,7 +148,7 @@
         } else {
         ?>
             <li class="nav-item">
-                <a class="nav-link " href="new_recipe_update.php">
+                <a class="nav-link " href="recipe_update.php">
                     <i class="bi bi-display"></i>
                     <span>RECIPE UPDATE</span>
                 </a>
@@ -156,7 +156,213 @@
         <?php
         }
         ?>
+
+
+
+
+
+
+<?php
+  $vals = array('TCPRegister','TCPManagemnt');
+  if (in_array($string, $vals)) {
+        //echo basename(__FILE__);
+       
+        ?>
+            <li class="nav-item">
+            <a class="nav-link " data-bs-target="#components-nav1" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>TCP</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav1" class="nav-content  " data-bs-parent="#sidebar-nav">
+                    <?php
+                    //echo basename(__FILE__);
+                    if (strcmp($string, "TCPRegister") == 0) {
+                    ?>
+                        <li>
+                            <a href="TCPRegister.php" class="active">
+                                <i class="bi bi-circle"></i><span>TCP Register</span>
+                            </a>
+                        </li>
+                    <?php
+                    } else {
+                    ?>
+                        <li>
+                            <a href="TCPRegister.php">
+                                <i class="bi bi-circle"></i><span>TCP Register</span>
+                            </a>
+                        </li>
+                    <?php
+
+                    }
+                    ?>
+                </ul>
+                <ul id="components-nav1" class="nav-content  " data-bs-parent="#sidebar-nav">
+                    <?php
+                    //echo basename(__FILE__);
+                    if (strcmp($string, "TCP Management") == 0) {
+                    ?>
+                        <li>
+                            <a href="TCPManagement.php" class="active">
+                                <i class="bi bi-circle"></i><span>TCP Management</span>
+                            </a>
+                        </li>
+                    <?php
+                    } else {
+                    ?>
+                        <li>
+                            <a href="TCPManagement.php">
+                                <i class="bi bi-circle"></i><span>TCP Management</span>
+                            </a>
+                        </li>
+                    <?php
+
+                    }
+                    ?>
+                </ul>
+
+                <ul id="components-nav1" class="nav-content  " data-bs-parent="#sidebar-nav">
+                <?php
+                    //echo basename(__FILE__);
+                    if (strcmp($string, "tcp_report") == 0) {
+                    ?>
+                        <li>
+                            <a href="tcp_report.php" class="active">
+                                <i class="bi bi-circle"></i><span>TCP Report</span>
+                            </a>
+                        </li>
+                    <?php
+                    } else {
+                    ?>
+                        <li>
+                            <a href="tcp_report.php">
+                                <i class="bi bi-circle"></i><span>TCP Report</span>
+                            </a>
+                        </li>
+                    <?php
+
+                    }
+                    ?>
+                    </ul>
+            </li>
+        <?php
+        } else {
+        ?>
+            <li class="nav-item">
+            <a class="nav-link " data-bs-target="#components-nav1" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>TCP</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav1" class="nav-content  " data-bs-parent="#sidebar-nav">
+                    <?php
+                    //echo basename(__FILE__);
+                    if (strcmp($string, "TCPRegister") == 0) {
+                    ?>
+                        <li>
+                            <a href="TCPRegister.php" class="active">
+                                <i class="bi bi-circle"></i><span>TCP Register</span>
+                            </a>
+                        </li>
+                    <?php
+                    } else {
+                    ?>
+                        <li>
+                            <a href="TCPRegister.php">
+                                <i class="bi bi-circle"></i><span>TCP Register</span>
+                            </a>
+                        </li>
+                    <?php
+
+                    }
+                    ?>
+                </ul>
+
+                
+                <ul id="components-nav1" class="nav-content  " data-bs-parent="#sidebar-nav">
+                    <?php
+                    //echo basename(__FILE__);
+                    if (strcmp($string, "TCP Management") == 0) {
+                    ?>
+                        <li>
+                            <a href="TCPManagement.php" class="active">
+                                <i class="bi bi-circle"></i><span>TCP Management</span>
+                            </a>
+                        </li>
+                    <?php
+                    } else {
+                    ?>
+                        <li>
+                            <a href="TCPManagement.php">
+                                <i class="bi bi-circle"></i><span>TCP Management</span>
+                            </a>
+                        </li>
+                    <?php
+
+                    }
+                    ?>
+                </ul>
+
+
+                <ul id="components-nav1" class="nav-content  " data-bs-parent="#sidebar-nav">
+                <?php
+                    //echo basename(__FILE__);
+                    if (strcmp($string, "tcp_report") == 0) {
+                    ?>
+                        <li>
+                            <a href="tcp_report.php" class="active">
+                                <i class="bi bi-circle"></i><span>TCP Report</span>
+                            </a>
+                        </li>
+                    <?php
+                    } else {
+                    ?>
+                        <li>
+                            <a href="tcp_report.php">
+                                <i class="bi bi-circle"></i><span>TCP Report</span>
+                            </a>
+                        </li>
+                    <?php
+
+                    }
+                    ?>
+                    </ul>
+            </li>
+        <?php
+        }
+        ?>
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <?php
         //echo basename(__FILE__);
@@ -373,27 +579,7 @@
 
                     }
                     ?>
-                        <?php
-                    //echo basename(__FILE__);
-                    if (strcmp($string, "tcp_report") == 0) {
-                    ?>
-                        <li>
-                            <a href="tcp_report.php" class="active">
-                                <i class="bi bi-circle"></i><span>TCP Report</span>
-                            </a>
-                        </li>
-                    <?php
-                    } else {
-                    ?>
-                        <li>
-                            <a href="tcp_report.php">
-                                <i class="bi bi-circle"></i><span>TCP Report</span>
-                            </a>
-                        </li>
-                    <?php
-
-                    }
-                    ?>
+                       
                     <!-- <li>
                     <a href="list_dead_machines_report.php">
                         <i class="bi bi-circle"></i><span>List of Dead Machines</span>
@@ -618,27 +804,7 @@
 
                     }
                     ?>
-                     <?php
-                    //echo basename(__FILE__);
-                    if (strcmp($string, "tcp_report") == 0) {
-                    ?>
-                        <li>
-                            <a href="tcp_report.php" class="active">
-                                <i class="bi bi-circle"></i><span>TCP Report</span>
-                            </a>
-                        </li>
-                    <?php
-                    } else {
-                    ?>
-                        <li>
-                            <a href="tcp_report.php">
-                                <i class="bi bi-circle"></i><span>TCP Report</span>
-                            </a>
-                        </li>
-                    <?php
-
-                    }
-                    ?>
+                    
 
                 </ul>
             </li>

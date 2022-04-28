@@ -98,7 +98,7 @@ $response["store"] = $store['store_name'];
 
 $response["p_name"] = $store['p_name'];
 $response["p_phone"] = $store['p_phone'];
-$response["p_email"] = $store['p_email'];
+// $response["p_email"] = $store['p_email'];
 $response["country"] = $store['country'];
 $response["state"] = $store['state'];
 $response["city"] = $store['city'];

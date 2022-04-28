@@ -59,8 +59,8 @@ if (isset($_GET["prod"])) {
   $xyz = json_encode($dataPoints);
   //print_r();
 }
-//print_r($_SESSION['brand1']);
-$brand1=$_SESSION['brand1'];
+// print_r($_SESSION['brand1']);
+$brand1=$_SESSION['brand_id'];
 $query = "AND `brand_tbl`.`id`='$brand1'";
 
 if (isset($_POST)) {

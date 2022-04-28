@@ -1,6 +1,6 @@
 <?php
 require_once "controller/functions.php";
-session_start();
+// session_start();
 //print_r($_SESSION);exit;
 if(!isset($_SESSION['mname'])){
   header("Location: ../index.php");

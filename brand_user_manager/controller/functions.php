@@ -4,7 +4,7 @@ function connectDB()
 {
 
     //$con = mysqli_connect("localhost", "root", "", "disciple");
-    $con = mysqli_connect("localhost", "root", "Mukunda@123", "mk_db");
+    $con = mysqli_connect("localhost", "root", "", "mk_db");
 
     return $con;
 }
@@ -93,6 +93,12 @@ function insertraw($slnum, $software_v, $app_v, $recipe_v, $app_name, $app_locat
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -100,6 +106,7 @@ function getdata()
 {
     $con = connectDB();
     $data = "";
+    $i=0;
 
     if ($con) {
         $stmt = "SELECT * FROM `product`";
@@ -126,6 +133,12 @@ function getdata()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -134,7 +147,7 @@ function getdatasingle($prod)
 {
     $con = connectDB();
     $data = "";
-
+$i=0;
     if ($con) {
         $stmt = "SELECT * FROM `product` WHERE `location`='$prod' ORDER BY `product`.`date` DESC";
 
@@ -160,6 +173,12 @@ function getdatasingle($prod)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -167,7 +186,7 @@ function getcity()
 {
     $con = connectDB();
     $data = "";
-
+$i=0;
     if ($con) {
         $stmt = "SELECT * FROM `product`";
 
@@ -193,6 +212,9 @@ function getcity()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -201,7 +223,7 @@ function getdistinctdate()
 {
     $con = connectDB();
     $data = "";
-
+    $i=0;
     if ($con) {
         $stmt = "SELECT DISTINCT(date) FROM `product` ORDER BY `product`.`date` DESC";
 
@@ -227,6 +249,9 @@ function getdistinctdate()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -235,7 +260,7 @@ function getCountriesById($country_id)
 {
     $con = connectDB();
     $data = "";
-
+    $i=0;
     if ($con) {
         $stmt = "SELECT `name` FROM `countries` WHERE `id`='$country_id' ";
         $i = 0;
@@ -250,6 +275,9 @@ function getCountriesById($country_id)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -273,6 +301,9 @@ function getStatesById($state_id)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 function getCityById($city_id)
@@ -294,6 +325,9 @@ function getCityById($city_id)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -328,6 +362,9 @@ function getCountries()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -358,6 +395,9 @@ function getStates($cid)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -387,6 +427,9 @@ function getAllStates()
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -421,6 +464,9 @@ function getCities($sid)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -454,6 +500,9 @@ function getAllCities()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -475,6 +524,9 @@ function brandname_check($sid)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -508,6 +560,9 @@ function addBrand($brandname, $outlets, $address, $pincode, $country, $state, $c
             return 2;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -532,6 +587,9 @@ function editBrand($id, $brandname, $outlets, $address, $pincode, $country, $sta
         } else {
             return 1;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -568,6 +626,9 @@ function getBrands()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -596,6 +657,9 @@ function getBrand($id)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -648,6 +712,9 @@ function deleteBrand($id)
             return 2;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -681,6 +748,9 @@ function getAssignedDeviceBrandWise($brandid)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -712,6 +782,9 @@ function addStore($brandname, $storename, $storeperson, $storecontact, $country,
         } else {
             return 2;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -748,6 +821,9 @@ function getStores()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -769,6 +845,9 @@ function editStore($id, $storebrandid, $storename, $storeperson, $storecontact)
         } else {
             return 1;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -807,6 +886,9 @@ function deleteStore($id)
         }
         
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -839,6 +921,9 @@ function getAssignedDeviceStoreWise($storeid)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -870,6 +955,9 @@ function addUser($brandid,  $username, $useremail, $userphone)
         } else {
             return 2;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -904,6 +992,9 @@ function getusers()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -928,6 +1019,9 @@ function getSingleuser($id)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -965,6 +1059,9 @@ function editUser($id, $brandid, $username, $useremail, $userphone, $reason, $up
         } else {
             return 1;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -1005,6 +1102,9 @@ function deleteUser($id, $reason, $updateby)
             return 0;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1036,6 +1136,9 @@ function addProductType($name, $revision)
         } else {
             return 2;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -1070,6 +1173,9 @@ function getProductTypes()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1097,6 +1203,9 @@ function getptype($mid)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -1132,6 +1241,9 @@ function getptypebybrand($mid)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1166,6 +1278,9 @@ function addMachine($name, $ptypeid, $macid, $sr, $mainboard, $manufacturedate, 
             return 2;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1185,6 +1300,9 @@ function editMachine($id, $name, $ptypeid, $macid, $sr, $mainboard, $manufacture
         } else {
             return 1;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -1221,6 +1339,9 @@ function getMachines()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1254,6 +1375,9 @@ function getUnAssignedMachines()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1276,6 +1400,9 @@ function getSingleMachine($id)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -1310,6 +1437,9 @@ function deleteMachine($id, $reason, $person)
         } else {
             return 0;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -1346,6 +1476,9 @@ function getBrandUsers($id)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1380,6 +1513,9 @@ function getBrandStores($id)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1402,6 +1538,9 @@ function getSingleStore($id)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -1437,6 +1576,9 @@ function assignDevice($machineid, $brand, $user, $store)
             return 2;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1471,6 +1613,9 @@ function getAssignedDevices()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1503,6 +1648,9 @@ function getAssignedStoppedDevice()
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -1537,6 +1685,9 @@ function getAssignedStartedDevice()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1560,6 +1711,9 @@ function getSingleAssignedDevice($id)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -1609,6 +1763,9 @@ function updateDevice($id, $brand, $user, $store, $reason, $updateby)
             return 1;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1641,6 +1798,9 @@ function getUpdatesOfDevices()
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -1676,6 +1836,9 @@ function getAssignedDevice($id)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -1734,6 +1897,9 @@ function removeDevice($Deviceid, $machine, $brand, $user, $store, $reason, $upda
             return 1;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1770,6 +1936,9 @@ function startDevice($Deviceid, $machine, $brand, $user, $store, $reason, $updat
             return 1;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1803,6 +1972,9 @@ function stopDevice($Deviceid, $machine, $brand, $user, $store, $reason, $update
         } else {
             return 1;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -1857,6 +2029,9 @@ function getPtypeMachines($id)
             return 1;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1892,6 +2067,9 @@ function getRecipeByMachineId($m_name, $fromdate, $todate)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -1917,6 +2095,9 @@ function getUniqueRecepe()
         } else {
             return false;
         }
+    }
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($conn);
 }
@@ -1945,6 +2126,9 @@ function getUniqueRecepeType()
         } else {
             return false;
         }
+    }
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($conn);
 }
@@ -1979,6 +2163,9 @@ function getMachinesByPtype($ptype)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -2015,6 +2202,9 @@ function getProductsByName($name)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -2050,6 +2240,9 @@ function getMachinesBybranduserstore($brand, $user, $store)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -2082,6 +2275,9 @@ function recipeCountByTypeDate($date, $unirecipe, $mname)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -2117,6 +2313,9 @@ function getUniqueDates($fromdate, $todate)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -2150,6 +2349,9 @@ function getrcByDate($date, $ptype)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -2186,6 +2388,9 @@ function getLivemachines($value)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -2219,6 +2424,9 @@ function getCountReport($query)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -2254,6 +2462,9 @@ function getUpdatesUser()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -2288,6 +2499,9 @@ function getRecipeCountReport($query, $date)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -2325,6 +2539,9 @@ function getRecipeCountReportWeekly($query, $date)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -2361,6 +2578,9 @@ function getRecipeCountBrandWise($query, $date)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -2395,6 +2615,9 @@ function getErrorCountBrandWise($query, $ec, $date)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -2431,6 +2654,9 @@ function getUniqueCodes()
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -2466,6 +2692,9 @@ function getEndCleaningCounter($query, $date)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -2499,6 +2728,9 @@ function getUniqueBrands()
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -2535,6 +2767,9 @@ function getFailureCounts($query)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -2568,6 +2803,9 @@ function getSingleMachineByName($query)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -2603,6 +2841,9 @@ function getMostSellingCountReport($query)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 function getDistinctRecepeTyp()
@@ -2634,6 +2875,9 @@ function getDistinctRecepeTyp()
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }
@@ -2668,6 +2912,9 @@ function getDistinctRecepeTypebyBrand($brandid)
             return false;
         }
     }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
     mysqli_close($con);
 }
 
@@ -2701,6 +2948,9 @@ function getRecipeProcess($query, $date)
         } else {
             return false;
         }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);
 }

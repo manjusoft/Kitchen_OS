@@ -161,7 +161,26 @@
                     <?php
                     }
                     ?>
-                  
+                   <?php
+                    //echo basename(__FILE__);
+                    if (strcmp($string, "TCP_Report") == 0) {
+                    ?>
+                        <li>
+                            <a href="TCP_Report.php" class="active">
+                                <i class="bi bi-circle active"></i><span>TCP Report</span>
+                            </a>
+                        </li>
+                    <?php
+                    } else {
+                    ?>
+                        <li>
+                            <a href="TCP_Report.php">
+                                <i class="bi bi-circle"></i><span>TCP Report</span>
+                            </a>
+                        </li>
+                    <?php
+                    }
+                    ?>
                 </ul>
             </li>
         <?php
@@ -275,7 +294,26 @@
                     <?php
                     }
                     ?>
-                   
+                    <?php
+                    //echo basename(__FILE__);
+                    if (strcmp($string, "TCP_Report") == 0) {
+                    ?>
+                        <li>
+                            <a href="TCP_Report.php" class="active">
+                                <i class="bi bi-circle active"></i><span>TCP Report</span>
+                            </a>
+                        </li>
+                    <?php
+                    } else {
+                    ?>
+                        <li>
+                            <a href="TCP_Report.php">
+                                <i class="bi bi-circle"></i><span>TCP Report</span>
+                            </a>
+                        </li>
+                    <?php
+                    }
+                    ?>
 
 
                 </ul>

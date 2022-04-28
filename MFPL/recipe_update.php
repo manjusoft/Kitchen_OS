@@ -243,6 +243,8 @@ session_start();
                                                 </div>
                                             </div>
 
+
+
                                             <div class="col-md-3">
                                                 <div class="form-floating ">
                                                     <button type="button" id="selectandadd" class="btn  col-md-12 bg-primary  text-light text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne ">Add Portion</button>
@@ -822,7 +824,7 @@ session_start();
                                             <tr>
                                                 <th scope="row"><?php echo $i; ?></th>
                                                 <td><button type="submit" class="btn btn-success" onclick="viewmodel(<?php echo $id;
-                                                                                                                                    ?>)"><i class="far fa-edit"></i></button></td>
+                                                                                                                        ?>)"><i class="far fa-edit"></i></button></td>
 
                                                 <td><?php echo $recipe_version ?></td>
                                                 <td><?php echo $pht ?> </td>
@@ -855,586 +857,1127 @@ session_start();
 
 
 
-                    <!-- Edit Box Model -->
+                    <!-- View and Edit Box Model -->
                     <div class="modal fade" id="verticalycentered1" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered modal-xl">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Assigned Device Details</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+
                                 </div>
-                                <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="edit_here" type="button" role="tab" aria-controls="view" aria-selected="true">View</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="edit" aria-selected="false">Edit</button>
-                                    </li>
-
-                                </ul>
-
 
                                 <div class="modal-body">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="card-title"></h5>
+                                            <!-- <h5 class="card-title">Default Tabs</h5> -->
+
+                                            <!-- Default Tabs -->
+                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">View</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Edit</button>
+                                                </li>
+
+                                            </ul>
+                                            <div class="tab-content pt-2" id="myTabContent">
+                                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title"></h5>
+
+
+
+                                                            <!-- View Model -->
+
+                                                            <form class="row g-3" id="addrecipe">
+
+                                                                <div class="col-md-4">
+                                                                    <div class="form-floating">
+                                                                        <input type="text" class="form-control" id="vvrversion" name="vrversion" placeholder="Your Name" autocomplete="off" readonly />
+                                                                        <label for="floatingName">Recipe Version</label>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="col-md-4">
+                                                                    <div class="form-floating">
+                                                                        <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" max="300" class="form-control" id="vheatingtemp" name="heatingtemp" data-bs-toggle="tooltip" data-bs-original-title="Enter only in Celcius" placeholder="Your Name" autocomplete="off" readonly />
+                                                                        <label for="floatingName">Pre Heating Temp (<span>&#8451;</span>)</label>
+                                                                        <span id="message"> </span>
+
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-4">
+                                                                    <div class="form-floating">
+                                                                        <input type="text" class="form-control" id="vvtemp1" name="vtemp1" placeholder="Your Name" autocomplete="off" readonly />
+                                                                        <label for="floatingName">Sleep Time Temp</label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-4">
+                                                                    <div class="form-floating">
+                                                                        <input type="text" class="form-control" id="vvsleeptime" name="vsleeptime" placeholder="Your Name" autocomplete="off" readonly />
+                                                                        <label for="floatingName">Sleep Time</label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-4">
+                                                                    <div class="form-floating">
+                                                                        <input type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" id="vvdeepsleep" name="deepsleep" placeholder="Your Name" autocomplete="off" readonly />
+                                                                        <label for="floatingName">Deep Sleep Time</label>
+                                                                    </div>
+                                                                </div>
+
+                                                            </form>
+                                                            <div class="row g-3 mt-3" style="justify-content: space-evenly;">
+                                                                <input type="hidden" class="form-control " id="version_id" name="version_id" placeholder="PINCODE">
+                                                                <div class="col-md-3">
+
+                                                                    <div class="form-floating ">
+                                                                        <input type="text" class="form-control " id="version_name" name="version_name" placeholder="PINCODE" readonly>
+                                                                        <label for="designation">Select Version</label>
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                                <div class="col-md-3">
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="form-floating mb-3">
+                                                                            <select class="form-select" id="recipeidview" aria-label="State" name="recipeidview" placeholder="Machine Type">
+                                                                                <option selected> 1</option>
+                                                                                <option> 2</option>
+                                                                                <option> 3</option>
+                                                                                <option> 4</option>
+                                                                                <option> 5</option>
+                                                                                <option> 6</option>
+                                                                                <option> 7</option>
+                                                                                <option> 8</option>
+                                                                                <option> 9</option>
+                                                                                <option> 10</option>
+                                                                            </select>
 
 
 
 
-                                            <form class="row g-3" id="addrecipe">
 
-<div class="col-md-4">
-    <div class="form-floating">
-        <input type="text" class="form-control" id="vvrversion" name="vrversion" placeholder="Your Name" autocomplete="off" readonly />
-        <label for="floatingName">Recipe Version</label>
-    </div>
-</div>
-
-
-<div class="col-md-4">
-    <div class="form-floating">
-        <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" max="300" class="form-control" id="vheatingtemp" name="heatingtemp" data-bs-toggle="tooltip" data-bs-original-title="Enter only in Celcius" placeholder="Your Name" autocomplete="off" readonly />
-        <label for="floatingName">Pre Heating Temp (<span>&#8451;</span>)</label>
-        <span id="message"> </span>
-
-
-    </div>
-</div>
-
-<div class="col-md-4">
-    <div class="form-floating">
-        <input type="text" class="form-control" id="vvtemp1" name="vtemp1" placeholder="Your Name" autocomplete="off" readonly />
-        <label for="floatingName">Sleep Time Temp</label>
-    </div>
-</div>
-
-<div class="col-md-4">
-    <div class="form-floating">
-        <input type="text" class="form-control" id="vvsleeptime" name="vsleeptime" placeholder="Your Name" autocomplete="off" readonly />
-        <label for="floatingName">Sleep Time</label>
-    </div>
-</div>
-
-<div class="col-md-4">
-    <div class="form-floating">
-        <input type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" id="vvdeepsleep" name="deepsleep" placeholder="Your Name" autocomplete="off" readonly/>
-        <label for="floatingName">Deep Sleep Time</label>
-    </div>
-</div>
+                                                                            <label for="floatingSelect">Select Recipe ID</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
 
 
 
+                                                                <div class="col-md-3">
+
+                                                                    <div class="form-floating ">
+                                                                        <input type="text" class="form-control " id="recipe_nameview" name="recipe_nameview" placeholder="PINCODE" readonly>
+                                                                        <label for="designation">Recipe Name</label>
+                                                                    </div>
+
+                                                                </div>
 
 
 
-<div class="divider"></div>
-</form>
+                                                            </div>
+                                                            <div class="row g-3 mt-3" style="justify-content: space-evenly;">
+
+
+
+                                                                <!-- Portion 1 -->
+                                                                <div class="col-md-2">
+
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="form-floating ">
+                                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 1</button>
+                                                                        </div>
+
+                                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                                            <br>
+                                                                            <div class="col-md-12">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
+                                                                                <input type="text" class="form-control" id="rct_1v" name="rct_1v" autocomplete="off" readonly />
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
+
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T1Min_1v" name="T1Min_1v" autocomplete="off" readonly />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" id="T1Sec_1v" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" name="T1Sec_1v" autocomplete="off" readonly />
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="htMin_1v" name="htMin_1v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_1v" name="htSec_1v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T2Min_1v" name="T2Min_1v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_1v" name="T2Sec_1v" placeholder="A" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                                <!--  Portion 2 -->
+                                                                <div class="col-md-2">
+
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="form-floating ">
+                                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 2</button>
+                                                                        </div>
+
+                                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                                            <br>
+                                                                            <div class="col-md-12">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
+                                                                                <input type="text" class="form-control" id="rct_2v" name="rct_2v" autocomplete="off" readonly />
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
+
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T1Min_2v" name="T1Min_2v" autocomplete="off" readonly />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" id="T1Sec_2v" name="T1Sec_2v" autocomplete="off" readonly />
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="htMin_2v" name="htMin_2v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_2v" name="htSec_2v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T2Min_2v" name="T2Min_2v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_2v" name="T2Sec_2v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+
+
+
+                                                                <!-- Portion 3 -->
+                                                                <div class="col-md-2">
+
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="form-floating ">
+                                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 3</button>
+                                                                        </div>
+
+                                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                                            <br>
+                                                                            <div class="col-md-12">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
+                                                                                <input type="text" class="form-control" id="rct_3v" name="rct_3v" autocomplete="off" readonly />
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
+
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T1Min_3v" name="T1Min_3v" autocomplete="off" readonly />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" id="T1Sec_3v" name="T1Sec_3v" autocomplete="off" readonly />
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="htMin_3v" name="htMin_3v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_3v" name="htSec_3v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T2Min_3v" name="T2Min_3v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_3v" name="T2Sec_3v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+
+
+                                                                <!-- Portion 4 -->
+                                                                <div class="col-md-2">
+
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="form-floating ">
+                                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 4</button>
+                                                                        </div>
+
+                                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                                            <br>
+                                                                            <div class="col-md-12">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
+                                                                                <input type="text" class="form-control" id="rct_4v" name="rct_4v" autocomplete="off" readonly />
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
+
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T1Min_4v" name="T1Min_4v" autocomplete="off" readonly />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" id="T1Sec_4v" name="T1Sec_4v" autocomplete="off" readonly />
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="htMin_4v" name="htMin_4v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_4v" name="htSec_4v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T2Min_4v" name="T2Min_4v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_4v" name="T2Sec_4v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+
+
+                                                                <!-- Portion 5 -->
+                                                                <div class="col-md-2">
+
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="form-floating ">
+                                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 5</button>
+                                                                        </div>
+
+                                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                                            <br>
+                                                                            <div class="col-md-12">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
+                                                                                <input type="text" class="form-control" id="rct_5v" name="rct_5v" autocomplete="off" readonly />
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
+
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T1Min_5v" name="T1Min_5v" autocomplete="off" readonly />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" id="T1Sec_5v" name="T1Sec_5v" autocomplete="off" readonly />
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="htMin_5v" name="htMin_5v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_5v" name="htSec_5v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T2Min_5v" name="T2Min_5v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_5v" name="T2Sec_5v" autocomplete="off" readonly />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+                                                        <!-- //End of Portions of View Box -->
 
 
 
 
 
-
-
-
-                                            <div class="row g-3 mt-3" style="justify-content: space-evenly;">
-                                            <input type="hidden" class="form-control " id="version_id" name="version_id" placeholder="PINCODE">
-                                                <div class="col-md-3">
-
-                                                    <div class="form-floating ">
-                                                        <input type="text" class="form-control " id="version_name" name="version_name" placeholder="PINCODE">
-                                                        <label for="designation">Select Version</label>
                                                     </div>
+
+
 
                                                 </div>
 
 
 
-
-                                                <div class="col-md-3">
-                                                    <div class="col-md-12">
-
-                                                        <div class="form-floating mb-3">
-                                                            <select class="form-select" id="recipeidview" aria-label="State" name="recipeidview" placeholder="Machine Type">
-                                                                <option selected> 1</option>
-                                                                <option> 2</option>
-                                                                <option> 3</option>
-                                                                <option> 4</option>
-                                                                <option> 5</option>
-                                                                <option> 6</option>
-                                                                <option> 7</option>
-                                                                <option> 8</option>
-                                                                <option> 9</option>
-                                                                <option> 10</option>
-                                                            </select>
+                                                <!-- Start of Edit Box -->
+                                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"></h5>
 
 
 
 
+                                                        <form class="row g-3" id="editboxmodel" id="verticalycentered2">
 
-                                                            <label for="floatingSelect">Select Recipe ID</label>
-                                                        </div>
+
+                                                            <input type="hidden" class="form-control " id="version_idedit12" name="version_id" placeholder="PINCODE">
+                                                            <!-- Recipe Version -->
+                                                            <div class="col-md-4">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="vvrversionedit" name="vrversionediting" placeholder="Your Name" autocomplete="off" readonly />
+                                                                    <label for="floatingName">Recipe Version</label>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                            <!-- Pre Heating Temp -->
+                                                            <div class="col-md-4">
+                                                                <div class="form-floating">
+                                                                    <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;" max="300" class="form-control" id="vheatingtempedit" name="heatingtempediting" data-bs-toggle="tooltip" data-bs-original-title="Enter only in Celcius" placeholder="Your Name" autocomplete="off" />
+                                                                    <label for="floatingName">Pre Heating Temp (<span>&#8451;</span>)</label>
+                                                                    <span id="message"> </span>
+
+
+                                                                </div>
+                                                            </div>
+
+
+                                                            <!-- Sleep Time Temp -->
+                                                            <div class="col-md-4">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="vvtemp1edit" name="vtemp1editing" placeholder="Your Name" autocomplete="off" />
+                                                                    <label for="floatingName">Sleep Time Temp</label>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <!-- Sleep Time -->
+                                                            <div class="col-md-4">
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" id="vvsleeptimeedit" name="vsleeptimeediting" placeholder="Your Name" autocomplete="off" />
+                                                                    <label for="floatingName">Sleep Time</label>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <!-- Deep Sleep Time -->
+                                                            <div class="col-md-4">
+                                                                <div class="form-floating">
+                                                                    <input type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" id="vvdeepsleepedit" name="deepsleepediting" placeholder="Your Name" autocomplete="off" />
+                                                                    <label for="floatingName">Deep Sleep Time</label>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <!-- Update Button -->
+                                                            <button type="submit" name="submitversionedit" id="submitversionedit" class="btn bg-primary text-white col-md-2">Update</button>
+
+
+                                                        </form>
+
+
+
+                                                        <!-- Select Version Tab -->
+
+                                                        <form id="Updating_portions">
+
+
+
+                                                            <div class="row g-3 mt-3" style="justify-content: space-evenly;">
+                                                                <input type="hidden" class="form-control " id="version_id11" name="version_id" placeholder="PINCODE">
+                                                                <div class="col-md-3">
+
+                                                                    <div class="form-floating ">
+                                                                        <input type="text" class="form-control " id="version_nameedit" name="version_name" placeholder="PINCODE" readonly>
+                                                                        <label for="designation">Select Version</label>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <!-- Recipe ID -->
+                                                                <div class="col-md-3">
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="form-floating mb-3">
+                                                                            <select class="form-select" id="recipeidviewedit" aria-label="State" name="recipeidviewediit" placeholder="Machine Type">
+                                                                                <option selected> 1</option>
+                                                                                <option> 2</option>
+                                                                                <option> 3</option>
+                                                                                <option> 4</option>
+                                                                                <option> 5</option>
+                                                                                <option> 6</option>
+                                                                                <option> 7</option>
+                                                                                <option> 8</option>
+                                                                                <option> 9</option>
+                                                                                <option> 10</option>
+                                                                            </select>
+
+
+
+
+
+                                                                            <label for="floatingSelect">Select Recipe ID</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <!-- Recipe Name -->
+                                                                <div class="col-md-3">
+
+                                                                    <div class="form-floating ">
+                                                                        <input type="text" class="form-control " id="recipe_nameviewediedit" name="recipe_nameviewedit" placeholder="PINCODE">
+                                                                        <label for="designation">Recipe Name</label>
+                                                                    </div>
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                            <div class="row g-3 mt-3" style="justify-content: space-evenly;">
+
+
+                                                                <!-- Portion 1 -->
+                                                                <div class="col-md-2">
+
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="form-floating ">
+                                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 1</button>
+                                                                        </div>
+
+                                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                                            <br>
+                                                                            <div class="col-md-12">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
+                                                                                <input type="text" class="form-control" id="rct_1vedit" name="rct_1vedit" autocomplete="off" />
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
+
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T1Min_1vedit" name="T1Min_1vedit" autocomplete="off" />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" id="T1Sec_1vedit" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" name="T1Sec_1vedit" autocomplete="off" />
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="htMin_1vedit" name="htMin_1vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_1vedit" name="htSec_1vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T2Min_1vedit" name="T2Min_1vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_1vedit" name="T2Sec_1vedit" placeholder="A" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                                <!--  Portion 2 -->
+                                                                <div class="col-md-2">
+
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="form-floating ">
+                                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 2</button>
+                                                                        </div>
+
+                                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                                            <br>
+                                                                            <div class="col-md-12">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
+                                                                                <input type="text" class="form-control" id="rct_2vedit" name="rct_2vedit" autocomplete="off" />
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
+
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T1Min_2vedit" name="T1Min_2vedit" autocomplete="off" />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" id="T1Sec_2vedit" name="T1Sec_2vedit" autocomplete="off" />
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="htMin_2vedit" name="htMin_2vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_2vedit" name="htSec_2vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T2Min_2vedit" name="T2Min_2vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_2vedit" name="T2Sec_2vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+
+
+
+                                                                <!-- Portion 3 -->
+                                                                <div class="col-md-2">
+
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="form-floating ">
+                                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 3</button>
+                                                                        </div>
+
+                                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                                            <br>
+                                                                            <div class="col-md-12">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
+                                                                                <input type="text" class="form-control" id="rct_3vedit" name="rct_3vedit" autocomplete="off" />
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
+
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T1Min_3vedit" name="T1Min_3vedit" autocomplete="off" />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" id="T1Sec_3vedit" name="T1Sec_3vedit" autocomplete="off" />
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="htMin_3vedit" name="htMin_3vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_3vedit" name="htSec_3vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T2Min_3vedit" name="T2Min_3vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_3vedit" name="T2Sec_3vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+
+
+                                                                <!-- Portion 4 -->
+                                                                <div class="col-md-2">
+
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="form-floating ">
+                                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 4</button>
+                                                                        </div>
+
+                                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                                            <br>
+                                                                            <div class="col-md-12">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
+                                                                                <input type="text" class="form-control" id="rct_4vedit" name="rct_4vedit" autocomplete="off" />
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
+
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T1Min_4vedit" name="T1Min_4vedit" autocomplete="off" />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" id="T1Sec_4vedit" name="T1Sec_4vedit" autocomplete="off" />
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="htMin_4vedit" name="htMin_4vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_4vedit" name="htSec_4vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T2Min_4vedit" name="T2Min_4vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_4vedit" name="T2Sec_4vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+
+
+                                                                <!-- Portion 5 -->
+                                                                <div class="col-md-2">
+
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="form-floating ">
+                                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 5</button>
+                                                                        </div>
+
+                                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                                            <br>
+                                                                            <div class="col-md-12">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
+                                                                                <input type="text" class="form-control" id="rct_5vedit" name="rct_5vedit" autocomplete="off" />
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
+
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T1Min_5vedit" name="T1Min_5vedit" autocomplete="off" />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" id="T1Sec_5vedit" name="T1Sec_5vedit" autocomplete="off" />
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
+                                                                                <div class="col-md-12">
+
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="htMin_5vedit" name="htMin_5vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_5vedit" name="htSec_5vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-12 boxstyle">
+                                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row g-3 ">
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="text" class="form-control" id="T2Min_5vedit" name="T2Min_5vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_5vedit" name="T2Sec_5vedit" autocomplete="off" />
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                                <div class="text-center mt-5">
+                                                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+                                                                    <button type="reset" class="btn btn-secondary"><a href="brand_registration.php" style="color:white">Reset</a></button>
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
 
+                                            </div><!-- End Default Tabs -->
 
-
-                                                <div class="col-md-3">
-
-                                                    <div class="form-floating ">
-                                                        <input type="text" class="form-control " id="recipe_name" name="recipe_name" placeholder="PINCODE">
-                                                        <label for="designation">Recipe Name</label>
-                                                    </div>
-
-                                                </div>
-
-
-
-                                            </div>
-                                            <div class="row g-3 mt-3" style="justify-content: space-evenly;">
-
-
-                                                <div class="col-md-2">
-
-                                                    <div class="col-md-12">
-
-                                                        <div class="form-floating ">
-                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 1</button>
-                                                        </div>
-
-                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                            <br>
-                                                            <div class="col-md-12">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
-                                                                <input type="text" class="form-control" id="rct_1" name="rct_1" autocomplete="off" />
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-
-                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
-
-                                                                <div class="col-md-12">
-
-                                                                    <div class="row g-3 ">
-
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="T1Min_1" name="T1Min_1" autocomplete="off" />
-                                                                        </div>
-
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" id="T1Sec_1" name="T1Sec_1" autocomplete="off" />
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
-                                                                <div class="col-md-6">
-
-                                                                    <div class="row g-3 ">
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="htMin_1" name="htMin_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_1" name="htSec_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
-                                                                <div class="col-md-6">
-                                                                    <div class="row g-3 ">
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="T2Min_1" name="T2Min_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_1" name="T2Sec_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-                                                <div class="col-md-2">
-
-                                                    <div class="col-md-12">
-
-                                                        <div class="form-floating ">
-                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 2</button>
-                                                        </div>
-
-                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                            <br>
-                                                            <div class="col-md-12">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
-                                                                <input type="text" class="form-control" id="rct_1" name="rct_1" autocomplete="off" />
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-
-                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
-
-                                                                <div class="col-md-12">
-
-                                                                    <div class="row g-3 ">
-
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="T1Min_1" name="T1Min_1" autocomplete="off" />
-                                                                        </div>
-
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" id="T1Sec_1" name="T1Sec_1" autocomplete="off" />
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
-                                                                <div class="col-md-6">
-
-                                                                    <div class="row g-3 ">
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="htMin_1" name="htMin_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_1" name="htSec_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
-                                                                <div class="col-md-6">
-                                                                    <div class="row g-3 ">
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="T2Min_1" name="T2Min_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_1" name="T2Sec_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-
-
-                                                <div class="col-md-2">
-
-                                                    <div class="col-md-12">
-
-                                                        <div class="form-floating ">
-                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 3</button>
-                                                        </div>
-
-                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                            <br>
-                                                            <div class="col-md-12">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
-                                                                <input type="text" class="form-control" id="rct_1" name="rct_1" autocomplete="off" />
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-
-                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
-
-                                                                <div class="col-md-12">
-
-                                                                    <div class="row g-3 ">
-
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="T1Min_1" name="T1Min_1" autocomplete="off" />
-                                                                        </div>
-
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" id="T1Sec_1" name="T1Sec_1" autocomplete="off" />
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
-                                                                <div class="col-md-6">
-
-                                                                    <div class="row g-3 ">
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="htMin_1" name="htMin_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_1" name="htSec_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
-                                                                <div class="col-md-6">
-                                                                    <div class="row g-3 ">
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="T2Min_1" name="T2Min_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_1" name="T2Sec_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-
-                                                <div class="col-md-2">
-
-                                                    <div class="col-md-12">
-
-                                                        <div class="form-floating ">
-                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 4</button>
-                                                        </div>
-
-                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                            <br>
-                                                            <div class="col-md-12">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
-                                                                <input type="text" class="form-control" id="rct_1" name="rct_1" autocomplete="off" />
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-
-                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
-
-                                                                <div class="col-md-12">
-
-                                                                    <div class="row g-3 ">
-
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="T1Min_1" name="T1Min_1" autocomplete="off" />
-                                                                        </div>
-
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" id="T1Sec_1" name="T1Sec_1" autocomplete="off" />
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
-                                                                <div class="col-md-6">
-
-                                                                    <div class="row g-3 ">
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="htMin_1" name="htMin_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_1" name="htSec_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
-                                                                <div class="col-md-6">
-                                                                    <div class="row g-3 ">
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="T2Min_1" name="T2Min_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_1" name="T2Sec_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-
-                                                <div class="col-md-2">
-
-                                                    <div class="col-md-12">
-
-                                                        <div class="form-floating ">
-                                                            <button type="button" class="btn btn-dark text-dark col-md-12 bg-light  text-primary text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefirst" aria-expanded="true" aria-controls="collapsefirst "> Portion 5</button>
-                                                        </div>
-
-                                                        <div id="collapsefirst" class="col-12" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                            <br>
-                                                            <div class="col-md-12">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Recipe Cutoff Temp</h5>
-                                                                <input type="text" class="form-control" id="rct_1" name="rct_1" autocomplete="off" />
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-
-                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T1</h5>
-
-                                                                <div class="col-md-12">
-
-                                                                    <div class="row g-3 ">
-
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="T1Min_1" name="T1Min_1" autocomplete="off" />
-                                                                        </div>
-
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" data-bs-toggle="tooltip" data-bs-original-title="secons shouls be within 59" id="T1Sec_1" name="T1Sec_1" autocomplete="off" />
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Holding Time</h5>
-                                                                <div class="col-md-6">
-
-                                                                    <div class="row g-3 ">
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="htMin_1" name="htMin_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="htSec_1" name="htSec_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-12 boxstyle">
-                                                                <h5 style="font-size: 15px; font-weight:bold">Cooking Time T2</h5>
-                                                                <div class="col-md-6">
-                                                                    <div class="row g-3 ">
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control" id="T2Min_1" name="T2Min_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" max="59" class="form-control" id="T2Sec_1" name="T2Sec_1" autocomplete="off" />
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-                                            </div>
                                         </div>
-
-
-
-
-
                                     </div>
 
-                                    <div>
 
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
                                 </div>
 
 
 
-
-
-
-
-
-
                             </div>
-                        </div>
 
 
-                        <!-- End Bordered Tabs Justified -->
-                        <!-- <div class="tab-content pt-2" id="borderedTabJustifiedContent"> -->
+                            <!-- End Bordered Tabs Justified -->
+                            <!-- <div class="tab-content pt-2" id="borderedTabJustifiedContent"> -->
 
 
 
-                        <div>
 
 
 
@@ -1470,7 +2013,75 @@ session_start();
                         </div>
 
                     </div>
+
+
+
+
+
+
+
+
+                    <!-- //End of Portions of View Box -->
+
+
+
+
+
+
+
                 </div>
+
+
+
+            </div>
+
+
+            <!-- End Bordered Tabs Justified -->
+            <!-- <div class="tab-content pt-2" id="borderedTabJustifiedContent"> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+            </div>
+
+
+
+
+
+            </div>
 
 
 
@@ -1505,13 +2116,11 @@ session_start();
 
 
     <?php include "footer.php"; ?>
- 
 
 
-<script>
 
-    
-$(document).ready(function() {
+    <script>
+        $(document).ready(function() {
             $("#addrecipe").on('submit', (function(e) {
                 e.preventDefault();
 
@@ -1764,76 +2373,407 @@ $(document).ready(function() {
 
 
 
-function viewmodel(mid) {
-   // console.log(mid);
-$.ajax({
-    url: "reports1/getrecipeID.php",
-    type: "POST",
-    data: {
-        id: mid
-    },
-    cache: false,
-    success: function(result) {
+        function viewmodel(mid) {
+            // console.log(mid);
+            $.ajax({
+                url: "reports1/getrecipeID.php",
+                type: "POST",
+                data: {
+                    id: mid
+                },
+                cache: false,
+                success: function(result) {
 
-        var obj = jQuery.parseJSON(result);
-        console.log(obj);
-        $("#verticalycentered1").modal("show");
-       // var version_name = obj['version_name'];
-     
-        $("#vvrversion").val(obj['version_name']);
-        $("#vheatingtemp").val(obj['pre_heating_temp']);
-        $("#vvtemp1").val(obj['sleep_time_temp']);
-        $("#vvsleeptime").val(obj['sleep_time']);
-        $("#vvdeepsleep").val(obj['deep_sleep_time']);
+                    var obj = jQuery.parseJSON(result);
+                    console.log(obj);
+                    $("#verticalycentered1").modal("show");
+                    // var version_name = obj['version_name'];
 
-
-        $("#version_name").val(obj['version_name']);
-
-        $("#version_id").val(obj['id']);
-    
-     
-
-        // $("#useremail3").val(obj['p_email']);
-        // $("#userphone3").val(obj['p_phone']);
-        // $("#userpassword3").val(obj['password']);
-      
+                    $("#vvrversion").val(obj['version_name']);
+                    $("#vheatingtemp").val(obj['pre_heating_temp']);
+                    $("#vvtemp1").val(obj['sleep_time_temp']);
+                    $("#vvsleeptime").val(obj['sleep_time']);
+                    $("#vvdeepsleep").val(obj['deep_sleep_time']);
 
 
-      
-    }
+                    $("#version_name").val(obj['version_name']);
 
-});
+                    $("#version_id").val(obj['id']);
+
+                    //Edit here
+                    $("#verticalycentered1").modal("show");
+                    // var version_name = obj['version_name'];
+
+                    $("#vvrversionedit").val(obj['version_name']);
+                    $("#vheatingtempedit").val(obj['pre_heating_temp']);
+                    $("#vvtemp1edit").val(obj['sleep_time_temp']);
+                    $("#vvsleeptimeedit").val(obj['sleep_time']);
+                    $("#vvdeepsleepedit").val(obj['deep_sleep_time']);
+
+
+                    $("#version_nameedit").val(obj['version_name']);
+                    $("#recipeidviewediit").val(obj['recipe_id'])
+
+                    $("#version_idedit").val(obj['id']);
+                    $("#version_idedit12").val(obj['id']);
+                     $("#version_id11").val(obj['id']);
+                    
+                    // $("#useremail3").val(obj['p_email']);
+                    // $("#userphone3").val(obj['p_phone']);
+                    // $("#userpassword3").val(obj['password']);
 
 
 
-}
+
+                }
+
+            });
 
 
-$(document).ready(function() {
+
+        }
+
+
+        $(document).ready(function() {
             $('#recipeidview').on('change', function() {
                 var recipe_id = this.value;
                 // var recipe_id = document.getElementById('recipeid');
-               var vid =$("#version_id").val();
-            //     console.log(recipe_id);
-            //    console.log(vid);
+                var vid = $("#version_id").val();
+                //     console.log(recipe_id);
+                //    console.log(vid);
                 $.ajax({
                     url: "reports1/getportions.php",
-                     type: "POST",
-                     data: {
-                                recipe_id: recipe_id, 
-                                vid: vid
-                           },
-                //     cache: false,
-                //     success: function(result) {
-                //         //console.log(result);
-                //         $("#state1").html(result);
-                //         //$('#city1').html('<option value="">Select State First</option>');
-                    
+                    type: "POST",
+                    data: {
+                        recipe_id: recipe_id,
+                        vid: vid
+                    },
+                    cache: false,
+                    success: function(result1) {
+
+                        var obj = jQuery.parseJSON(result1);
+                        console.log(obj);
+                        // $("#verticalycentered1").modal("show");
+                        // var version_name = obj['version_name'];
+                        $("#recipe_nameview").val(obj['recipe_name']);
+
+                        //Portion 1
+                        $("#rct_1v").val(obj['rct_1']);
+
+                        $("#T1Min_1v").val(obj['T1Min_P1']);
+                        $("#T1Sec_1v").val(obj['T1Sec_P1']);
+
+
+                        $("#htMin_1v").val(obj['HTMin_P1']);
+                        $("#htSec_1v").val(obj['HTSec_P1']);
+
+                        $("#T2Min_1v").val(obj['T2Min_P1']);
+                        $("#T2Sec_1v").val(obj['T2Sec_P1']);
+
+
+
+                        //Potion 2
+                        $("#rct_2v").val(obj['rct_2']);
+
+                        $("#T1Min_2v").val(obj['T1Min_P2']);
+                        $("#T1Sec_2v").val(obj['T1Sec_P2']);
+
+
+                        $("#htMin_2v").val(obj['HTMin_P2']);
+                        $("#htSec_2v").val(obj['HTSec_P2']);
+
+                        $("#T2Min_2v").val(obj['T2Min_P2']);
+                        $("#T2Sec_2v").val(obj['T2Sec_P2']);
+
+
+                        // Portion 3
+                        $("#rct_3v").val(obj['rct_3']);
+
+                        $("#T1Min_3v").val(obj['T1Min_P3']);
+                        $("#T1Sec_3v").val(obj['T1Sec_P3']);
+
+
+                        $("#htMin_3v").val(obj['HTMin_P3']);
+                        $("#htSec_3v").val(obj['HTSec_P3']);
+
+                        $("#T2Min_3v").val(obj['T2Min_P3']);
+                        $("#T2Sec_3v").val(obj['T2Sec_P3']);
+
+                        // Portion 4
+                        $("#rct_4v").val(obj['rct_4']);
+
+                        $("#T1Min_4v").val(obj['T1Min_P4']);
+                        $("#T1Sec_4v").val(obj['T1Sec_P4']);
+
+
+                        $("#htMin_4v").val(obj['HTMin_P4']);
+                        $("#htSec_4v").val(obj['HTSec_P4']);
+
+                        $("#T2Min_4v").val(obj['T2Min_P4']);
+                        $("#T2Sec_4v").val(obj['T2Sec_P4']);
+
+
+                        //Portion 5
+                        $("#rct_5v").val(obj['rct_5']);
+
+                        $("#T1Min_5v").val(obj['T1Min_P5']);
+                        $("#T1Sec_5v").val(obj['T1Sec_P5']);
+
+
+                        $("#htMin_5v").val(obj['HTMin_P5']);
+                        $("#htSec_5v").val(obj['HTSec_P5']);
+
+                        $("#T2Min_5v").val(obj['T2Min_P5']);
+                        $("#T2Sec_5v").val(obj['T2Sec_P5']);
+
+
+
+                        //Edit Here
+
+                        $("#recipe_nameviewediedit").val(obj['recipe_name']);
+
+                        //Portion 1
+
+                        $("#rct_1vedit").val(obj['rct_1']);
+                        $("#T1Min_1vedit").val(obj['T1Min_P1']);
+                        $("#T1Sec_1vedit").val(obj['T1Sec_P1']);
+
+
+                        $("#htMin_1vedit").val(obj['HTMin_P1']);
+                        $("#htSec_1vedit").val(obj['HTSec_P1']);
+
+                        $("#T2Min_1vedit").val(obj['T2Min_P1']);
+                        $("#T2Sec_1vedit").val(obj['T2Sec_P1']);
+
+
+
+                        //Potion 2
+                        $("#rct_2vedit").val(obj['rct_2']);
+
+                        $("#T1Min_2vedit").val(obj['T1Min_P2']);
+                        $("#T1Sec_2vedit").val(obj['T1Sec_P2']);
+
+
+                        $("#htMin_2vedit").val(obj['HTMin_P2']);
+                        $("#htSec_2vedit").val(obj['HTSec_P2']);
+
+                        $("#T2Min_2vedit").val(obj['T2Min_P2']);
+                        $("#T2Sec_2vedit").val(obj['T2Sec_P2']);
+
+
+                        // Portion 3
+                        $("#rct_3vedit").val(obj['rct_3']);
+
+                        $("#T1Min_3vedit").val(obj['T1Min_P3']);
+                        $("#T1Sec_3vedit").val(obj['T1Sec_P3']);
+
+
+                        $("#htMin_3vedit").val(obj['HTMin_P3']);
+                        $("#htSec_3vedit").val(obj['HTSec_P3']);
+
+                        $("#T2Min_3vedit").val(obj['T2Min_P3']);
+                        $("#T2Sec_3vedit").val(obj['T2Sec_P3']);
+
+                        // Portion 4
+                        $("#rct_4vedit").val(obj['rct_4']);
+
+                        $("#T1Min_4vedit").val(obj['T1Min_P4']);
+                        $("#T1Sec_4vedit").val(obj['T1Sec_P4']);
+
+
+                        $("#htMin_4vedit").val(obj['HTMin_P4']);
+                        $("#htSec_4vedit").val(obj['HTSec_P4']);
+
+                        $("#T2Min_4vedit").val(obj['T2Min_P4']);
+                        $("#T2Sec_4vedit").val(obj['T2Sec_P4']);
+
+
+                        //Portion 5
+                        $("#rct_5vedit").val(obj['rct_5']);
+
+                        $("#T1Min_5vedit").val(obj['T1Min_P5']);
+                        $("#T1Sec_5vedit").val(obj['T1Sec_P5']);
+
+
+                        $("#htMin_5vedit").val(obj['HTMin_P5']);
+                        $("#htSec_5vedit").val(obj['HTSec_P5']);
+
+                        $("#T2Min_5vedit").val(obj['T2Min_P5']);
+                        $("#T2Sec_5vedit").val(obj['T2Sec_P5']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        // $("#useremail3").val(obj['p_email']);
+                        // $("#userphone3").val(obj['p_phone']);
+                        // $("#userpassword3").val(obj['password']);
+
+
+
+
+                    }
+
                 });
             });
-          
+
         });
-</script>
+
+
+
+
+
+
+
+
+        $(document).ready(function(e) {
+            $("#editboxmodel").on('submit', (function(e) {
+                e.preventDefault();
+                // $('#loader-icon').show();
+                //var valid;  
+                //valid = validateContact();
+                //if(valid) {
+                $.ajax({
+                    url: "reports1/edit_versions.php",
+                    type: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        var obj = jQuery.parseJSON(data);
+                        // console.log(obj);
+                        var string1 = obj.error;
+                        var output = obj.error_msg;
+                        //console.log(obj.error);
+                        if (obj.error == 0) {
+                            Swal.fire({
+                                icon: 'success',
+                                text: output,
+
+                            })
+                            //alert(obj.error_msg);
+                            //window.location.href = '../admin/add_product.php?display=1';
+                            // setTimeout(function() {
+                            // window.location.href = 'recipe_update.php';
+                            // $("#devicelist").load(window.location.href + " #devicelist");
+                            // }, 2000);
+
+
+                        } else {
+
+                            if (obj.error == 3) {
+                                //$("#display_error").html("<p style='color:red'>"+output+"</p>");
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: output,
+
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: output,
+
+                                })
+                            }
+
+                            //alert(obj.error_msg);
+                            // window.location.href = '../admin/add_product.php';
+                            //$('#login_for_review').html(output).modal('show');
+                            //BootstrapDialog.alert(output);
+                            //swal(output);
+                            //$("#brandlist1").load(window.location.href + " #brandlist1");
+                            //$("#brandlist1").load(" #brandlist1 > *");
+                        }
+                    },
+                    error: function() {}
+
+                });
+                //}
+            }));
+        });
+
+
+
+
+
+        $(document).ready(function(e) {
+            $("#Updating_portions").on('submit', (function(e) {
+                e.preventDefault();
+                // $('#loader-icon').show();
+                //var valid;  
+                //valid = validateContact();
+                //if(valid) {
+                $.ajax({
+                    url: "reports1/update_portions.php",
+                    type: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        var obj = jQuery.parseJSON(data);
+                        // console.log(obj);
+                        var string1 = obj.error;
+                        var output = obj.error_msg;
+                        //console.log(obj.error);
+                        if (obj.error == 0) {
+                            Swal.fire({
+                                icon: 'success',
+                                text: output,
+
+                            })
+                            //alert(obj.error_msg);
+                            //window.location.href = '../admin/add_product.php?display=1';
+                            // setTimeout(function() {
+                            // window.location.href = 'recipe_update.php';
+                            // $("#devicelist").load(window.location.href + " #devicelist");
+                            // }, 2000);
+
+
+                        } else {
+
+                            if (obj.error == 3) {
+                                //$("#display_error").html("<p style='color:red'>"+output+"</p>");
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: output,
+
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: output,
+
+                                })
+                            }
+
+                            //alert(obj.error_msg);
+                            // window.location.href = '../admin/add_product.php';
+                            //$('#login_for_review').html(output).modal('show');
+                            //BootstrapDialog.alert(output);
+                            //swal(output);
+                            //$("#brandlist1").load(window.location.href + " #brandlist1");
+                            //$("#brandlist1").load(" #brandlist1 > *");
+                        }
+                    },
+                    error: function() {}
+
+                });
+                //}
+            }));
+        });
+    </script>
 
 </body>
 

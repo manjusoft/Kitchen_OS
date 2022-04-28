@@ -1,8 +1,10 @@
 <?php
 require_once '../controller/functions.php';
 //print_r($_POST);
+$country_id=0;
+
 $country_id = $_POST["country_id"];
-//print_r($country_id);
+// print_r($country_id);
 $result = getStates($country_id);
 ?>
 <option value=""></option>
