@@ -110,36 +110,62 @@ if (isset($_POST)) {
 
                                     <!-- Floating Labels Form -->
                                     <form class="row g-3" id="" action="live_machine_report.php" method="POST">
-
+                                    <div class="col-md">
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select" id="ptype" name="ptype" aria-label="">
+                                                    <option value=""></option>
+                                                    <?php
+                                                    $ptypes = getProductTypes();
+                                                    //print_r($ptypes);
+                                                    foreach ($ptypes  as $ptype) {
+                                                    ?>
+                                                        <option value="<?php echo $ptype['id']; ?>"><?php echo $ptype['name']; ?> <?php echo $ptype['version']; ?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                    <?php
+                                                    if ($_POST["ptype"]) {
+                                                    ?>
+                                                        <script>
+                                                            $("#ptype").val(<?php echo $_POST["ptype"]; ?>);
+                                                        </script>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <label for="floatingSelect">Product Type</label>
+                                            </div>
+                                        </div>
                                         <div class="col-md">
                                             <div class="form-floating mb-3">
                                                 <select class="form-select" id="brand" name="brand" aria-label="State">
 
                                                 <option value="" selected>All</option>
-                                                    <?php
-                                                    $result = getBrands();
-                                                    $i = 0;
-                                                    //print_r($result);
-                                                    foreach ($result as $row) {
-                                                        $i++;
-                                                    ?>
-                                                        <option value="<?php echo $row['id']; ?>"><?php echo $row['brand_name']; ?></option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                    <?php
-                                                    if ($_POST["brand"]) {
-                                                    ?>
-                                                        <script>
-                                                            $("#brand").val(<?php echo $_POST["brand"]; ?>);
-                                                        </script>
-                                                    <?php
-                                                    } 
-                                                    ?>
+                                                    <!-- <?php
+                                                    // $result = getBrands();
+                                                    // $i = 0;
+                                                    // //print_r($result);
+                                                    // foreach ($result as $row) {
+                                                    //     $i++;
+                                                    // ?>
+                                                    //     <option value="<?php //echo $row['id']; ?>"><?php //echo $row['brand_name']; ?></option>
+                                                    // <?php
+                                                    // }
+                                                    // ?>
+                                                    // <?php
+                                                    // if ($_POST["brand"]) {
+                                                    // ?>
+                                                    //     <script>
+                                                    //         $("#brand").val(<?php //echo $_POST["brand"]; ?>);
+                                                    //     </script>
+                                                    // <?php
+                                                    // } 
+                                                    ?> -->
                                                 </select>
                                                 <label for="floatingSelect">Brand</label>
                                             </div>
                                         </div>
+                                       
                                         <div class="col-md">
                                             <div class="form-floating mb-3">
                                                 <select class="form-select" id="country" name="country" aria-label="State">
@@ -233,32 +259,7 @@ if (isset($_POST)) {
                                                 <label for="floatingSelect">Streets</label>
                                             </div>
                                         </div> -->
-                                        <div class="col-md">
-                                            <div class="form-floating mb-3">
-                                                <select class="form-select" id="ptype" name="ptype" aria-label="">
-                                                    <option value=""></option>
-                                                    <?php
-                                                    $ptypes = getProductTypes();
-                                                    //print_r($ptypes);
-                                                    foreach ($ptypes  as $ptype) {
-                                                    ?>
-                                                        <option value="<?php echo $ptype['id']; ?>"><?php echo $ptype['name']; ?> <?php echo $ptype['version']; ?></option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                    <?php
-                                                    if ($_POST["ptype"]) {
-                                                    ?>
-                                                        <script>
-                                                            $("#ptype").val(<?php echo $_POST["ptype"]; ?>);
-                                                        </script>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </select>
-                                                <label for="floatingSelect">Product Type</label>
-                                            </div>
-                                        </div>
+                                       
                                         <!-- <div class="col-md-4">
                                             <div class="form-floating mb-3">
                                                 <select class="form-select" id="floatingSelect" aria-label="State">
@@ -620,6 +621,41 @@ if (isset($_POST)) {
 
 
     <script>
+         $(document).ready(function() {
+            $('#ptype').on('change', function() {
+                var id = this.value;
+                //console.log(country_id);
+                $.ajax({
+                    url: "model/getPtypeMachines.php",
+                    type: "POST",
+                    data: {
+                        id: id
+                    },
+                    cache: false,
+                    success: function(result) {
+                        //console.log(result);
+                        $("#machine").html(result);
+                        //  $('#city1').html('<option value="">Select State First</option>');
+                    }
+                });
+
+                $.ajax({
+                    url: "model/getPtypeBrands.php",
+                    type: "POST",
+                    data: {
+                        id: id
+                    },
+                    cache: false,
+                    success: function(result) {
+                        //console.log(result);
+                        $("#brand").html(result);
+                        //  $('#city1').html('<option value="">Select State First</option>');
+                    }
+                });
+
+            });
+
+        });
         $(document).ready(function() {
             $('#country').on('change', function() {
                 var country_id = this.value;
@@ -658,19 +694,37 @@ if (isset($_POST)) {
         $(document).ready(function() {
             $('#brand').on('change', function() {
                 var id = this.value;
-                //console.log(country_id);
+                //console.log(id);
                 $.ajax({
-                    url: "model/getBrandStores.php",
+                    url: "model/getBrandDetails.php",
                     type: "POST",
                     data: {
                         id: id
                     },
                     cache: false,
-                    success: function(result) {
-                       // var obj = jQuery.parseJSON(result);
-                        //$("#machine").html(result);
-                        console.log(result);
-                          //$('#country').val(obj.country);
+                    success: function(data) {
+                        var obj = jQuery.parseJSON(data);   
+                        // console.log(obj);
+                        if (id == '') {
+                           // $('#branddiv').load(location.href + " #branddiv");
+                           // $('#storediv').load(location.href + " #storediv");
+                           // $('#userdiv').load(location.href + " #userdiv");
+                            $('#countrydiv').load(location.href + " #countrydiv");
+                            $('#statediv').load(location.href + " #statediv");
+                            $('#citydiv').load(location.href + " #citydiv");
+
+                        } else {
+                          //  $('#brand').html('<option value="' + obj.brand_id + '" selected>' + obj.brand + '</option>');
+                           // $('#store').html('<option value="' + obj.store_id + '" selected>' + obj.store + '</option>');
+                           // $('#user').html('<option value="' + obj.user_id + '" selected>' + obj.user + '</option>');
+
+                            $('#country').html('<option value="' + obj.country + '" selected>' + obj.countryname + '</option>');
+                            $('#state').html('<option value="' + obj.state + '" selected>' + obj.statename + '</option>');
+                            $('#city').html('<option value="' + obj.city + '" selected>' + obj.cityname + '</option>');
+                        }
+
+
+                        // $('#pincode1').val(obj.pincode);
                     }
                 });
             });

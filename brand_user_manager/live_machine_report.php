@@ -1,12 +1,11 @@
 <?php
+
+session_start();
  $query = "";
 
 if (isset($_POST)) {
 
-   
-
-
-    if ($_POST["city"]) {
+    if (isset($_POST["city"])) {
         $city = $_POST["city"];
         $query .= "AND `store`.`city`='$city'";
     } else {
@@ -140,7 +139,7 @@ if (isset($_POST)) {
                                                 <select class="form-select" id="ptype" name="ptype" aria-label="">
                                                     <option value="">All</option>
                                                     <?php
-                                                    $ptypes = getptypebybrand($_SESSION['brand']);
+                                                    $ptypes = getptypebybrand($_SESSION['mid_user']);
                                                     //print_r($ptypes);
                                                     foreach ($ptypes  as $ptype) {
                                                     ?>

@@ -163,7 +163,7 @@
 
 
 <?php
-  $vals = array('TCPRegister','TCPManagemnt');
+  $vals = array('TCPRegister','TCPManagemnt','TCPUpdate','tcp_report');
   if (in_array($string, $vals)) {
         //echo basename(__FILE__);
        
@@ -211,6 +211,29 @@
                         <li>
                             <a href="TCPManagement.php">
                                 <i class="bi bi-circle"></i><span>TCP Management</span>
+                            </a>
+                        </li>
+                    <?php
+
+                    }
+                    ?>
+                </ul>
+                <ul id="components-nav1" class="nav-content  " data-bs-parent="#sidebar-nav">
+                    <?php
+                    //echo basename(__FILE__);
+                    if (strcmp($string, "TCPUpdate") == 0) {
+                    ?>
+                        <li>
+                            <a href="TCPUpdate.php" class="active">
+                                <i class="bi bi-circle"></i><span>TCP Update Device</span>
+                            </a>
+                        </li>
+                    <?php
+                    } else {
+                    ?>
+                        <li>
+                            <a href="TCPRegister.php">
+                                <i class="bi bi-circle"></i><span>TCP Update Device</span>
                             </a>
                         </li>
                     <?php
@@ -299,7 +322,30 @@
                     ?>
                 </ul>
 
+                <ul id="components-nav1" class="nav-content  " data-bs-parent="#sidebar-nav">
+                    <?php
+                    //echo basename(__FILE__);
+                    if (strcmp($string, "TCPUpdate") == 0) {
+                    ?>
+                        <li>
+                            <a href="TCPUpdate.php" class="active">
+                                <i class="bi bi-circle"></i><span>TCP Update Device</span>
+                            </a>
+                        </li>
+                    <?php
+                    } else {
+                    ?>
+                        <li>
+                            <a href="TCPUpdate.php">
+                                <i class="bi bi-circle"></i><span>TCP Update Device</span>
+                            </a>
+                        </li>
+                    <?php
 
+                    }
+                    ?>
+                </ul>
+                
                 <ul id="components-nav1" class="nav-content  " data-bs-parent="#sidebar-nav">
                 <?php
                     //echo basename(__FILE__);

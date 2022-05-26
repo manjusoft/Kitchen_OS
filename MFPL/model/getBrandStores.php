@@ -2,16 +2,6 @@
 
 require_once "../controller/functions.php";
 
-
-
-
-
-
-
-
-
-
-
 $id = $_POST["id"];
 
 $brandusers = getBrandStores($id);
@@ -25,6 +15,7 @@ if($brandusers==false){
 
     ?>
     <option value="" selected></option>
+  
     <?php
 
     foreach ($brandusers as $row) {
@@ -32,11 +23,12 @@ if($brandusers==false){
         ?>
          
             <option value="<?php echo $row['id']; ?>"><?php echo $row["store_name"]; ?></option>
+            
         <?php
         }
         
-}
 
+}
 
 
 

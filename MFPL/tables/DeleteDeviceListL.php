@@ -42,7 +42,7 @@ if (!$totalRecordwithFilter) {
 
 $i = 0;
 $devices = [];
-$devices = getDeviceRecordsTcpDataUP($searchQuery, $columnName, $columnSortOrder, $row, $rowperpage, $query);
+$devices = getDeviceRecordsTcpDataDel($searchQuery, $columnName, $columnSortOrder, $row, $rowperpage, $query);
 $i = $row;
 // print_r($devices);exit;
 if (!$devices) {

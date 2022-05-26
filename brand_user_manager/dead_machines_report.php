@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 if (isset($_POST)) {
 
     $query = "";
@@ -40,7 +43,7 @@ if (isset($_POST)) {
     // if ($_POST["machine"]) {
     //     $machine = $_POST["machine"];
     // }
-    if ($_POST["ptype"]) {
+    if (isset($_POST["ptype"])) {
         $ptype = $_POST["ptype"];
         $query .= "AND `machines`.`ptype_id`='$ptype'";
     } else {

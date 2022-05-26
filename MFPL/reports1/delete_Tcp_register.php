@@ -9,17 +9,23 @@ $tcp_instaltablbe_D=0;
 // }
 // print_r($id);
 // $id=$_POST['id'];
+$id=$_POST['deleteid'];
 $imei_D=$_POST['imeivDelete'];
 $tcp_machine_type_D=$_POST['tcp_machine_typevDelete'];
 $tcp_sr_D=$_POST['tcp_srvDelete'];
+
+
 
 if(isset($_POST['tcp_istaldatevDelete'])){
     $tcp_instaltablbe_D=$_POST['tcp_istaldatevDelete'];
 }
 // $tcp_instaltablbe_E=$_POST['tcp_instaltableedit'];
 
+$tcp_low_threshold=$_POST['tcp_low_thresholdDelete'];
+$tcp_high_threshold=$_POST['tcp_high_thresholdDelete'];
 
-$x=delete_tcp($imei_D,$tcp_machine_type_D,$tcp_sr_D,$tcp_instaltablbe_D);
+
+$x=delete_tcp($id,$imei_D,$tcp_machine_type_D,$tcp_sr_D,$tcp_instaltablbe_D,$tcp_low_threshold,$tcp_high_threshold);
 // print_r($x);exit;
 if ($x == 1) {
     // user already existed

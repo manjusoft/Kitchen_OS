@@ -2,7 +2,7 @@
 require_once 'controller/functions.php';
 //Start the session.
 session_start();
-//print_r($_SESSION);
+print_r($_SESSION);
 //If the session variable does not exist,
 //presume that the page has not been refreshed yet.
 if (!isset($_SESSION['already_refreshed'])) {
@@ -11,7 +11,7 @@ if (!isset($_SESSION['already_refreshed'])) {
   $refreshAfter = 5;
 
   //Send a Refresh header.
-  header('Refresh: ' . $refreshAfter);
+  //header('Refresh: ' . $refreshAfter);
 
   //Set the session variable so that we don't
   //refresh again.
@@ -59,9 +59,15 @@ if (isset($_GET["prod"])) {
   $xyz = json_encode($dataPoints);
   //print_r();
 }
-// print_r($_SESSION['brand1']);
-$brand1=$_SESSION['brand_id'];
-$query = "AND `brand_tbl`.`id`='$brand1'";
+$brand1=0;
+
+// print_r($_SESSION);exit;
+if(isset($_SESSION['brand1'])){
+  $brand1=$_SESSION['brand1'];
+
+}
+// print_r($brand1 );exit;
+$query1 = "AND `brand_tbl`.`id`='$brand1'";
 
 if (isset($_POST)) {
 
@@ -149,7 +155,7 @@ if (isset($_POST)) {
             <div class="card-body">
               <div class="row">
 
-                <div class="col-lg-3">
+              <div class="col-lg-3">
                   <!-- <div class="card">
                     <div class="card-body"> -->
                   <h5 class="card-title" style="text-align: center; font-size:24px;">All</h5>
@@ -158,79 +164,80 @@ if (isset($_POST)) {
                   <div id="radialBarChart"></div>
                   <?php
 
-                  $data[0] = 0;
-                  $data[1] = 0;
-                  $data[2] = 0;
-                  //print_r($query);exit;
-                  $result = getLivemachines($query);
-                  //$result = getLivemachines();
-                  $i = 0;
-                  $k = 0;
-                  $x=0;
-                  //print_r($result);
-                  //exit;
-                  foreach ($result as $row) {
-                    $i++;
-                    $machines = getSingleMachineByName($row['SLN']);
-                    $machines = $machines[1];
-                    //print_r($machines);
-                    $device = getAssignedDevice($machines['id']);
-                    //print_r($device);//exit;
-                    $device = $device[1];
-                    $brand = getBrand($device['brand_id']);
-
-                    //print_r($brand);
-                    $user = getSingleuser($device['user_id']);
-                    $store = getSingleStore($device['store_id']);
-                    $ptype = $machines['ptype_id'];
-                    $ptype_name = getptype($ptype);
-                    //print_r($ptype_name);
-                    $countryname = getCountriesById($store['country']);
-                    $statename = getStatesById($store['state']);
-                    $cityname = getCityById($store['city']);
-                    //print_r($countryname['name']);
-                    $time = strtotime($row['timestamp']);
-                    //print_r($time . " ");
+                    $data[0] = 0;
+                    $data[1] = 0;
+                    $data[2] = 0;
+                    // print_r($query);exit;
+                    $result = getLivemachines($query1);
+                    //$result = getLivemachines();
+                    $i = 0;
+                    $k = 0;
+                    $x=0;
+                    //print_r($result);
                     //exit;
-                    date_default_timezone_set("Asia/Kolkata");
+                    foreach ($result as $row) {
+                      $i++;
+                      $machines = getSingleMachineByName($row['SLN']);
+                      $machines = $machines[1];
+                      //print_r($machines);
+                      $device = getAssignedDevice($machines['id']);
+                      //print_r($device);//exit;
+                      $device = $device[1];
+                      $brand = getBrand($device['brand_id']);
 
-                    $local = date("Y-m-d H:i:s", $time);
-                    // print_r($local);
-                    //exit;
+                      //print_r($brand);
+                      $user = getSingleuser($device['user_id']);
+                      $store = getSingleStore($device['store_id']);
+                      $ptype = $machines['ptype_id'];
+                      $ptype_name = getptype($ptype);
+                      //print_r($ptype_name);
+                      $countryname = getCountriesById($store['country']);
+                      $statename = getStatesById($store['state']);
+                      $cityname = getCityById($store['city']);
+                      //print_r($countryname['name']);
+                      $time = strtotime($row['timestamp']);
+                      //print_r($time . " ");
+                      //exit;
+                      date_default_timezone_set("Asia/Kolkata");
 
-                    $datetime1 = new DateTime();
-                    //print_r($datetime1);
-                    $datetime2 = new DateTime($local);
-                    //print_r($datetime2);
-                    $interval = $datetime1->diff($datetime2);
-                    //print_r($interval);//exit;
-                    $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
-                    //echo $elapsed;exit;
-                    // if($interval->y!=0){
-                    //     $daysvalue=$interval->y;
-                    // }else if($interval->m!=0){
-                    //     $daysvalue=$interval->m;
-                    // }
-                    // else if($interval->m!=0){
-                    //     $daysvalue=$interval->m;
-                    // }
-                    //print_r($interval->days); print_r("  ");
-                    if ($interval->days > 3) {
+                      $local = date("Y-m-d H:i:s", $time);
+                      // print_r($local);
+                      //exit;
 
-                      $data[2] += 1;
-                      $x++;
-                    } else if ($interval->days >= 1) {
-                      $data[1] += 1;
-                      $x++;
-                    } else {
-                      $data[0] += 1;
-                      $x++;
+                      $datetime1 = new DateTime();
+                      //print_r($datetime1);
+                      $datetime2 = new DateTime($local);
+                      //print_r($datetime2);
+                      $interval = $datetime1->diff($datetime2);
+                      //print_r($interval);//exit;
+                      $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
+                      //echo $elapsed;exit;
+                      // if($interval->y!=0){
+                      //     $daysvalue=$interval->y;
+                      // }else if($interval->m!=0){
+                      //     $daysvalue=$interval->m;
+                      // }
+                      // else if($interval->m!=0){
+                      //     $daysvalue=$interval->m;
+                      // }
+                      //print_r($interval->days); print_r("  ");
+                      if ($interval->days > 3) {
+
+                        $data[2] += 1;
+                        $x++;
+                      } else if ($interval->days >= 1) {
+                        $data[1] += 1;
+                        $x++;
+                      } else {
+                        $data[0] += 1;
+                        $x++;
+                      }
                     }
-                  }
-                  $total = $x;
-                  $name = ['live ('.$data[0].')', 'Idle ('.$data[1].')', 'Down ('.$data[2].')'];
-                  // print_r($data); //exit;
-                  ?>
+                    $total = $x;
+                    $name = ['live ('.$data[0].')', 'Idle ('.$data[1].')', 'Down ('.$data[2].')'];
+                    // print_r($data); //exit;
+                    ?>
+    
                   <script>
                     var dataTotal = <?php echo $total; ?>;
                     var data = <?php echo json_encode($data); ?>;
@@ -245,6 +252,7 @@ if (isset($_POST)) {
                           //   show: true
                           // }
                         },
+                        
                         legend: {
                           show: true,
                           showForSingleSeries: false,
@@ -263,24 +271,20 @@ if (isset($_POST)) {
                         },
                         plotOptions: {
                           radialBar: {
-
-                            
                             dataLabels: {
-                             
                               value: {
                                 show: true,
                                   fontSize: "36px",
                                   color: "#6a6a6a",
-
                               },
                               total: {
-                              
+                                  showAlways: true,
                                   show: true,
                                   label: "Total",
                                   fontSize: "16px",
                                   fontWeight: "normal",
                                   color: "#707070",
-                                formatter: function(w) {
+                                  formatter: function(w) {
                                   // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
                                   return dataTotal;
                                 }
@@ -354,7 +358,7 @@ if (isset($_POST)) {
                   <!-- Donut Chart -->
                   <div id="donutChart1"></div>
                   <?php
-                  $query .= "AND `product_type`.`name` LIKE 'WOKIE'";
+                  $query = "AND `product_type`.`name` LIKE 'WOKIE' ".$query1;
                   $data[0] = 0;
                   $data[1] = 0;
                   $data[2] = 0;
@@ -624,7 +628,7 @@ if (isset($_POST)) {
                   <div id="donutChart2"></div>
 
                   <?php
-                  $query .= "AND `product_type`.`name` LIKE 'EPan'";
+                  $query = "AND `product_type`.`name` LIKE 'EPan' ".$query1;
                   $data[0] = 0;
                   $data[1] = 0;
                   $data[2] = 0;
@@ -813,7 +817,7 @@ if (isset($_POST)) {
                   <div id="donutChart3"></div>
 
                   <?php
-                  $query .= "AND `product_type`.`name` LIKE 'FRYER'";
+                  $query = "AND `product_type`.`name` LIKE 'FRYER' ".$query1;
                   $data[0] = 0;
                   $data[1] = 0;
                   $data[2] = 0;
@@ -994,6 +998,208 @@ if (isset($_POST)) {
                   <!-- </div>
               </div> -->
                 </div>
+
+                <div class="col-lg-12">
+                <div class="col-lg-3">
+                  <!-- <div class="card">
+                <div class="card-body"> -->
+                  <h5 class="card-title" style="text-align: center;">TCP REPORT</h5>
+
+                  <!-- Donut Chart -->
+                  <div id="donutChart11"></div>
+                  <?php
+                 // $query = "AND `product_type`.`name` LIKE 'WOKIE'";
+                  $data[0] = 0;
+                  $data[1] = 0;
+                  $data[2] = 0;
+                  //print_r($query);exit;
+             
+                  //$result = getLivemachines();
+                  $i = 0;
+                  $k = 0;
+                  $x = 0;
+                  $imei=0;
+                  
+                //  print_r($result);
+                  //exit;
+                //  print_r($brand1);
+               $brandtcpimei=getbrandtcpimei($brand);
+               if($brandtcpimei>0)
+               {
+                  foreach($brandtcpimei as $imeis)
+                  {
+                    $i++;
+                    $brandimei=$imeis['imei'];
+                  //  print_r($brandimei . " wer");
+                    $resultl = getnooftcpdatabranduser($brandimei);
+                    foreach($resultl as $row)
+                    {
+                    $time= strtotime($row['timestamp']);
+                 //   print_r($tcpd . " wer");
+                   // $i++;
+                   // $time = strtotime($tcpd['timestamp']);
+                   // $imei+=$tcpd['imei'];
+                 //   print_r($time . " qqq");
+                   // print_r($imei . " ");
+                   // $resultl = getLivemachinestcpdata($imei);
+                    if($resultl>0)
+                    {
+                      
+                  //  $machines = getSingleMachineByName($row['SLN']);
+                   // $machines = $machines[1];
+                    //print_r($machines);
+                   // $device = getAssignedDevice($machines['id']);
+                    //print_r($device);//exit;
+                    //$device = $device[1];
+                   // $brand = getBrand($device['brand_id']);
+
+                    //print_r($brand);
+                   // $user = getSingleuser($device['user_id']);
+                   // $store = getSingleStore($device['store_id']);
+                    //$ptype = $machines['ptype_id'];
+                   // $ptype_name = getptype($ptype);
+                    //print_r($ptype_name);
+                   // $countryname = getCountriesById($store['country']);
+                  //  $statename = getStatesById($store['state']);
+                  //  $cityname = getCityById($store['city']);
+                    //print_r($countryname['name']);
+                  //  $time = strtotime($row['timestamp']);
+                    //print_r($time . " ");
+                    //exit;
+                    date_default_timezone_set("Asia/Kolkata");
+
+                    $local = date("Y-m-d H:i:s", $time);
+                    // print_r($local);
+                    //exit;
+
+                    $datetime1 = new DateTime();
+                    //print_r($datetime1);
+                    $datetime2 = new DateTime($local);
+                    //print_r($datetime2);
+                    $interval = $datetime1->diff($datetime2);
+                    //print_r($interval);//exit;
+                    $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
+                    //echo $elapsed;exit;
+                    // if($interval->y!=0){
+                    //     $daysvalue=$interval->y;
+                    // }else if($interval->m!=0){
+                    //     $daysvalue=$interval->m;
+                    // }
+                    // else if($interval->m!=0){
+                    //     $daysvalue=$interval->m;
+                    // }
+                    if ($interval->days > 3) {
+
+                      $data[2] += 1;
+                      $x++;
+                    } else if ($interval->days >= 1) {
+                      $data[1] += 1;
+                      $x++;
+                    } else {
+                      $data[0] += 1;
+                      $x++;
+                    }
+                    //$name = ['live ('.$data[0].')', 'Idle ('.$data[1].')', 'Down ('.$data[2].')'];
+                  }
+                }
+                  }
+                }    
+                  $total = $x;
+                  $name = ['live ('.$data[0].')', 'Idle ('.$data[1].')', 'Down ('.$data[2].')'];
+                  //print_r($name);//exit;
+                  ?>
+                  <script>
+                    var dataTotalb111 = <?php echo $total; ?>;
+                    var datab111 = <?php echo json_encode($data); ?>;
+                    var nameb111 = <?php echo json_encode($name); ?>;
+                    document.addEventListener("DOMContentLoaded", () => {
+                      new ApexCharts(document.querySelector("#donutChart11"), {
+                        series: datab111,
+                        chart: {
+                          //height: 350,
+                          type: 'donut',
+
+                        },
+
+                        legend: {
+                          show: true,
+                          showForSingleSeries: false,
+                          showForNullSeries: true,
+                          showForZeroSeries: true,
+                          position: 'bottom',
+                          horizontalAlign: 'center',
+                          floating: false,
+
+                          onItemClick: {
+                            toggleDataSeries: true
+                          },
+                          onItemHover: {
+                            highlightDataSeries: true
+                          },
+                        },
+
+                  
+
+                        dataLabels: {
+                              //offset: 20,
+                              enabled: false,
+                              //enabledOnSeries: undefined,
+                              // formatter: function(value, {
+                              //   seriesIndex,
+                              //   dataPointIndex,
+                              //   w
+                              //}) {
+                              //   return value
+                              // },
+                            },
+
+                        plotOptions: {
+                          pie: {
+                            expandOnClick: false,
+                            
+
+                            customScale: 1,
+                            donut: {
+                              size: "70%",
+                              labels: {
+                                show: true,
+                                value: {
+                                  show: true,
+                                  fontSize: "36px",
+                                  color: "#6a6a6a",
+                                },
+                                total: {
+                                  showAlways: true,
+                                  show: true,
+                                  label: "Total",
+                                  fontSize: "16px",
+                                  fontWeight: "normal",
+                                  color: "#707070",
+                                  formatter: function(w) {
+                                    return w.globals.seriesTotals.reduce((a, b) => {
+                                      return a + b ;
+                                    }, 0);
+                                  },
+                                },
+                              },
+
+                            },
+                          },
+                        },
+
+
+                        labels: nameb111,
+                      }).render();
+                    });
+                
+                  </script>
+                  <!-- End Donut Chart -->
+
+                  <!-- </div>
+              </div> -->
+                </div>
+                    </div>
+
 
 
                 <br>

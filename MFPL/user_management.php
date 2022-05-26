@@ -194,6 +194,8 @@ session_start();
                                                         <th style="display:none" scope="col">City</th>
                                                         <th>Email</th>
                                                         <th>Phone</th>
+                                                        <th scope="col">Created_Timestamp</th>
+
                                                         <th style="display:none"></th>
 
 
@@ -206,6 +208,13 @@ session_start();
                                                     $i = 0;
                                                     foreach ($users as $row) {
                                                         $i++;
+
+                                                        $timezone = new DateTimeZone('Asia/Kolkata');
+
+                                                        $date = new DateTime($row['timestamp']);
+                                                        $date->setTimeZone($timezone);
+                                                        $time = $date->format('D d M Y g:i:s A') . "\n";
+
                                                         //print_r($users);exit;
                                                         $brandname = getBrand($row['brand']);
                                                         //print_r($brandname);
@@ -238,6 +247,8 @@ session_start();
                                                                                         ?></td>
                                                             <td><?php echo $row['email']; ?></td>
                                                             <td><?php echo $row['phone']; ?></td>
+                                                            <td><?php echo $time; ?></td>
+                                                            
                                                             <td style="display:none"><?php echo $row['brand']; ?></td>
                                                             <td style="display:none"><?php echo $row['user_id']; ?></td>
                                                             <td style="display:none"><?php echo $row['country']; ?></td>
@@ -283,11 +294,11 @@ session_start();
                                                                         <input type="hidden" class="form-control" id="userid2" name="userid" placeholder="User Name" readonly>
                                                                         <div class="col-md-12">
                                                                             <div class="form-floating mb-3" id="myDropdown">
-
+                                                                            <!-- 
                                                                                 <select class="form-select" id="brandname2" name="brandname2" aria-label="brand">
 
-                                                                                </select>
-
+                                                                                </select> -->
+                                                                                <input type="text" class="form-control" id="brandname2" name="brandname2" aria-label="brand" readonly>
                                                                                 <label for="myInput">Brand</label>
                                                                             </div>
                                                                         </div>
@@ -331,20 +342,21 @@ session_start();
                                                                         <div class="col-md-12">
                                                                             <div class="form-floating mb-3" id="myDropdown">
 
-                                                                                <select class="form-select" id="brandname1" name="brandid" aria-label="brand">
+                                                                                <!-- <select class="form-select" id="brandname1" name="brandid" aria-label="brand">
                                                                                     <option value="" selected></option>
-                                                                                    <?php
-                                                                                    $result = getBrands();
-                                                                                    $i = 0;
+                                                                                   <?php
+                                                                                   // $result = getBrands();
+                                                                                  //  $i = 0;
 
-                                                                                    foreach ($result as $row) {
-                                                                                        $i++;
-                                                                                    ?>
-                                                                                        <option value="<?php echo $row['id']; ?>"><?php echo $row['brand_name']; ?></option>
+                                                                                  //  foreach ($result as $row) {
+                                                                                  //      $i++;
+                                                                                  //  ?> 
+                                                                                     <option value="<?php //echo $row['id']; ?>"><?php //echo $row['brand_name']; ?></option>
                                                                                     <?php
-                                                                                    }
-                                                                                    ?>
-                                                                                </select>
+                                                                                   // }
+                                                                                    ?> -->
+                                                                              <!-- </select> -->
+                                                                              <input type="text" class="form-control" id="brandname1" name="brandid" aria-label="brand" readonly>
                                                                                 <label for="myInput">Brand</label>
                                                                             </div>
                                                                         </div>
@@ -399,10 +411,11 @@ session_start();
                                                                         <div class="col-md-12">
                                                                             <div class="form-floating mb-3" id="myDropdown">
 
-                                                                                <select class="form-select" id="brandname3" name="brandid" aria-label="brand">
+                                                                                <!-- <select class="form-select" id="brandname3" name="brandid" aria-label="brand">
 
-                                                                                </select>
+                                                                                </select> -->
 
+                                                                                <input type="text" class="form-control" id="brandname3" name="brandid" aria-label="brand"> 
                                                                                 <label for="myInput">Brand</label>
                                                                             </div>
                                                                         </div>
@@ -410,7 +423,7 @@ session_start();
 
                                                                         <div class="col-md-12">
                                                                             <div class="form-floating">
-                                                                                <input type="text" class="form-control" id="username3" name="username" placeholder="User Name" readonly>
+                                                                                <input type="text" class="form-control" id="username3" name="username" placeholder="User Name">
                                                                                 <label for="username1">User Name</label>
                                                                             </div>
                                                                         </div>
@@ -544,7 +557,7 @@ session_start();
                                                         <th>Phone</th>
                                                         <th>Removed_By</th>
                                                         <th>Reason</th>
-                                                        <th>Updated_Timestamp</th>
+                                                        <th>Removed_Timestamp</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1027,9 +1040,13 @@ session_start();
                         cache: false,
                         success: function(result) {
                             var obj1 = jQuery.parseJSON(result);
-                            $("#brandname2").html('<option value="' + obj1['brand'] + '" selected>' + obj1['brandname'] + '</option>');
-                            $("#brandname1").val(obj['brand']);
-                            $("#brandname3").html('<option value="' + obj1['brand'] + '" selected>' + obj1['brandname'] + '</option>');
+                            $("#brandname2").val(obj1['brandname']);
+                            $("#brandname1").val(obj1['brandname']);
+                            $("#brandname3").val(obj1['brandname']);
+
+                            //$("#brandname2").html('<option value="' + obj1['brand'] + '" selected>' + obj1['brandname'] + '</option>');
+                           // $("#brandname1").html('<option value="' + obj1['brand'] + '" selected>' + obj1['brandname'] + '</option>');
+                           // $("#brandname3").html('<option value="' + obj1['brand'] + '" selected>' + obj1['brandname'] + '</option>');
                         }
 
 

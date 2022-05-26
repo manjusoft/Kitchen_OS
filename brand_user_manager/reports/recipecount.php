@@ -315,6 +315,46 @@ foreach ($monthly as $month) {
 //print_r($monthly);
 //print_r($productmonthly);
 //exit;
+$j = 0;
+
+$count = 0;
+foreach ($dates as $date) {
+    if ($_POST["machine"]) {
+        $count = getRecipeCountFromMachinePacketReport($query, $date);
+        //print_r($count."hhh");
+        if (empty($count)) {
+            $totalcount[$j] = '0';
+        } else if ($count == ' ') {
+            $totalcount[$j] = '0';
+        } else {
+            $totalcount[$j] = $count;
+        }
+
+        $j++;
+    } else {
+        //print_r($query);
+        $rccount=0;
+        $count = getRecipeCountFromMachinePacketMaxRcReport($query, $date);
+        //print_r($count);
+        foreach ($count as $countrc) {
+          // print_r($countrc);
+          $rccount+=$countrc['rc'];
+        }
+            if (empty($rccount)) {
+                $totalcount[$j] = '0';
+            } else if ($rccount == ' ') {
+                $totalcount[$j] = '0';
+            } else {
+                $totalcount[$j] = $rccount;
+            }
+
+            $j++;
+        
+    }
+}
+
+
+
 
 $response["error"] = 0;
 $response["error_msg"] = $product;
@@ -329,5 +369,7 @@ $response["productthreehourly"] = $productthreehourly;
 $response["threehourly"] = $threehourly;
 $response["productsevendays"] = $productsevendays;
 $response["sevendays"] = $sevendays;
+$response["total"] = $totalcount;
+
 echo json_encode($response);
 exit;

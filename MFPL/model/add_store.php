@@ -60,7 +60,17 @@ if (empty($_POST['storename'])) {
     
     $response["error_msg"] = "pincode should be 6 digit";
     echo json_encode($response);
-} else if(!empty($_POST['storebrandid'])  && !empty($_POST['storename'])  && !empty($_POST['storeperson']) && !empty($_POST['storecontact']) && !empty($_POST['country'])&& !empty($_POST['state'])&& !empty($_POST['city'])) {
+} else if (empty($_POST['storeaddreason'])) {
+    $response["error"] = 3;
+    
+    $response["error_msg"] = "Enter Reason to Add";
+    echo json_encode($response); 
+} else if (empty($_POST['storeaddby'])) {
+    $response["error"] = 3;
+    
+    $response["error_msg"] = "Enter Add By";
+    echo json_encode($response); 
+} else if(!empty($_POST['storebrandid'])  && !empty($_POST['storename'])  && !empty($_POST['storeperson']) && !empty($_POST['storecontact']) && !empty($_POST['country'])&& !empty($_POST['state'])&& !empty($_POST['city']) && !empty($_POST['storeaddreason']) && !empty($_POST['storeaddby'])) {
 
     // receiving the post params
     $brandname = $_POST['storebrandid'];
@@ -71,10 +81,13 @@ if (empty($_POST['storename'])) {
 
     $state = $_POST['state'];
     $city = $_POST['city'];
+
+    $storeaddreason = $_POST['storeaddreason'];
+    $storeaddby = $_POST['storeaddby'];
   
 
 
-    $x = addStore($brandname, $storename, $storeperson, $storecontact,$country,$state,$city,$pincode);
+    $x = addStore($brandname, $storename, $storeperson, $storecontact,$country,$state,$city,$pincode,$storeaddreason,$storeaddby);
     //echo($x);exit;
     if ($x == 0) {
         // user already existed

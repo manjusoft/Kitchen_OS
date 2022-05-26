@@ -247,6 +247,9 @@ session_start();
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#bordered-monthly" type="button" role="tab" aria-controls="monthly" aria-selected="false" onclick="refreshmonthly();">monthly</button>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="Total-tab" data-bs-toggle="tab" data-bs-target="#bordered-total" type="button" role="tab" aria-controls="total" aria-selected="false" onclick="refreshtotal();">Total Recipe Count</button>
+                            </li>
                         </ul>
                         <div class="tab-content pt-2" id="borderedTabContent">
                             <div class="tab-pane fade " id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
@@ -290,6 +293,19 @@ session_start();
                                         <div class="card-body"> -->
                                 <h5 class="card-title"></h5>
                                 <div id="columnChartmonthly">
+
+                                </div>
+
+                                <!-- </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="tab-pane fade" id="bordered-total" role="tabpanel" aria-labelledby="total-tab">
+                                <!-- <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body"> -->
+                                <h5 class="card-title"></h5>
+                                <div id="columnChartTotal">
 
                                 </div>
 
@@ -480,56 +496,56 @@ session_start();
             });
         });
 
-        // $(document).ready(function(e) {
-        //     $('#machine').on('change', function() {
+        $(document).ready(function(e) {
+            $('#machine').on('change', function() {
 
 
-        //         var id = this.value;
-        //         //console.log(id);
-        //         $.ajax({
-        //             url: "model/getMachineDetails.php",
-        //             type: "POST",
-        //             data: {
-        //                 id: id
-        //             },
-        //             cache: false,
-        //             success: function(data) {
-        //                 var obj = jQuery.parseJSON(data);
-        //                 // console.log(obj);
-        //                 if (id == '') {
-        //                     $('#branddiv').load(location.href + " #branddiv");
-        //                     $('#storediv').load(location.href + " #storediv");
-        //                     $('#userdiv').load(location.href + " #userdiv");
-        //                     $('#countrydiv').load(location.href + " #countrydiv");
-        //                     $('#statediv').load(location.href + " #statediv");
-        //                     $('#citydiv').load(location.href + " #citydiv");
+                var id = this.value;
+                //console.log(id);
+                $.ajax({
+                    url: "model/getMachineDetails.php",
+                    type: "POST",
+                    data: {
+                        id: id
+                    },
+                    cache: false,
+                    success: function(data) {
+                        var obj = jQuery.parseJSON(data);
+                        // console.log(obj);
+                        if (id == '') {
+                         //   $('#branddiv').load(location.href + " #branddiv");
+                            $('#storediv').load(location.href + " #storediv");
+                          //  $('#userdiv').load(location.href + " #userdiv");
+                            $('#countrydiv').load(location.href + " #countrydiv");
+                            $('#statediv').load(location.href + " #statediv");
+                            $('#citydiv').load(location.href + " #citydiv");
 
-        //                 } else {
-        //                     $('#brand').html('<option value="' + obj.brand_id + '" selected>' + obj.brand + '</option>');
-        //                     $('#store').html('<option value="' + obj.store_id + '" selected>' + obj.store + '</option>');
-        //                     $('#user').html('<option value="' + obj.user_id + '" selected>' + obj.user + '</option>');
+                        } else {
+                          //  $('#brand').html('<option value="' + obj.brand_id + '" selected>' + obj.brand + '</option>');
+                            $('#store').html('<option value="' + obj.store_id + '" selected>' + obj.store + '</option>');
+                          //  $('#user').html('<option value="' + obj.user_id + '" selected>' + obj.user + '</option>');
 
-        //                     $('#country').html('<option value="' + obj.country + '" selected>' + obj.countryname + '</option>');
-        //                     $('#state').html('<option value="' + obj.state + '" selected>' + obj.statename + '</option>');
-        //                     $('#city').html('<option value="' + obj.city + '" selected>' + obj.cityname + '</option>');
-        //                 }
-
-
-        //                 // $('#pincode1').val(obj.pincode);
-        //             }
-        //         });
-
-        //         // var dropdown = $(this);
-
-        //         //$('#countrydiv').hide();
-        //         //$('#statediv').hide();
-        //         //$('#citydiv').hide();
+                            $('#country').html('<option value="' + obj.country + '" selected>' + obj.countryname + '</option>');
+                            $('#state').html('<option value="' + obj.state + '" selected>' + obj.statename + '</option>');
+                            $('#city').html('<option value="' + obj.city + '" selected>' + obj.cityname + '</option>');
+                        }
 
 
+                        // $('#pincode1').val(obj.pincode);
+                    }
+                });
+
+                // var dropdown = $(this);
+
+                //$('#countrydiv').hide();
+                //$('#statediv').hide();
+                //$('#citydiv').hide();
 
 
-        //     });
-        // });
+
+
+            });
+        });
 
         $(document).ready(function() {
             $('#user').on('change', function() {
@@ -2443,6 +2459,212 @@ session_start();
                             var values = [
                                 output
                             ];
+                            var i = 0;
+                            var series = [];
+                            var x = new Date(dates[0]).getTime();
+                            while (i < count) {
+                                series.push([x, values[s][i]]);
+                                x += 86400000;
+                                i++;
+                            }
+                            return series;
+                        }
+
+
+
+
+                    } else if (obj.error == 2) {
+                        swal(output);
+                    } else {
+
+                        swal("no data found");
+
+                    }
+                },
+                error: function() {}
+
+            });
+        }
+
+        function refreshtotal() {
+            //$("#borderedTab").load(location.href + " #borderedTab");
+            //var string1 = output = dates = hourwiserc = hourly = 0;
+            refreshhourly();
+            var ptype = $("#ptype").val();
+            var machine = $("#machine").val();
+            var brand = $("#brand").val(); 
+            var user = $("#user").val();
+            var country = $("#country").val();
+            var state = $("#state").val();
+            var city = $("#city").val();
+            var fromdate = $("#fromdate").val();
+            var todate = $("#todate").val();
+            // $("#bordered-contact").load(location.href + " #bordered-contact");
+
+            //$('#loader-icon').show();
+            //var valid;  
+            //valid = validateContact();
+            //if(valid) {
+            if (state == null) {
+                state = '';
+            }
+            if (city == null) {
+                city = '';
+            }
+
+            $("#columnChartTotal").load(location.href + " #columnChartTotal");
+            // $("#brandlist").load(location.href + " #brandlist");
+            // $('html,body').animate({
+            //     scrollTop: $('#borderedTab').offset().top
+            // }, 0);
+            //$("#columnChartweekly").hide();
+            var dataString3 = 'fromdate=' + fromdate + '&todate=' + todate + '&ptype=' + ptype + '&machine=' + machine + '&brand=' + brand + '&user=' + user + '&country=' + country + '&state=' + state + '&city=' + city;
+
+            //console.log(dataString);
+
+            var string1 = output = dates = threehourly = 0;
+            //$('#loader-icon').show();
+            //var valid;  
+            //valid = validateContact();
+            //if(valid) { 
+            //$("#borderedTab").load(location.href + " #borderedTab");
+            // $("#columnChart").load(location.href + " #columnChart");
+            // $("#columnChart").hide();
+
+            var fromdate = document.getElementById('fromdate').value;
+            var todate = document.getElementById('todate').value;
+            var d1 = new Date(fromdate);
+            var d2 = new Date(todate);
+
+            var diff = d2.getTime() - d1.getTime();
+
+            var daydiff = diff / (1000 * 60 * 60 * 24);
+            // console.log(daydiff);
+            if (daydiff > 3) {
+                $('#hourly').hide();
+                //document.getElementById("home-tab").disabled = true;
+            } else {
+                $('#hourly').show();
+                //document.getElementById("home-tab").disabled = false;
+            }
+            //$("#columnChartday").load(location.href + " #columnChartday");
+            // $("#columnChartday").show();
+            // $("#columnChartweekly").load(location.href + " #columnChartweekly");
+            // $("#columnChartweekly").hide();
+            // $("#columnChartmonthly").load(location.href + " #columnChartmonthly");
+            // $("#columnChartmonthly").hide();
+            // $("#brandlist").load(location.href + " #brandlist");
+            // $('html,body').animate({
+            //     scrollTop: $('#borderedTab').offset().top
+            // }, 0);
+            $.ajax({
+                url: "reports/recipecount.php",
+                type: "POST",
+                data: dataString3,
+                //contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    //$("#borderedTab").load(location.href + " #borderedTab");
+                    var obj = jQuery.parseJSON(data);
+                    var string1 = obj.error;
+                    var output = obj.total;
+                    var dates = obj.dates;
+                    var hourwiserc = obj.hourlywiserc;
+                    var hourly = obj.hourly;
+                   
+                    //console.log(output[data]); 
+                    //console.log(dates);
+                    if (obj.error == 0 && dates[0] != '') {
+
+
+
+                        var options = {
+                            chart: {
+                                // type: "area",
+                                type: "line",
+                                height: 300,
+                                // foreColor: "#999",
+                                // stacked: true,
+                                // dropShadow: {
+                                //     enabled: true,
+                                //     enabledSeries: [0],
+                                //     top: -2,
+                                //     left: 2,
+                                //     blur: 5,
+                                //     opacity: 0.06
+                                // }
+                            },
+                            colors: ['#0090FF', '#00E396'],
+                            stroke: {
+                                curve: "smooth",
+                                width: 3
+                            },
+                            dataLabels: {
+                                enabled: false
+                            },
+                            series: [{
+                                name: 'Total Counts',
+                                data: generateDayWiseTimeSeries(0, dates.length)
+                            }],
+                            markers: {
+                                size: 0,
+                                strokeColor: "#fff",
+                                strokeWidth: 3,
+                                strokeOpacity: 1,
+                                fillOpacity: 1,
+                                hover: {
+                                    size: 6
+                                }
+                            },
+                            xaxis: {
+                                type: "datetime",
+                                axisBorder: {
+                                    show: false
+                                },
+                                axisTicks: {
+                                    show: false
+                                }
+                            },
+                            yaxis: {
+                                labels: {
+                                    offsetX: 14,
+                                    offsetY: -5
+                                },
+                                tooltip: {
+                                    enabled: true
+                                }
+                            },
+                            grid: {
+                                padding: {
+                                    left: -5,
+                                    right: 5
+                                }
+                            },
+                            tooltip: {
+                                x: {
+                                    format: "dd MMM yyyy"
+                                },
+                            },
+                            legend: {
+                                position: 'top',
+                                horizontalAlign: 'left'
+                            },
+                            fill: {
+                                type: "solid",
+                                fillOpacity: 0.7
+                            }
+                        };
+
+                        var chart = new ApexCharts(document.querySelector("#columnChartTotal"), options);
+
+                        chart.render();
+
+                        function generateDayWiseTimeSeries(s, count) {
+                            var values = [
+                                output
+                            ];
+                            
                             var i = 0;
                             var series = [];
                             var x = new Date(dates[0]).getTime();

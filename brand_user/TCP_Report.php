@@ -82,7 +82,7 @@ session_start();
                                                     <option value=""></option>
                                                     <?php
                                                     $ptypes=[];
-                                                    $ptypes = gettcpdata_ses($_SESSION['mid_user']);
+                                                    $ptypes = gettcpdata_ses($_SESSION['uid_user']);
                                                     // print_r($ptypes);exit;  
                                                     foreach ($ptypes  as $ptype) {
 

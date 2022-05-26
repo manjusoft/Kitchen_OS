@@ -48,7 +48,7 @@
 
         <?php
         //echo basename(__FILE__);
-        $vals = array('recipe_count_report','most_selling_recipe', 'live_machine_report', 'dead_machines_report', 'category_count');
+        $vals = array('recipe_count_report','most_selling_recipe', 'live_machine_report', 'dead_machines_report', 'category_count','TCP_Report');
         if (in_array($string, $vals)) {
             //execute code here
             // }

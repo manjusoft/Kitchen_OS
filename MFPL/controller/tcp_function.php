@@ -7,7 +7,7 @@ function connect()
 {
     $con='';
     //$con = mysqli_connect("localhost", "root", "", "disciple");
-    $con = mysqli_connect("localhost", "root", "", "tcp_db");
+    $con = mysqli_connect("localhost", "root", "", "test");
 
     return $con;
 }
@@ -145,7 +145,70 @@ function getRcpGraphData($query){
     $i=0;
     $products=[];
     if ($con) {
-        $stmt = "SELECT `rct_timestamp`,`temp` FROM `tcpdata` where startbits='TZ' $query";
+        $stmt = "SELECT `rct_timestamp`,`temp`,`imei` FROM `tcpdata` where startbits='TZ' $query";
+
+
+        // print_r($stmt);exit;
+        $data = mysqli_query($con, $stmt);
+        // print_r($data);exit; 
+        if ($data) {
+            while ($row = mysqli_fetch_assoc($data)) {
+                $i++;
+
+                $products[$i] = $row;
+                // print_r($row);
+
+
+
+
+
+            }
+            // print_r($products);exit;
+            return $products;
+        } else {
+            return false;
+        }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    mysqli_close($con);
+
+
+}
+
+
+function getTotalmachinestcpdata()
+{
+    $con = connect();
+    $data = "";
+    $i=0;
+    if ($con) {
+        $stmt = "SELECT imei, MAX(timestamp) AS timestamp FROM tcpdata";
+
+
+        //  print_r($stmt);exit;
+        $data = mysqli_query($con, $stmt);
+        // print_r($data);exit;
+        $row = mysqli_fetch_assoc($data);
+        //print_r($row['Allcount']);exit;
+        $imei = $row['imei'];
+        $query=getLivemachinestcpdata($imei);
+        return $row['imei'];
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    mysqli_close($con);
+}
+
+function getnooftcpdata(){
+    $con = connect();
+    $data = "";
+    $i=0;
+    $products=[];
+    if ($con) {
+        $stmt = "SELECT `tcpdata`.`imei`,MAX(`tcpdata`.`timestamp`) AS `timestamp` FROM `tcpdata` where startbits='TZ' group by `tcpdata`.`imei`";
 
 
         // print_r($stmt);exit;

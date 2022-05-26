@@ -48,7 +48,7 @@
 
         <?php
         //echo basename(__FILE__);
-        $vals = array('recipe_count_report','most_selling_recipe', 'live_machine_report', 'dead_machines_report', 'category_count');
+        $vals = array('recipe_count_report','most_selling_recipe', 'live_machine_report', 'dead_machines_report', 'category_count','TCP_Report');
         if (in_array($string, $vals)) {
             //execute code here
             // }
@@ -161,10 +161,29 @@
                     <?php
                     }
                     ?>
-                  
-                </ul>
-            </li>
         <?php
+           //echo basename(__FILE__);
+         if (strcmp($string, "TCP_Report") == 0) {
+            ?>
+                <li>
+                    <a href="TCP_Report.php" class="active">
+                        <i class="bi bi-circle active"></i><span>TCP Report</span>
+                    </a>
+                </li>
+            <?php
+            } else {
+            ?>
+                <li>
+                    <a href="TCP_Report.php">
+                        <i class="bi bi-circle"></i><span>TCP Report</span>
+                    </a>
+                </li>
+            <?php
+            }
+            ?>
+        </ul>
+    </li>
+<?php
         } else {
         ?>
             <li class="nav-item">
@@ -275,7 +294,26 @@
                     <?php
                     }
                     ?>
-                   
+                    <?php
+                    //echo basename(__FILE__);
+                    if (strcmp($string, "TCP_Report") == 0) {
+                    ?>
+                        <li>
+                            <a href="TCP_Report.php" class="active">
+                                <i class="bi bi-circle active"></i><span>TCP Report</span>
+                            </a>
+                        </li>
+                    <?php
+                    } else {
+                    ?>
+                        <li>
+                            <a href="TCP_Report.php">
+                                <i class="bi bi-circle"></i><span>TCP Report</span>
+                            </a>
+                        </li>
+                    <?php
+                    }
+                    ?>
 
 
                 </ul>

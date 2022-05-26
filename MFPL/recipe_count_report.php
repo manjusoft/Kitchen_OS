@@ -124,17 +124,17 @@ session_start();
                                             <div class="form-floating mb-3" id="userdiv">
                                                 <select class="form-select" id="user" name="user" aria-label="">
                                                     <option value="">All</option>
-                                                    <?php
-                                                    $result = getusers();
-                                                    $i = 0;
+                                                 <!--   <?php
+                                                   // $result = getusers();
+                                                   // $i = 0;
                                                     //print_r($result);
-                                                    foreach ($result as $row) {
-                                                        $i++;
+                                                   // foreach ($result as $row) {
+                                                  //      $i++;
                                                     ?>
-                                                        <option value="<?php echo $row['user_id']; ?>"><?php echo $row['name']; ?></option>
+                                                        <option value="<?php //echo $row['user_id']; ?>"><?php //echo $row['name']; ?></option>
                                                     <?php
-                                                    }
-                                                    ?>
+                                                  //  }
+                                                    ?> -->
                                                 </select>
 
                                                 <label for="floatingSelect">User Name</label>
@@ -144,17 +144,17 @@ session_start();
                                             <div class="form-floating mb-3" id="storediv">
                                                 <select class="form-select" id="store" name="store" aria-label="" onchange="storechange(this);">
                                                     <option value="">All</option>
-                                                    <?php
-                                                    $result = getStores();
-                                                    $i = 0;
+                                                    <!-- <?php
+                                                  //  $result = getStores();
+                                                 //   $i = 0;
                                                     //print_r($result);
-                                                    foreach ($result as $row) {
-                                                        $i++;
+                                                  //  foreach ($result as $row) {
+                                                  //      $i++;
                                                     ?>
-                                                        <option value="<?php echo $row['id']; ?>"><?php echo $row['store_name']; ?></option>
+                                                       <option value="<?php //echo $row['id']; ?>"><?php //echo $row['store_name']; ?></option> -->
                                                     <?php
-                                                    }
-                                                    ?>
+                                                  //  }
+                                                    ?> -->
 
                                                 </select>
                                                 <label for="floatingSelect">Store Name</label>
@@ -199,7 +199,7 @@ session_start();
 
                                         <div class="col-md-3">
                                             <div class="form-floating">
-                                                <input type="date" class="form-control" id="fromdate" name="fromdate" max="<?= date('Y-m-d'); ?>" value="<?= date('Y-m-d', strtotime("-1 month", strtotime(date('Y-m-d')))); ?>" placeholder="From Date">
+                                                <input type="date" class="form-control" id="fromdate" name="fromdate" max="<?= date('Y-m-d');  ?>" value="<?= date('Y-m-d'); ?>" placeholder="From Date">
                                                 <label for="floatingEmail">From Date</label>
                                             </div>
                                         </div>
@@ -548,31 +548,32 @@ session_start();
             $('#user').on('change', function() {
                 var id = this.value;
                 //console.log(id);
-                // $.ajax({
-                //     url: "model/getBrandUsers.php",
-                //     type: "POST",
-                //     data: {
-                //         id: id
-                //     },
-                //     cache: false,
-                //     success: function(result) {
-                //console.log(result);
+                $.ajax({
+                    url: "model/getBrandUsers.php",
+                    type: "POST",
+                    data: {
+                        id: id
+                    },
+                    cache: false,
+                    success: function(data) {
+                        var obj = jQuery.parseJSON(data); 
+               // console.log(result);
                 if (id == '') {
                     $('#countrydiv').show();
                     $('#statediv').show();
                     $('#citydiv').show();
                     $('#storediv').show();
                 } else {
-                    $('#countrydiv').hide();
-                    $('#statediv').hide();
-                    $('#citydiv').hide();
-                    $('#storediv').hide();
+                    $('#store').html('<option value="' + obj.store_id + '" selected>' + obj.store + '</option>');
+                    $('#country').html('<option value="' + obj.country + '" selected>' + obj.countryname + '</option>');
+                    $('#state').html('<option value="' + obj.state + '" selected>' + obj.statename + '</option>');
+                    $('#city').html('<option value="' + obj.city + '" selected>' + obj.cityname + '</option>');
                 }
 
                 //$('#city').html('<option value="">Select State First</option>');
-                // }
+                }
             });
-            // });
+             });
 
         });
 
@@ -2410,7 +2411,13 @@ session_start();
                                 }
                             },
                             xaxis: {
-                                type: "datetime",
+                                labels: {
+                                    formatter: function (dates) {
+                                    var date = new Date(dates);
+                                    var format1=date.toString("ddd dd MMM yyyy");
+                                    return format1 // The formatter function overrides format property
+                                    }, 
+                                },
                                 axisBorder: {
                                     show: false
                                 },
@@ -2435,7 +2442,7 @@ session_start();
                             },
                             tooltip: {
                                 x: {
-                                    format: "dd MMM yyyy"
+                                    format: "ddd dd MMM yyyy"
                                 },
                             },
                             legend: {
@@ -2459,6 +2466,7 @@ session_start();
                             var i = 0;
                             var series = [];
                             var x = new Date(dates[0]).getTime();
+                            
                             while (i < count) {
                                 series.push([x, values[s][i]]);
                                 x += 86400000;

@@ -917,7 +917,7 @@ session_start();
                     contentType: false,
                     cache: false,
                     processData: false,
-                    success: function(res) {
+                    success: function(data) {
                         var obj = jQuery.parseJSON(data);
                         var string1 = obj.error;
                         var output = obj.error_msg;

@@ -98,6 +98,83 @@ function getDeviceRecordsTcpData($searchQuery, $columnName, $columnSortOrder, $r
 }
 
 
+// function getDeviceRecordsTcpDataUP()
+
+function getDeviceRecordsTcpDataUP($searchQuery, $columnName, $columnSortOrder, $row, $rowperpage, $query)
+{
+    $con = connectDM();
+    $data = "";
+    $i = 0;
+    if ($con) {
+        //$stmt = "select * FROM `assigned_divices` WHERE `status`='1' ".$query." ". $searchQuery . " order by " . $columnName . " " . $columnSortOrder . " limit " . $row . "," . $rowperpage;
+        $stmt = "
+        SELECT `update_record`.`id`,`update_record`.`machine_id` as `machine_id`,`update_record`.`brand_id` as `brand_id`,`update_record`.`store_id` as `store_id`,`update_record`.`user_id` as `user_id`,`machines`.`name` as `machine`,`machines`.`ptype_id` as `ptype`,`brand_tbl`.`brand_name`,`store`.`store_name`,`store`.`pincode`,`countries`.`name` as `country`,`states`.`name` as `state`,`cities`.`name`as `city`,`users`.`name` as `user name`,`users`.`email` as `email`, `users`.`phone` as `phone`,CONCAT(`product_type`.`name`,' ', `product_type`.`version`) AS `ptype` FROM `update_record` JOIN `machines` ON `update_record`.`machine_id`=`machines`.`id` JOIN `store` ON `update_record`.`store_id`=`store`.`id` JOIN `brand_tbl` ON `brand_tbl`.`id`=`update_record`.`brand_id` JOIN `users` ON `users`.`user_id`=`update_record`.`user_id` JOIN `countries` ON `countries`.`id`=`store`.`country` JOIN `states` ON `states`.`id`=`store`.`state` JOIN `cities` ON `cities`.`id`=`store`.`city` JOIN `product_type` ON `product_type`.`id`=`machines`.`ptype_id`  WHERE `update_record`.`status`='1'" . $query . " " . $searchQuery . " order by " . $columnName . " " . $columnSortOrder . " limit " . $row . "," . $rowperpage;
+
+        // print_r($stmt);exit;
+        $data = mysqli_query($con, $stmt);
+        // print_r($data);exit;
+        if ($data) {
+            while ($row = mysqli_fetch_assoc($data)) {
+                $i++;
+
+                $products[$i] = $row;
+                // print_r($row);
+
+
+
+
+
+            }
+            // print_r($products);exit;
+            return $products;
+        } else {
+            return false;
+        }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    mysqli_close($con);
+}
+
+function getDeviceRecordsTcpDataDel($searchQuery, $columnName, $columnSortOrder, $row, $rowperpage, $query)
+{
+    $con = connectDM();
+    $data = "";
+    $i = 0;
+    if ($con) {
+        //$stmt = "select * FROM `assigned_divices` WHERE `status`='1' ".$query." ". $searchQuery . " order by " . $columnName . " " . $columnSortOrder . " limit " . $row . "," . $rowperpage;
+        $stmt = "
+        SELECT `update_record`.`id`,`update_record`.`machine_id` as `machine_id`,`update_record`.`brand_id` as `brand_id`,`update_record`.`store_id` as `store_id`,`update_record`.`user_id` as `user_id`,`machines`.`name` as `machine`,`machines`.`ptype_id` as `ptype`,`brand_tbl`.`brand_name`,`store`.`store_name`,`store`.`pincode`,`countries`.`name` as `country`,`states`.`name` as `state`,`cities`.`name`as `city`,`users`.`name` as `user name`,`users`.`email` as `email`, `users`.`phone` as `phone`,CONCAT(`product_type`.`name`,' ', `product_type`.`version`) AS `ptype` FROM `update_record` JOIN `machines` ON `update_record`.`machine_id`=`machines`.`id` JOIN `store` ON `update_record`.`store_id`=`store`.`id` JOIN `brand_tbl` ON `brand_tbl`.`id`=`update_record`.`brand_id` JOIN `users` ON `users`.`user_id`=`update_record`.`user_id` JOIN `countries` ON `countries`.`id`=`store`.`country` JOIN `states` ON `states`.`id`=`store`.`state` JOIN `cities` ON `cities`.`id`=`store`.`city` JOIN `product_type` ON `product_type`.`id`=`machines`.`ptype_id`  WHERE `update_record`.`record value`='2'" . $query . " " . $searchQuery . " order by " . $columnName . " " . $columnSortOrder . " limit " . $row . "," . $rowperpage;
+
+        // print_r($stmt);exit;
+        $data = mysqli_query($con, $stmt);
+        // print_r($data);exit;
+        if ($data) {
+            while ($row = mysqli_fetch_assoc($data)) {
+                $i++;
+
+                $products[$i] = $row;
+                // print_r($row);
+
+
+
+
+
+            }
+            // print_r($products);exit;
+            return $products;
+        } else {
+            return false;
+        }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    mysqli_close($con);
+}
+
+
 function getDeviceRecords($query)
 {
     $con = connectDM();
@@ -368,7 +445,7 @@ function gettcpdata()
     $i=0;
     $products=[];
     if ($con) {
-        $stmt = "SELECT `tcp_assign_machine`.`tcp_brand` , `tcp_register`.`imei` FROM `tcp_assign_machine` JOIN `tcp_register` ON tcp_assign_machine.tcp_machineid= tcp_register.id;";
+        $stmt = "SELECT `tcp_assign_machine`.`tcp_brand` , `tcp_register`.`imei` FROM `tcp_assign_machine` JOIN `tcp_register` ON tcp_assign_machine.tcp_machineid= tcp_register.id WHERE tcp_assign_machine.status=1 ;";
 
 
         // print_r($stmt);exit;

@@ -321,6 +321,74 @@ foreach ($monthly as $month) {
 //print_r($productmonthly);
 //exit;
 
+
+$j = 0;
+$totalcount = [];
+$count = 0;
+foreach ($dates as $date) {
+    if ($_POST["user"]) {
+         $count = getRecipeCountFromMachinePacketReport($query, $date);
+       // print_r($count."hhh");
+        if($j==0){
+            if (empty($count)) {
+                $totalcount[$j] = '0';
+            }
+            else{ 
+                if ($count == null) {
+                    $totalcount[$j] =  '0';
+                }
+            }
+
+        }else{
+            if (empty($count)) {
+                $totalcount[$j] = $totalcount[$j-1];
+            } else
+            //  if ($count == null) {
+            //     $totalcount[$j] =  '0';
+            // } else if ($count == ' ') {
+            //     $totalcount[$j] = $totalcount[$j-1];
+            // }        else 
+            {
+                if($count>=$totalcount[$j-1]){
+                    $totalcount[$j] = $count;
+                }else{
+                    $totalcount[$j] = $totalcount[$j-1];
+                }
+                
+            }
+        }
+        
+
+        $j++;
+    } else {
+        //print_r($query);
+        $rccount = 0;
+        $count = getRecipeCountFromMachinePacketMaxRcReport($query, $date);
+        //print_r($count);
+        foreach ($count as $countrc) {
+            // print_r($countrc);
+            $rccount += $countrc['rc'];
+        }
+        if (empty($rccount)) {
+            $totalcount[$j] = $totalcount[$j-1];
+        } else if ($rccount == null) {
+            $totalcount[$j] =  '0';
+        } else if ($rccount == ' ') {
+            $totalcount[$j] = $totalcount[$j-1];
+        } else {
+            if($rccount>=$totalcount[$j-1]){
+                $totalcount[$j] = $rccount;
+            }else{
+                $totalcount[$j] = $totalcount[$j-1];
+            }
+            
+        }
+
+        $j++;
+    }
+}
+
+
 $response["error"] = 0;
 $response["error_msg"] = $product;
 $response["dates"] = $dates;
@@ -334,5 +402,7 @@ $response["productthreehourly"] = $productthreehourly;
 $response["threehourly"] = $threehourly;
 $response["productsevendays"] = $productsevendays;
 $response["sevendays"] = $sevendays;
+$response["total"] = $totalcount; 
+
 echo json_encode($response);
 exit;

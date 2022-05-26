@@ -356,7 +356,7 @@ $update_rct_P4,$Update_total_T1_P4,$Update_total_HT_P4,$Update_total_T2_P4,$upda
     
 }
 
-function tcp_register_function($imei,$machine_type,$tcp_sr,$tcp_instaldate)
+function tcp_register_function($imei,$machine_type,$tcp_sr,$tcp_instaldate,$tcp_low_threshold,$tcp_high_threshold)
 {
     //  print_r($recipe_version);exit;
     $con = connectRecipe();
@@ -364,15 +364,19 @@ function tcp_register_function($imei,$machine_type,$tcp_sr,$tcp_instaldate)
 
     if ($con) {
 
+        $check_imei = "select * from `tcp_register` where imei='$imei'";
+        $doneimei = mysqli_query($con, $check_imei);
 
+        if($doneimei->num_rows>0)
+        {
         $check_tcp = "select * from `tcp_register` where imei='$imei' AND `status`='1'";
         $done1 = mysqli_query($con, $check_tcp);
 
-        if($done1->num_rows>0){
+        if($done1->num_rows==0){
             return 3;
         }else{
 
-            $stmt = "insert into tcp_register(imei, tcp_machine_type, tcp_sr,tcp_instaldate)values('$imei','$machine_type','$tcp_sr','$tcp_instaldate')";
+            $stmt = "insert into tcp_register(imei, tcp_machine_type, tcp_sr,tcp_instaldate,tcp_low_threshold,tcp_high_threshold)values('$imei','$machine_type','$tcp_sr','$tcp_instaldate','$tcp_low_threshold','$tcp_high_threshold')";
             // print_r($stmt);exit;
     
                 $done = mysqli_query($con, $stmt);
@@ -386,11 +390,31 @@ function tcp_register_function($imei,$machine_type,$tcp_sr,$tcp_instaldate)
                 }
         
             }
+        }
+        else{
+
+            $stmt1 = "insert into tcp_register(imei, tcp_machine_type, tcp_sr,tcp_instaldate,tcp_low_threshold,tcp_high_threshold)values('$imei','$machine_type','$tcp_sr','$tcp_instaldate','$tcp_low_threshold','$tcp_high_threshold')";
+            // print_r($stmt);exit;
+    
+                $done2 = mysqli_query($con, $stmt1);
+            // print_r($done);exit;
+                if ($done2) {
+    
+                    return 0;
+                } 
+                else  {
+                    return 2;
+                }
+        
+            }
+
+    }
             if (!$con){
                 die("Connection failed: " . mysqli_connect_error());
             }
             mysqli_close($con);
-        }
+        
+    
 
        
     
@@ -446,7 +470,7 @@ function  tcp_table(){
         $data = "";
     
         if ($con) {
-            $stmt = "SELECT * FROM `tcp_register` WHERE 1 ORDER BY `id` ASC";
+            $stmt = "SELECT * FROM `tcp_register` WHERE 1 AND status=0 ORDER BY `id` ASC";
             // print_r($stmt);exit;
     
             $i = 0;
@@ -552,10 +576,10 @@ function select_Tcps($id){
     }
 
 
-    function edit_tcp($imei_E,$tcp_machine_type_E,$tcp_sr_E,$tcp_instaltablbe_E){
+    function edit_tcp($imei_E,$tcp_machine_type_E,$tcp_sr_E,$tcp_instaltablbe_E,$tcp_low_threshold,$tcp_high_threshold){
         $con = connectRecipe();
         if($con){
-            $querry = "UPDATE `tcp_register` SET tcp_machine_type='$tcp_machine_type_E',tcp_sr='$tcp_sr_E',tcp_instaldate='$tcp_instaltablbe_E' WHERE imei='$imei_E'";
+            $querry = "UPDATE `tcp_register` SET tcp_machine_type='$tcp_machine_type_E',tcp_sr='$tcp_sr_E',tcp_instaldate='$tcp_instaltablbe_E', tcp_low_threshold='$tcp_low_threshold', tcp_high_threshold='$tcp_high_threshold' WHERE imei='$imei_E'";
             // print_r($querry);exit; 
             $result=mysqli_query($con,$querry);
             // print_r($result);
@@ -573,38 +597,44 @@ function select_Tcps($id){
         mysqli_close($con);
     }
 
-
-    function delete_tcp($imei_D,$tcp_machine_type_D,$tcp_sr_D,$tcp_instaltablbe_D){
-
+function delete_tcp($id,$imei_D, $tcp_machine_type_D, $tcp_sr_D, $tcp_instaltablbe_D,$tcp_low_threshold,$tcp_high_threshold)
+    {
         $con = connectRecipe();
-        if($con){
-            $querry = "DELETE FROM `tcp_register` WHERE imei='$imei_D'";
-            // print_r($querry);exit; 
-            $result=mysqli_query($con,$querry);
+        if ($con) {
+            $stmt = "SELECT * FROM `tcp_assign_machine` WHERE `tcp_machineid`='$id' AND `status`='1'";
+            //   print_r($stmt);exit;
+                $i = 0;
+                $data = mysqli_query($con, $stmt);
+        // print_r($data);exit;
+                if ($data->num_rows == 0) {
+            $querry = "UPDATE `tcp_register` SET `status`='1' WHERE id='$id'";
+             //print_r($querry);exit; 
+            $result = mysqli_query($con, $querry);
             // print_r($result);
-
-            if($result){
+    
+            if ($result) {
                 return 1;
-            }
-            else{
+            } else {
                 return 0;
             }
         }
+        
         if (!$con) {
             die("Connection failed: " . mysqli_connect_error());
         }
         mysqli_close($con);
     }
+}
 
-    function gettcpoptions()
+function gettcpoptions()
 {
     $con = connectRecipe();
     //$data = "";
     $i=0;
     $products=[];
     if ($con) {
-        $stmt = "SELECT * FROM `tcp_register` WHERE `status`='0' ";
-
+        $stmt = "SELECT * FROM `tcp_register` WHERE `status`='0' AND active=0 ";
+       // $stmt = "SELECT `tcp_assign_machine`.`tcp_brand` , `tcp_register`.`imei` FROM `tcp_assign_machine` JOIN `tcp_register` ON tcp_assign_machine.tcp_machineid= tcp_register.id WHERE tcp_assign_machine.status=0 AND tcp_register.active=0;";
 
       
         // print_r($stmt);exit;
@@ -645,7 +675,7 @@ function assignTCPDevice($tcp_machineid, $tcp_brand, $user, $tcp_store)
     if ($con) {
 
             
-        $stmt = "SELECT * FROM `tcp_assign_machine` WHERE `tcp_machineid`='$tcp_machineid' AND `tcp_brand`='$tcp_brand' AND `tcp_pri_user`='$user' AND `tcp_store`='$tcp_store' AND `status`='0'";
+        $stmt = "SELECT * FROM `tcp_assign_machine` WHERE `tcp_machineid`='$tcp_machineid' AND `tcp_brand`='$tcp_brand' AND `tcp_pri_user`='$user' AND `tcp_store`='$tcp_store' AND `status`='1'";
     //   print_r($stmt);exit;
         $i = 0;
         $data = mysqli_query($con, $stmt);
@@ -658,7 +688,7 @@ function assignTCPDevice($tcp_machineid, $tcp_brand, $user, $tcp_store)
         $done = mysqli_query($con, $stmt);
                 if ($done) {
     
-                    $stmt = "UPDATE `tcp_register` SET `status`='1' WHERE `id`='$tcp_machineid'";
+                    $stmt = "UPDATE `tcp_register` SET `active`='1'  WHERE `id`='$tcp_machineid'";
                     //  print_r($stmt);    
                     $done = mysqli_query($con, $stmt);
                             if ($done)
@@ -702,6 +732,44 @@ $machines=[];
         }  
     }
     else{
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    mysqli_close($con);
+}
+
+function gettcpdevices()
+{
+    $con = connectRecipe();
+    //$data = "";
+    $i=0;
+    $products=[];
+    if ($con) {
+        $stmt = "SELECT * FROM `tcp_register` WHERE `status`='0'";
+       // $stmt = "SELECT `tcp_assign_machine`.`tcp_brand` , `tcp_register`.`imei` FROM `tcp_assign_machine` JOIN `tcp_register` ON tcp_assign_machine.tcp_machineid= tcp_register.id WHERE tcp_assign_machine.status=0 AND tcp_register.active=0;";
+
+      
+        // print_r($stmt);exit;
+        $data = mysqli_query($con, $stmt);
+        // print_r($data);exit; 
+        if ($data) {
+            while ($row = mysqli_fetch_assoc($data)) {
+                $i++;
+
+                $products[$i] = $row;
+                // print_r($row);
+
+
+
+
+
+            }
+            // print_r($products);exit;
+            return $products;
+        } else {
+            return false;
+        }
+    }
+    if (!$con) {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);

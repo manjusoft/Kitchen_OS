@@ -57,12 +57,16 @@ session_start();
 </head>
 
 <body>
+<!-- <div class="d-flex">
+<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;"  role="status" id="pageloader" >
+  <span class="visually-hidden">Loading...</span>
+</div>
+    </div> -->
     <div class="col-lg-12" id="pageloader">
-        <img src="assets/load3.gif"></img>
-    </div>
+      <img src="assets/lod.gif"></img> 
+   </div>
 
-    <!-- <img src="assets/load4.gif" style="height:50%;width:50%"alt="processing..." /> -->
-    <!-- </div> -->
+   
     <?php include "header.php"; ?>
     <!-- ======= Sidebar ======= -->
     <?php include "sidebar.php"; ?>
@@ -602,7 +606,7 @@ session_start();
                                                 </div>
                                                 <div class="tab-pane fade" id="bordered-storedelete" role="tabpanel" aria-labelledby="storedelete-tab">
 
-                                                    <form class="row g-3" id="removeDevice">
+                                                    <form class="row g-3" id="DeleteDeviceList">
                                                         <input type="hidden" class="form-control" id="machineiddelete" name="machineid" aria-label="" />
                                                         <div class="col-md-4">
                                                             <div class="form-floating mb-3">
@@ -720,54 +724,529 @@ session_start();
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="tab-pane fade show <?php echo $status2; ?>" id="pills-update" role="tabpanel" aria-labelledby="update-tab">
-                                
-                                <div class="col-lg-12">
 
-                                    <div class="card">
-                                        <div class="card-body" style="overflow-x:auto;">
-                                            <h5 class="card-title">Update Machine List</h5>
+                            <div class="col-lg-12">
 
-                                         
-                                            <table id="updateDeviceList" class="table datatable">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Machine Number</th>
-                                                        <th scope="col">Brand</th>
-                                                        <th scope="col">User</th>
-                                                        <th scope="col">Store</th>
-                                                        <!-- <th scope="col">Status</th> -->
-                                                        <th scope="col">Country</th>
-                                                        <th scope="col">State</th>
-                                                        <th scope="col">City</th>
-                                                        <th scope="col">Pincode</th>
-                                                        <th scope="col">User Name</th>
-                                                        <th scope="col">User Number</th>
-                                                        <th scope="col">User Email</th>
-                                                        <th scope="col">Reason</th>
-                                                        <th scope="col">Updated By</th>
-                                                        <th scope="col">Time</th>
-                                                        <!-- <th scope="col">BM. Name</th>
+                                <div class="card">
+                                    <div class="card-body" style="overflow-x:auto;">
+                                        <h5 class="card-title">Update Machine List</h5>
+
+
+                                        <table id="updateDeviceList" class="table datatable">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Machine Number</th>
+                                                    <th scope="col">Brand</th>
+                                                    <th scope="col">User</th>
+                                                    <th scope="col">Store</th>
+                                                    <!-- <th scope="col">Status</th> -->
+                                                    <th scope="col">Country</th>
+                                                    <th scope="col">State</th>
+                                                    <th scope="col">City</th>
+                                                    <th scope="col">Pincode</th>
+                                                    <th scope="col">User Name</th>
+                                                    <th scope="col">User Number</th>
+                                                    <th scope="col">User Email</th>
+                                                    <th scope="col">Reason</th>
+                                                    <th scope="col">Updated By</th>
+                                                    <th scope="col">Time</th>
+                                                    <!-- <th scope="col">BM. Name</th>
                                                     <th scope="col">Action</th> -->
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                  
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
 
-                                                </tbody>
-                                            </table>
-                                            <!-- End Table with stripped rows -->
+
+                                            </tbody>
+                                        </table>
+                                        <!-- End Table with stripped rows -->
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- Delete Table -->
+
+                        <div class="tab-pane fade show <?php echo $status3; ?>" id="pills-update" role="tabpanel" aria-labelledby="update-tab">
+
+                            <div class="col-lg-12">
+
+                                <div class="card">
+                                    <div class="card-body" style="overflow-x:auto;">
+                                        <h5 class="card-title">Update Machine List</h5>
+
+
+                                        <table id="DeleteDeviceListL" class="table datatable">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Machine Number</th>
+                                                    <th scope="col">Brand</th>
+                                                    <th scope="col">User</th>
+                                                    <th scope="col">Store</th>
+                                                    <!-- <th scope="col">Status</th> -->
+                                                    <th scope="col">Country</th>
+                                                    <th scope="col">State</th>
+                                                    <th scope="col">City</th>
+                                                    <th scope="col">Pincode</th>
+                                                    <th scope="col">User Name</th>
+                                                    <th scope="col">User Number</th>
+                                                    <th scope="col">User Email</th>
+                                                    <th scope="col">Reason</th>
+                                                    <th scope="col">Updated By</th>
+                                                    <th scope="col">Time</th>
+                                                    <!-- <th scope="col">BM. Name</th>
+                        <th scope="col">Action</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+
+
+                                            </tbody>
+                                        </table>
+                                        <!-- End Table with stripped rows -->
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show <?php echo $status4; ?>" id="pills-start" role="tabpanel" aria-labelledby="start-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Start Device</h5>
+
+                                    <!-- Floating Labels Form -->
+                                    <form class="row g-3" id="startDevice">
+
+
+
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select" id="id3" name="id" aria-label="" onchange="getval14(this);">
+
+                                                    <option value=""></option>
+                                                    <?php
+                                                    $devices = getAssignedStoppedDevice();
+                                                    //print_r($devices);exit;
+                                                    $i = 0;
+                                                    foreach ($devices as $device) {
+                                                        $i++;
+
+                                                        $machine = getSingleMachine($device['machine_id']);
+                                                    ?>
+                                                        <option value="<?php echo  $machine['id']; ?>"><?php echo  $machine['name']; ?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <label for="floatingSelect">Machine</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="machinetype4" name="machinetype" placeholder="machinetype" readonly>
+                                                <label for="floatingSelect">Machine Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="brand4" name="brand" placeholder="" readonly>
+
+                                                <label for="floatingSelect">Brand</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="store4" name="store" placeholder="" readonly>
+                                                <label for="floatingSelect">Store Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+
+                                                <input type="text" class="form-control" id="country4" name="country" placeholder="" readonly>
+                                                <label for="floatingSelect">Country</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+
+                                                <input type="text" class="form-control" id="state4" name="state" placeholder="" readonly>
+                                                <label for="state">State</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+
+                                                <input type="text" class="form-control" id="city4" name="city" placeholder="" readonly>
+                                                <label for="city">City</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="mname4" name="mname" placeholder="Your Name" readonly>
+                                                <label for="floatingName">User Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="mphone4" name="mphone" placeholder="Mac Id" readonly>
+                                                <label for="floatingEmail">User Number</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+
+                                            <div class="form-floating">
+                                                <input type="email" class="form-control" id="memail4" name="memail" placeholder="Store Name" readonly>
+                                                <label for="floatingCity">User Email</label>
+                                            </div>
 
                                         </div>
-                                    </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="reason4" name="reason" placeholder="Mac Id">
+                                                <label for="floatingEmail">Reason to Start the Machine</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="person4" name="person" placeholder="Mac Id">
+                                                <label for="floatingEmail">Starting By</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="reset" class="btn btn-secondary">Reset</button>
+                                        </div>
+
+                                    </form><!-- End floating Labels Form -->
 
                                 </div>
                             </div>
+                            <div class="col-lg-12">
 
+                                <div class="card">
+                                    <div class="card-body" style="overflow-x:auto;">
+                                        <h5 class="card-title">Start Machine List</h5>
+
+
+                                        <table id="startDeviceList" class="table datatable">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Machine Number</th>
+                                                    <th scope="col">Brand</th>
+                                                    <th scope="col">User</th>
+                                                    <th scope="col">Store</th>
+                                                    <!-- <th scope="col">Status</th> -->
+                                                    <th scope="col" style="display:none">Country</th>
+                                                    <th scope="col" style="display:none">State</th>
+                                                    <th scope="col" style="display:none">City</th>
+                                                    <th scope="col" style="display:none">Pincode</th>
+                                                    <th scope="col" style="display:none">User Name</th>
+                                                    <th scope="col" style="display:none">User Number</th>
+                                                    <th scope="col" style="display:none">User Email</th>
+                                                    <th scope="col">Reason</th>
+                                                    <th scope="col">Started By</th>
+                                                    <th scope="col">Time</th>
+                                                    <!-- <th scope="col">BM. Name</th>
+                                                    <th scope="col">Action</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $devices = getUpdatesOfDevices();
+                                                //print_r($devices);
+                                                $i = 0;
+                                                foreach ($devices as $device) {
+
+
+
+                                                    $machine = getSingleMachine($device['machine_id']);
+                                                    $brand = getBrand($device['brand_id']);
+                                                    $user = getSingleuser($device['user_id']);
+                                                    $store = getSingleStore($device['store_id']);
+                                                    $countryname = getCountriesById($store['country']);
+                                                    $statename = getStatesById($store['state']);
+                                                    $cityname = getCityById($store['city']);
+
+                                                    //print_r($machine);
+                                                    // print_r($brand);
+                                                    // print_r($user);
+                                                    //print_r($store);
+                                                    $timezone = new DateTimeZone('Asia/Kolkata');
+
+                                                    $date = new DateTime($device['timestamp']);
+                                                    $date->setTimeZone($timezone);
+                                                    $time = $date->format('D d M Y g:i:s A') . "\n";
+                                                    if ($device['record value'] == 3) {
+                                                        $i++;
+                                                ?>
+                                                        <tr>
+                                                            <th scope="row"><?php echo $i; ?></th>
+                                                            <td><?php echo $machine['name']; ?></td>
+                                                            <td><?php echo $brand['brand_name']; ?> </td>
+
+                                                            <td><?php echo $user['name']; ?></td>
+                                                            <td><?php echo $store['store_name']; ?></td>
+                                                            <td style="display:none"><?php echo $countryname['name']; ?></td>
+                                                            <td style="display:none"><?php echo $statename['name']; ?></td>
+                                                            <td style="display:none"><?php echo $cityname['name']; ?></td>
+                                                            <td style="display:none"><?php echo $store['pincode']; ?></td>
+                                                            <td style="display:none"><?php echo $store['p_name']; ?></td>
+                                                            <td style="display:none"><?php echo $store['p_phone']; ?></td>
+                                                            <td style="display:none"><?php echo $store['p_email']; ?></td>
+                                                            <td><?php echo $device['reason']; ?></td>
+                                                            <td><?php echo $device['person_by']; ?></td>
+                                                            <td><?php echo $time; ?></td>
+
+
+                                                        </tr>
+
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
+
+
+
+                                            </tbody>
+                                        </table>
+                                        <!-- End Table with stripped rows -->
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show <?php echo $status5; ?>" id="pills-stop" role="tabpanel" aria-labelledby="stop-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Stop Device</h5>
+
+                                    <!-- Floating Labels Form -->
+                                    <form class="row g-3" id="stopDevice">
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select" id="id4" name="id" aria-label="State" onchange="getval15(this);">
+
+                                                    <option value=""></option>
+                                                    <?php
+                                                    $devices = getAssignedStartedDevice();
+                                                    $i = 0;
+                                                    foreach ($devices as $device) {
+                                                        $i++;
+                                                        //print_r($machine);
+                                                        $machine = getSingleMachine($device['machine_id']);
+                                                    ?>
+                                                        <option value="<?php echo  $machine['id']; ?>"><?php echo  $machine['name']; ?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <label for="floatingSelect">Machine</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="machinetype5" name="machinetype" placeholder="machinetype" readonly>
+                                                <label for="floatingSelect">Machine Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="brand5" name="brand" placeholder="" readonly>
+
+                                                <label for="floatingSelect">Brand</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="store5" name="store" placeholder="" readonly>
+                                                <label for="floatingSelect">Store Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+
+                                                <input type="text" class="form-control" id="country5" name="country" placeholder="" readonly>
+                                                <label for="floatingSelect">Country</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+
+                                                <input type="text" class="form-control" id="state5" name="state" placeholder="" readonly>
+                                                <label for="state">State</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+
+                                                <input type="text" class="form-control" id="city5" name="city" placeholder="" readonly>
+                                                <label for="city">City</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="mname5" name="mname" placeholder="Your Name" readonly>
+                                                <label for="floatingName">User Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="mphone5" name="mphone" placeholder="Mac Id" readonly>
+                                                <label for="floatingEmail">User Number</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+
+                                            <div class="form-floating">
+                                                <input type="email" class="form-control" id="memail5" name="memail" placeholder="Store Name" readonly>
+                                                <label for="floatingCity">User Email</label>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="reason5" name="reason" placeholder="Mac Id">
+                                                <label for="floatingEmail">Reason to Stop the Machine</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="person5" name="person" placeholder="Mac Id">
+                                                <label for="floatingEmail">Stopping By</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="reset" class="btn btn-secondary">Reset</button>
+                                        </div>
+
+                                    </form><!-- End floating Labels Form -->
+
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+
+                                <div class="card">
+                                    <div class="card-body" style="overflow-x:auto;">
+                                        <h5 class="card-title">Stop Machine List</h5>
+
+
+                                        <table id="stopDeviceList" class="table datatable">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Machine Number</th>
+                                                    <th scope="col">Brand</th>
+                                                    <th scope="col">User</th>
+                                                    <th scope="col">Store</th>
+                                                    <!-- <th scope="col">Status</th> -->
+                                                    <th scope="col" style="display:none">Country</th>
+                                                    <th scope="col" style="display:none">State</th>
+                                                    <th scope="col" style="display:none">City</th>
+                                                    <th scope="col" style="display:none">Pincode</th>
+                                                    <th scope="col" style="display:none">User Name</th>
+                                                    <th scope="col" style="display:none">User Number</th>
+                                                    <th scope="col" style="display:none">User Email</th>
+                                                    <th scope="col">Reason</th>
+                                                    <th scope="col">Stopped By</th>
+                                                    <th scope="col">Time</th>
+                                                    <!-- <th scope="col">BM. Name</th>
+                                                    <th scope="col">Action</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $devices = getUpdatesOfDevices();
+                                                //print_r($devices);
+                                                $i = 0;
+                                                foreach ($devices as $device) {
+
+
+
+                                                    $machine = getSingleMachine($device['machine_id']);
+                                                    $brand = getBrand($device['brand_id']);
+                                                    $user = getSingleuser($device['user_id']);
+                                                    $store = getSingleStore($device['store_id']);
+                                                    $countryname = getCountriesById($store['country']);
+                                                    $statename = getStatesById($store['state']);
+                                                    $cityname = getCityById($store['city']);
+
+                                                    //print_r($machine);
+                                                    // print_r($brand);
+                                                    // print_r($user);
+                                                    //print_r($store);
+                                                    $timezone = new DateTimeZone('Asia/Kolkata');
+
+                                                    $date = new DateTime($device['timestamp']);
+                                                    $date->setTimeZone($timezone);
+                                                    $time = $date->format('D d M Y g:i:s A') . "\n";
+                                                    if ($device['record value'] == 4) {
+                                                        $i++;
+                                                ?>
+                                                        <tr>
+                                                            <th scope="row"><?php echo $i; ?></th>
+                                                            <td><?php echo $machine['name']; ?></td>
+                                                            <td><?php echo $brand['brand_name']; ?> </td>
+
+                                                            <td><?php echo $user['name']; ?></td>
+                                                            <td><?php echo $store['store_name']; ?></td>
+                                                            <td style="display:none"><?php echo $countryname['name']; ?></td>
+                                                            <td style="display:none"><?php echo $statename['name']; ?></td>
+                                                            <td style="display:none"><?php echo $cityname['name']; ?></td>
+                                                            <td style="display:none"><?php echo $store['pincode']; ?></td>
+                                                            <td style="display:none"><?php echo $store['p_name']; ?></td>
+                                                            <td style="display:none"><?php echo $store['p_phone']; ?></td>
+                                                            <td style="display:none"><?php echo $store['p_email']; ?></td>
+                                                            <td><?php echo $device['reason']; ?></td>
+                                                            <td><?php echo $device['person_by']; ?></td>
+                                                            <td><?php echo $time; ?></td>
+
+
+                                                        </tr>
+
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
+
+
+
+                                            </tbody>
+                                        </table>
+                                        <!-- End Table with stripped rows -->
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                       
 
                     </div>
                 </div>
@@ -856,6 +1335,68 @@ session_start();
                 'serverMethod': 'post',
                 'ajax': {
                     'url': 'tables/updateDeviceList.php',
+
+                },
+                'columns': [
+
+                    {
+                        data: 'slno'
+                    },
+                    {
+                        data: 'action'
+                    },
+                    {
+                        data: 'machinenumber'
+                    },
+                    {
+                        data: 'machinetype'
+                    },
+                    {
+                        data: 'brand'
+                    },
+                    {
+                        data: 'user'
+                    },
+                    {
+                        data: 'store'
+                    },
+                    {
+                        data: 'country'
+                    },
+                    {
+                        data: 'state'
+                    },
+                    {
+                        data: 'city'
+                    },
+                    {
+                        data: 'pincode'
+                    },
+                    {
+                        data: 'phone'
+                    },
+                    {
+                        data: 'email'
+                    },
+                ],
+
+
+            });
+
+        });
+
+
+
+
+        $(document).ready(function() {
+            $('#DeleteDeviceListL').DataTable({
+                'processing': true,
+                'serverSide': true,
+                'destroy': true,
+                'searching': true,
+                'serverMethod': 'post',
+                'ajax': {
+                    'url': 'tables/DeleteDeviceListL.php',
 
                 },
                 'columns': [
@@ -2043,6 +2584,49 @@ toggle between hiding and showing the dropdown content */
             });
 
         }
+
+
+    $('#pills-home-tab').on('click', function(e){
+         
+                   // clearForm($("#stopDevice"));
+                   // clearForm($("#startDevice")); 
+        
+                   $("#stopDevice").find(':input').val(''); 
+                   $("#startDevice").find(':input').val(''); 
+                 
+
+                });
+     $('#pills-update-tab').on('click', function(e){
+          
+         $("#assigndevice").find(':input').val('');
+         $("#stopDevice").find(':input').val(''); 
+         $("#startDevice").find(':input').val(''); 
+       
+
+      });
+      $('#pills-profile-tab').on('click', function(e){
+         
+         $("#assigndevice").find(':input').val('');
+         $("#stopDevice").find(':input').val(''); 
+         $("#startDevice").find(':input').val(''); 
+       
+
+      });
+      $('#pills-start-tab').on('click', function(e){
+
+         $("#stopDevice").find(':input').val(''); 
+         $("#assigndevice").find(':input').val(''); 
+       
+      });
+      $('#pills-stop-tab').on('click', function(e){
+
+         $("#assigndevice").find(':input').val('');
+         $("#startDevice").find(':input').val(''); 
+       
+
+      });
+
+
     </script>
 
 </body>

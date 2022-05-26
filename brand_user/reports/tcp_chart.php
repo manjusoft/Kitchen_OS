@@ -1,23 +1,15 @@
 <?php
 
 require_once "../controller/tcp_function.php";
-require_once "../controller/functions.php";
-require_once "../controller/device_datatables.php";
-
 $con = connect();
 //   print_r($_POST);
 //   exit;
-$low_tcp_threshold ="";
-$high_tcp_threshold ="";
+
 $data = [];
 $imei = $_POST['imei'];
 $alarm = $_POST['alarm'];
 $fromdate = $_POST['fromdate'];
 $todate = $_POST['todate'];
-
-
-//print_r($low_tcp_threshold);
-//print_r($high_tcp_threshold);
 //  print_r($imei);
 //   exit;
 $query = "";
@@ -69,31 +61,8 @@ if (!empty($todate)) {
 if ($imei) {
   
     $query .= "AND `imei`='$imei'";
-    $tcpthresholds= gettcpthresholds($imei);
-    //$tcpthresholds =$tcpthreshold[1];
-foreach($tcpthresholds as $rowt)
-{
-$low_tcp_threshold = $rowt['tcp_low_threshold'];
-$high_tcp_threshold = $rowt['tcp_high_threshold'];
-}
-
-
 } else {
-
-    $ptypes = [];
-   
-    $ptypes = gettcpdata();
-    
-    $x = 0;
-    foreach ($ptypes as $type) {
-        $imeis = $type['imei'];
-        if ($x == 0) {
-            $query .= "AND `imei`='$imeis'";
-        } else {
-            $query .= "OR `imei`='$imeis'";
-        }
-        $x++;
-}
+    $query .= "";
 }
 
 if ($alarm) {
@@ -103,46 +72,29 @@ if ($alarm) {
     $query .= "";
 }
 
-$time=0;
+
+
 $data = array();
 $empRecords = getRcpGraphData($query);
 $i = 0;$response=[];
-$ptypes = [];
-$ptypes = gettcpdata();
-
-$x = 0;
-foreach ($ptypes as $type) {
-    $imeis = $type['imei'];
-    $i = 0;
 foreach ($empRecords as $row1) {
     // print_r($row1);
-     if ($imeis == $row1['imei']) {
-         $date = $row1['rct_timestamp'];
-         $time = strtotime($date);
-         $time = $time + 19800;
-         //$response[$imeis]['dateInLocal'][$i] = date("Y-m-d H:i:s", $time);
+    $date=$row1['rct_timestamp'];
+    $time = strtotime($date);
+    $time=$time+19800;
+    $response['dateInLocal'][$i] = date("Y-m-d H:i:s", $time);
 
-         //$response[$imeis]['temp'][$i] = round($row1['temp'], 2);
-
-          $response['dateInLocal'][$i] = date("Y-m-d H:i:s", $time);
-          $response['temp'][$i] = round($row1['temp'], 2);
-         $i++;
-     }
-
-         // $date = $row1['rct_timestamp'];
-         // $time = strtotime($date);
-         // $time = $time + 19800;
-         // $response['dateInLocal'][$i] = date("Y-m-d H:i:s", $time);
-
-          //$response['temp'][$i] = round($row1['temp'], 2);
-         // $i++;
+    $response['temp'][$i]= round($row1['temp'],2);
    
- }
- $response['imei'][$x] = $imeis;
- $x++;
+    // print_r($temp);exit;
+
+    $i++;
+
+
+    // print_r($date);
+    // print_r($time);
+    // print_r($dateInLocal);exit;
 }
-$response['tcp_low_threshold']= $low_tcp_threshold;
-$response['tcp_high_threshold']= $high_tcp_threshold;
 
 ## Response
 // $response = array(

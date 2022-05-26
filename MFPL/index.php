@@ -1,5 +1,6 @@
 <?php
 require_once 'controller/functions.php';
+require_once 'controller/tcp_function.php';
 //Start the session.
 session_start();
 //print_r($_SESSION);
@@ -147,15 +148,15 @@ if (isset($_POST)) {
             <div class="card-body">
               <div class="row">
 
-                <div class="col-lg-3">
+              <div class="col-lg-3">
                   <!-- <div class="card">
-                    <div class="card-body"> -->
-                  <h5 class="card-title" style="text-align: center; font-size:24px;">All</h5>
+                <div class="card-body"> -->
+                  <h5 class="card-title" style="text-align: center;">ALL</h5>
 
-                  <!-- Radial Bar Chart -->
-                  <div id="radialBarChart"></div>
+                  <!-- Donut Chart -->
+                  <div id="donutChartmain"></div>
                   <?php
-
+                 
                   $data[0] = 0;
                   $data[1] = 0;
                   $data[2] = 0;
@@ -164,6 +165,9 @@ if (isset($_POST)) {
                   //$result = getLivemachines();
                   $i = 0;
                   $k = 0;
+                  $x = 0;
+                  $imei=0;
+                  $total1=[];
                   //print_r($result);
                   //exit;
                   foreach ($result as $row) {
@@ -185,21 +189,36 @@ if (isset($_POST)) {
                     $countryname = getCountriesById($store['country']);
                     $statename = getStatesById($store['state']);
                     $cityname = getCityById($store['city']);
-                    //print_r($countryname['name']);
+                   
+                    //$tcpdata = getnooftcpdata();
+                    //$tcpdata=$tcpdata[1];
+
+                   // $time = strtotime($tcpdata['timestamp']);
+                   // $imei+=$tcpdata['imei'];
                     $time = strtotime($row['timestamp']);
+                 //   print_r($time . " qqq");
+                   // print_r($imei . " ");
+                   // $resultl = getLivemachinestcpdata($imei);
+                   // if ($resultl>0)
+                   // {
+                    //print_r($countryname['name']);
+                    
                     //print_r($time . " ");
                     //exit;
                     date_default_timezone_set("Asia/Kolkata");
 
                     $local = date("Y-m-d H:i:s", $time);
+                  //  $local1 = date("Y-m-d H:i:s", $time1);
                     // print_r($local);
                     //exit;
 
                     $datetime1 = new DateTime();
                     //print_r($datetime1);
                     $datetime2 = new DateTime($local);
+                 //   $datetime3 = new DateTime($local1);
                     //print_r($datetime2);
                     $interval = $datetime1->diff($datetime2);
+                   // $interval = $datetime1->diff($datetime3);
                     //print_r($interval);//exit;
                     $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
                     //echo $elapsed;exit;
@@ -211,8 +230,6 @@ if (isset($_POST)) {
                     // else if($interval->m!=0){
                     //     $daysvalue=$interval->m;
                     // }
-                    //print_r($interval->days); print_r("  ");
-                    $x=0;
                     if ($interval->days > 3) {
 
                       $data[2] += 1;
@@ -225,27 +242,33 @@ if (isset($_POST)) {
                       $x++;
                     }
                   }
-                  $total = $x;
-                  $name = ['live ('.$data[0].')', 'Idle ('.$data[1].')', 'Down ('.$data[2].')'];
-                  // print_r($data); //exit;
+                //}
+                  $total1=totalcountoftcpdata();
+                 // print_r($total1);
+                  $total = $x+$total1[3];
+                  $live=$data[0]+$total1[0];
+                  $idle=$data[1]+$total1[1];
+                  $down=$data[2]+$total1[2];
+                //  print_r($total);
+                  $name = ['live ('.$live.')', 'Idle ('.$idle.')', 'Down ('.$down.')'];
+                  //print_r($name);//exit;
                   ?>
                   <script>
-                    var dataTotal = <?php echo $total; ?>;
-                    var data = <?php echo json_encode($data); ?>;
-                    var name0 = <?php echo json_encode($name); ?>;
+                    var dataTotalmain = <?php echo $total; ?>;
+                    var datamain = <?php echo json_encode($data); ?>;
+                    var namemain = <?php echo json_encode($name); ?>;
                     document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#radialBarChart"), {
-                        series: data,
+                      new ApexCharts(document.querySelector("#donutChartmain"), {
+                        series: datamain,
                         chart: {
                           //height: 350,
-                          type: 'radialBar',
-                          // toolbar: {
-                          //   show: true
-                          // }
+                          type: 'donut',
+
                         },
+
                         legend: {
                           show: true,
-                          showForSingleSeries: true,
+                          showForSingleSeries: false,
                           showForNullSeries: true,
                           showForZeroSeries: true,
                           position: 'bottom',
@@ -259,45 +282,80 @@ if (isset($_POST)) {
                             highlightDataSeries: true
                           },
                         },
+
+                        // dataLabels: {
+
+                        //   enabled: true,
+                        //   enabledOnSeries: undefined,
+                        //   formatter: function(value, {
+                        //     seriesIndex,
+                        //     dataPointIndex,
+                        //     w
+                        //   }) {
+                        //     return value
+                        //   },
+                        // },
+                        // title: {
+                        //   text: 'total ' + dataTotal,
+
+                        //   align: 'center',
+
+                        dataLabels: {
+                              //offset: 20,
+                              enabled: false,
+                              //enabledOnSeries: undefined,
+                              // formatter: function(value, {
+                              //   seriesIndex,
+                              //   dataPointIndex,
+                              //   w
+                              //}) {
+                              //   return value
+                              // },
+                            },
+
                         plotOptions: {
-                          radialBar: {
-
+                          pie: {
+                            expandOnClick: false,
                             
-                            dataLabels: {
-                             
-                              value: {
-                                show: true,
-                                  fontSize: "20px",
-                                  color: "#6a6a6a",
-                                  formatter: function(w) {
-                                  // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-                                  return w;
-                                }
 
-                              },
-                              total: {
-                              
+                            customScale: 1,
+                            donut: {
+                              size: "70%",
+                              labels: {
+                                show: true,
+                                value: {
+                                  show: true,
+                                  fontSize: "36px",
+                                  color: "#6a6a6a",
+                                },
+                                total: {
+                                  showAlways: true,
                                   show: true,
                                   label: "Total",
-                                  fontSize: "12px",
+                                  fontSize: "16px",
                                   fontWeight: "normal",
                                   color: "#707070",
-                                formatter: function(w) {
+                                  formatter: function(w) {
                                   // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-                                  return dataTotal;
-                                }
-                              }
-                            }
-                          }
+                                  return dataTotalmain;
+                                },
+                                },
+                              },
+
+                            },
+                          },
                         },
-                        labels: name0,
+
+
+                        labels: namemain,
                       }).render();
                     });
+                 
                   </script>
-                  <!-- End Radial Bar Chart -->
+                  <!-- End Donut Chart -->
 
                   <!-- </div>
-                  </div> -->
+              </div> -->
                 </div>
 
                 <!-- <div class="col-lg-3">
@@ -995,7 +1053,287 @@ if (isset($_POST)) {
                   <!-- </div>
               </div> -->
                 </div>
+                <div class="col-lg-12">
+                <div class="col-lg-3">
+                  <!-- <div class="card">
+                <div class="card-body"> -->
+                  <h5 class="card-title" style="text-align: center;">TCP REPORT</h5>
 
+                  <!-- Donut Chart -->
+                  <div id="donutChart11"></div>
+                  <?php
+                 // $query = "AND `product_type`.`name` LIKE 'WOKIE'";
+                  $data[0] = 0;
+                  $data[1] = 0;
+                  $data[2] = 0;
+                  //print_r($query);exit;
+             
+                  //$result = getLivemachines();
+                  $i = 0;
+                  $k = 0;
+                  $x = 0;
+                  $imei=0;
+                //  print_r($result);
+                  //exit;
+                  $tcpdata = getnooftcpdata();
+                  foreach ($tcpdata as $tcpd) {
+                 //   print_r($tcpd . " wer");
+                    $i++;
+                    $time = strtotime($tcpd['timestamp']);
+                    $imei+=$tcpd['imei'];
+                 //   print_r($time . " qqq");
+                   // print_r($imei . " ");
+                    $resultl = getLivemachinestcpdata($imei);
+                    if($resultl>0)
+                    {
+                  //  $machines = getSingleMachineByName($row['SLN']);
+                   // $machines = $machines[1];
+                    //print_r($machines);
+                   // $device = getAssignedDevice($machines['id']);
+                    //print_r($device);//exit;
+                    //$device = $device[1];
+                   // $brand = getBrand($device['brand_id']);
+
+                    //print_r($brand);
+                   // $user = getSingleuser($device['user_id']);
+                   // $store = getSingleStore($device['store_id']);
+                    //$ptype = $machines['ptype_id'];
+                   // $ptype_name = getptype($ptype);
+                    //print_r($ptype_name);
+                   // $countryname = getCountriesById($store['country']);
+                  //  $statename = getStatesById($store['state']);
+                  //  $cityname = getCityById($store['city']);
+                    //print_r($countryname['name']);
+                  //  $time = strtotime($row['timestamp']);
+                    //print_r($time . " ");
+                    //exit;
+                    date_default_timezone_set("Asia/Kolkata");
+
+                    $local = date("Y-m-d H:i:s", $time);
+                    // print_r($local);
+                    //exit;
+
+                    $datetime1 = new DateTime();
+                    //print_r($datetime1);
+                    $datetime2 = new DateTime($local);
+                    //print_r($datetime2);
+                    $interval = $datetime1->diff($datetime2);
+                    //print_r($interval);//exit;
+                    $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
+                    //echo $elapsed;exit;
+                    // if($interval->y!=0){
+                    //     $daysvalue=$interval->y;
+                    // }else if($interval->m!=0){
+                    //     $daysvalue=$interval->m;
+                    // }
+                    // else if($interval->m!=0){
+                    //     $daysvalue=$interval->m;
+                    // }
+                    if ($interval->days > 3) {
+
+                      $data[2] += 1;
+                      $x++;
+                    } else if ($interval->days >= 1) {
+                      $data[1] += 1;
+                      $x++;
+                    } else {
+                      $data[0] += 1;
+                      $x++;
+                    }
+                    //$name = ['live ('.$data[0].')', 'Idle ('.$data[1].')', 'Down ('.$data[2].')'];
+                  }
+
+                  }
+                  
+                  $total = $x;
+                  $name = ['live ('.$data[0].')', 'Idle ('.$data[1].')', 'Down ('.$data[2].')'];
+                  //print_r($name);//exit;
+                  ?>
+                  <script>
+                    var dataTotal111 = <?php echo $total; ?>;
+                    var data111 = <?php echo json_encode($data); ?>;
+                    var name111 = <?php echo json_encode($name); ?>;
+                    document.addEventListener("DOMContentLoaded", () => {
+                      new ApexCharts(document.querySelector("#donutChart11"), {
+                        series: data111,
+                        chart: {
+                          //height: 350,
+                          type: 'donut',
+
+                        },
+
+                        legend: {
+                          show: true,
+                          showForSingleSeries: false,
+                          showForNullSeries: true,
+                          showForZeroSeries: true,
+                          position: 'bottom',
+                          horizontalAlign: 'center',
+                          floating: false,
+
+                          onItemClick: {
+                            toggleDataSeries: true
+                          },
+                          onItemHover: {
+                            highlightDataSeries: true
+                          },
+                        },
+
+                        // dataLabels: {
+
+                        //   enabled: true,
+                        //   enabledOnSeries: undefined,
+                        //   formatter: function(value, {
+                        //     seriesIndex,
+                        //     dataPointIndex,
+                        //     w
+                        //   }) {
+                        //     return value
+                        //   },
+                        // },
+                        // title: {
+                        //   text: 'total ' + dataTotal,
+
+                        //   align: 'center',
+
+                        dataLabels: {
+                              //offset: 20,
+                              enabled: false,
+                              //enabledOnSeries: undefined,
+                              // formatter: function(value, {
+                              //   seriesIndex,
+                              //   dataPointIndex,
+                              //   w
+                              //}) {
+                              //   return value
+                              // },
+                            },
+
+                        plotOptions: {
+                          pie: {
+                            expandOnClick: false,
+                            
+
+                            customScale: 1,
+                            donut: {
+                              size: "70%",
+                              labels: {
+                                show: true,
+                                value: {
+                                  show: true,
+                                  fontSize: "36px",
+                                  color: "#6a6a6a",
+                                },
+                                total: {
+                                  showAlways: true,
+                                  show: true,
+                                  label: "Total",
+                                  fontSize: "16px",
+                                  fontWeight: "normal",
+                                  color: "#707070",
+                                  formatter: function(w) {
+                                    return w.globals.seriesTotals.reduce((a, b) => {
+                                      return a + b ;
+                                    }, 0);
+                                  },
+                                },
+                              },
+
+                            },
+                          },
+                        },
+
+
+                        labels: name111,
+                      }).render();
+                    });
+                    // document.addEventListener("DOMContentLoaded", () => {
+                    //   new ApexCharts(document.querySelector("#donutChart1"), {
+                    //     series: [44, 55, 67],
+                    //     chart: {
+                    //       //height: 350,
+                    //       type: 'radialBar',
+                    //       // toolbar: {
+                    //       //   show: true
+                    //       // }
+                    //     },
+
+                    //     legend: {
+                    //       show: true,
+                    //       showForSingleSeries: false,
+                    //       showForNullSeries: true,
+                    //       showForZeroSeries: true,
+                    //       position: 'bottom',
+                    //       horizontalAlign: 'center',
+                    //       floating: false,
+                    //       fontSize: '14px',
+                    //       fontFamily: 'Helvetica, Arial',
+                    //       fontWeight: 400,
+                    //       formatter: undefined,
+                    //       inverseOrder: false,
+                    //       width: undefined,
+                    //       height: undefined,
+                    //       tooltipHoverFormatter: undefined,
+                    //       customLegendItems: [],
+                    //       offsetX: 0,
+                    //       offsetY: 0,
+                    //       labels: {
+                    //         colors: undefined,
+                    //         useSeriesColors: false
+                    //       },
+                    //       markers: {
+                    //         width: 12,
+                    //         height: 12,
+                    //         strokeWidth: 0,
+                    //         strokeColor: '#fff',
+                    //         fillColors: undefined,
+                    //         radius: 12,
+                    //         customHTML: undefined,
+                    //         onClick: undefined,
+                    //         offsetX: 0,
+                    //         offsetY: 0
+                    //       },
+                    //       itemMargin: {
+                    //         horizontal: 5,
+                    //         vertical: 0
+                    //       },
+                    //       onItemClick: {
+                    //         toggleDataSeries: true
+                    //       },
+                    //       onItemHover: {
+                    //         highlightDataSeries: true
+                    //       },
+                    //     },
+                    //     plotOptions: {
+                    //       radialBar: {
+                    //         dataLabels: {
+                    //           name: {
+                    //             fontSize: '18px',
+                    //           },
+                    //           value: {
+                    //             fontSize: '16px',
+                    //           },
+                    //           total: {
+                    //             show: true,
+                    //             label: 'Total',
+                    //             formatter: function(w) {
+                    //               // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
+                    //               return 249
+                    //             }
+                    //           }
+                    //         }
+                    //       }
+                    //     },
+                    //     labels: ['Live', 'Idle', 'Down'],
+                    //   }).render();
+                    // });
+                  </script>
+                  <!-- End Donut Chart -->
+
+                  <!-- </div>
+              </div> -->
+                </div>
+                    </div>
 
                 <br>
                 <div class="col-lg-6">

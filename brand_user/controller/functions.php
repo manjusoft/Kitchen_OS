@@ -4,7 +4,7 @@ function connectDB()
 {
 
     //$con = mysqli_connect("localhost", "root", "", "disciple");
-    $con = mysqli_connect("localhost", "root", "Mukunda@123", "mk_db");
+    $con = mysqli_connect("localhost", "root", "", "mk_db");
 
     return $con;
 }
@@ -1413,7 +1413,7 @@ function getSingleMachine($id)
 
     if ($con) {
         $stmt = "SELECT * FROM `machines` WHERE `id`='$id'";
-        print_r($stmt);exit;
+        // print_r($stmt);exit;
 
         $i = 0;
 
@@ -3109,6 +3109,118 @@ function getPtypeAndUserMachines($id,$uid)
         }
     }
      if(!$con){
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    mysqli_close($con);
+}
+
+function getusertcpimei($user)
+{
+    $con = connectDB();
+    $data = "";
+
+    if ($con) {
+        $stmt="SELECT `tcp_register`.`imei`from `tcp_register` JOIN `tcp_assign_machine` ON `tcp_register`.`id`=`tcp_assign_machine`.`tcp_machineid` JOIN `brand_tbl` ON `brand_tbl`.`id`=`tcp_assign_machine`.`tcp_brand` JOIN `store` ON `store`.`id`=`tcp_assign_machine`.`tcp_store` JOIN `users` ON `users`.`user_id`=`tcp_assign_machine`.`tcp_pri_user` WHERE `tcp_assign_machine`.`tcp_pri_user`='$user'  and `tcp_assign_machine`.`status`=1 ";
+        // print_r($stmt);
+        //exit;
+        $i = 0;
+
+        $data = mysqli_query($con, $stmt);
+        // print_r($data);exit;
+        if ($data) {
+            while ($row = mysqli_fetch_assoc($data)) {
+                $i++;
+
+                $products[$i] = $row;
+                //print_r($row['id']);
+            }
+            //print_r($products);exit;
+            return $products;
+        } else {
+            return false;
+        }
+    }
+    if (!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    mysqli_close($con);
+}
+
+
+function getRecipeCountFromMachinePacketReport($query, $date)
+{
+    $con = connectDB();
+    $data = "";
+    $products = 0;
+    $row = [];
+   // print_r($query);
+  //  print_r($date);
+
+    if ($con) {
+        $stmt = "SELECT `rawdata`.`rc` FROM `rawdata` JOIN `machines` ON `machines`.`name`=`rawdata`.`SLN` JOIN `assigned_divices` ON `assigned_divices`.`machine_id`=`machines`.`id` AND `machines`.`assign_status`=1 AND `machines`.`status`=1 AND `assigned_divices`.`status`=1 JOIN `brand_tbl` ON `brand_tbl`.`id`=`assigned_divices`.`brand_id` JOIN `store` ON `store`.`id`=`assigned_divices`.`store_id` JOIN `users` ON `users`.`user_id`=`assigned_divices`.`user_id` $query AND `rawdata`.`timestamp` LIKE '%$date%' ORDER BY `rawdata`.`id` DESC LIMIT 1;";
+        
+        // print_r($stmt);
+        // exit;
+        //$i = 0;
+        $data = mysqli_query($con, $stmt);
+        //$row = mysqli_fetch_assoc($data);
+         //print_r($data);
+        if ($data->num_rows>0) {
+
+
+            $row = mysqli_fetch_assoc($data);
+            //print_r($row);exit;
+            // if(empty($row)){
+            //     $row['rc']==0;
+            // }
+            $products = $row['rc'];
+
+
+            //print_r($row['rc']);
+
+
+            return $products;
+        } else {
+            // $row['rc']==0;
+            // $products = $row['rc'];
+            return $products;
+        }
+    } else {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    mysqli_close($con);
+}
+
+
+function getRecipeCountFromMachinePacketMaxRcReport($query, $date)
+{
+    $con = connectDB();
+    $data = "";
+    $products = [];
+    if ($con) {
+        $stmt = "SELECT max(`rawdata`.`rc`) as `rc`,`rawdata`.`SLN` FROM `rawdata` JOIN `machines` ON `machines`.`name`=`rawdata`.`SLN` JOIN `assigned_divices` ON `assigned_divices`.`machine_id`=`machines`.`id` AND `machines`.`assign_status`=1 AND `machines`.`status`=1 AND `assigned_divices`.`status`=1 JOIN `brand_tbl` ON `brand_tbl`.`id`=`assigned_divices`.`brand_id` JOIN `store` ON `store`.`id`=`assigned_divices`.`store_id` JOIN `users` ON `users`.`user_id`=`assigned_divices`.`user_id` $query AND `rawdata`.`timestamp` LIKE '%$date%' GROUP BY `rawdata`.`SLN`;";
+        //print_r($stmt);
+        // exit;
+        $i = 0;
+
+        $data = mysqli_query($con, $stmt);
+        //$row = mysqli_fetch_assoc($data);
+        //  print_r($row);
+        // print_r($row);exit;
+        if ($data->num_rows>0) {
+            while ($row = mysqli_fetch_assoc($data)) {
+                $i++;
+
+                $products[$i] = $row;
+                // print_r($row);
+
+            }
+            //print_r($products);exit;
+            return $products;
+        } else {
+            return $products;
+        }
+    } else {
         die("Connection failed: " . mysqli_connect_error());
     }
     mysqli_close($con);

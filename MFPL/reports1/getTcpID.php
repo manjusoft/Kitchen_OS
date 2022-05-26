@@ -14,10 +14,17 @@ $tcp_Mtype = $tcp_ID['tcp_machine_type'];
 $tcp_sr = $tcp_ID['tcp_sr'];
 $tcp_instaltable = $tcp_ID['tcp_instaldate'];
 
+$tcp_low_threshold=$tcp_ID['tcp_low_threshold'];
+$tcp_high_threshold=$tcp_ID['tcp_high_threshold'];
+
 $response['imei']=$tcp_imei;
 $response['tcp_machine_type']=$tcp_Mtype;
 $response['tcp_sr']=$tcp_sr;
 $response['tcp_instaltable']=$tcp_instaltable;
+
+$response['tcp_low_threshold']=$tcp_low_threshold;
+$response['tcp_high_threshold']=$tcp_high_threshold;
+
 
 echo json_encode($response);
 

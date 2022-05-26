@@ -91,7 +91,7 @@ session_start();
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                     <li class="breadcrumb-item ">TCP </li>
-                    <li class="breadcrumb-item active">TCP Register </li>
+                    <li class="breadcrumb-item active">TCP Update Device </li>
                 </ol>
             </nav>
         </div>
@@ -104,14 +104,8 @@ session_start();
                     <!-- Bordered Tabs Justified -->
                     <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
                         <li class="nav-item flex-fill" role="presentation">
-                            <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="true">Register</button>
+                            <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="true">Update Device</button>
                         </li>
-                        <!-- <li class="nav-item flex-fill" role="presentation">
-                            <button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Store</button>
-                        </li> -->
-                        <!--<li class="nav-item flex-fill" role="presentation">
-                            <button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Store</button>
-                        </li> -->
                     </ul>
                     <div class="tab-content pt-2" id="borderedTabJustifiedContent">
                         <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
@@ -135,56 +129,55 @@ session_start();
                                     <div class="card-body"> -->
                                         <div class="col-lg-12">
                                             <h5 class="card-title"></h5>
-                                            <form class="row g-3" id="registerTCP">
+                                            <form class="row g-3" id="updateTCP">
 
 
-                                                <div class="col-md-6">
+                                            <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select" id="tcp_machineid" name="tcp_machineid" aria-label="State">
+                                                    <option value=""></option>
+                                                    <?php
+                                                    $imei =  gettcpdevices();
+
+                                                    //print_r($imei);exit;
+                                                    foreach ($imei as $machine) {
+                                                    ?>
+                                                        <option value="<?php echo  $machine['id']; ?>"><?php echo  $machine['imei']; ?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <label for="floatingSelect">TCP Machine</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="machinetype" name="machinetype" placeholder="machinetype" readonly>
+                                                <label for="floatingSelect">Machine Type</label>
+                                            </div>
+                                        </div>
+
+                                                <div class="col-md-4">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" id="imei" name="imei" autocomplete="off" placeholder="Your Name" required>
-                                                        <label for="floatingName">IMEI <span style="color:red">*</span></label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-floating mb-3">
-                                                        <select class="form-select" id="tcp_machine_type" aria-label="State" name="tcp_machine_type" placeholder="Machine Type" required>
-                                                            <option> </option>
-                                                            <option> TCP </option>
-
-                                                        </select>
-                                                        <label for="floatingSelect">Machine Type <span style="color:red">*</span></label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" class="form-control" id="tcp_sr" name="tcp_sr" autocomplete="off" placeholder="Software Revision" maxlength="20" required>
+                                                        <input type="text" class="form-control" id="tcp_sr" name="tcp_sr" autocomplete="off" placeholder="Software Revision" maxlength="20" readonly>
                                                         <label for="floatingName">Software Revision <span style="color:red">*</span></label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <input type="number" class="form-control" id="tcp_low_threshold" name="tcp_low_threshold" autocomplete="off" placeholder="Low Threshold " maxlength="20" required>
+                                                        <input type="number" class="form-control" id="tcp_low_threshold" name="tcp_low_threshold" autocomplete="off" placeholder="Low Threshold " maxlength="20" readonly>
                                                         <label for="floatingName">Low Threshold <span style="color:red">*</span></label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <input type="number" class="form-control" id="tcp_high_threshold" name="tcp_high_threshold" autocomplete="off" placeholder="High Threshold" maxlength="20" required>
+                                                        <input type="number" class="form-control" id="tcp_high_threshold" name="tcp_high_threshold" autocomplete="off" placeholder="High Threshold" maxlength="20" readonly>
                                                         <label for="floatingName">High Threshold <span style="color:red">*</span></label>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="date" class="form-control" id="tcp_istaldate" name="tcp_instaldate" autocomplete="off" max="<?= date('Y-m-d'); ?>" placeholder="PINCODE">
-                                                        <label for="floatingName">Installation Date</label>
-                                                    </div>
-                                                </div>
-
-
-
                                                 <div class="text-center">
-                                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Register</button>
+                                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Submit</button>
                                                     <button type="reset" class="btn btn-secondary">Reset</button>
                                                 </div>
                                             </form>
@@ -206,7 +199,7 @@ session_start();
 
                     <div class="card">
                         <div class="card-body" style="overflow-x:auto;">
-                            <h5 class="card-title">TCP Register List</h5>
+                            <h5 class="card-title">TCP Update Device List</h5>
 
 
                             <table id="updateDeviceList" class="table datatable">
@@ -603,87 +596,48 @@ session_start();
     </main>
     <?php include "footer.php"; ?>
     <script>
-        $(document).ready(function(e) {
-            $("#registerTCP").on('submit', (function(e) {
-                e.preventDefault();
-                // $('#loader-icon').show();
-                //var valid;  
-                //valid = validateContact();
-                //if(valid) {
-                // console.log("Heloo");
+       
+       $(document).ready(function() {
+            $('#tcp_machineid').on('change', function() {
+
+
                 $.ajax({
-                    url: "tcpmodel/TCP_register_process.php",
+                    url: "tcpmodel/get_tcpmachines.php",
                     type: "POST",
-                    data: new FormData(this),
-                    contentType: false,
+                    data: {
+                        id: this.value
+                    },
                     cache: false,
-                    processData: false,
-                    success: function(res) {
-                        var obj = jQuery.parseJSON(res);
+                    success: function(data) {
+                        var obj = jQuery.parseJSON(data);
                         var string1 = obj.error;
                         var output = obj.error_msg;
-                        console.log(output);
+
                         if (obj.error == 0) {
 
-                            Swal.fire({
-                                icon: 'success',
-                                text: output,
-                                timer: 3500
+                            // console.log(output['tcp_machine_type']);
 
-                            })
-                            //alert(obj.error_msg);
-
-                            //$("#brandlist1").load(" #brandlist1 > *");
-                           
-                            setTimeout(function() {
-                                $("#updateDeviceList").load(window.location.href + " #updateDeviceList");
-                                 //window.location.href = 'TCPRegister.php';
-                                //$('#borderedTabJustified a[href=#bordered-justified-contact]').tab('show');
-
-
-                            }, 2000);
-
-
-                            // $("#storelist").load(" #storelist > *");
-                            //$("#bordered-justified-contact").load(window.location.href + " #bordered-justified-contact");
-
-                        } else if (obj.error == 3) {
-                            Swal.fire({
-                                icon: 'error',
-                                text: output,
-                                timer: 3500,
-                                //    loadlink();
-                            })
-
-
-
+                            $("#machinetype").val(output['tcp_machine_type']);
+                            $("#tcp_sr").val(output['tcp_sr']);
+                            $("#tcp_low_threshold").val(output['tcp_low_threshold']);
+                            $("#tcp_high_threshold").val(output['tcp_high_threshold']);
 
 
 
                         } else {
-                            //$(".content").html(popup());
-                            //alert(obj.error_msg);
-                            // window.location.href = '../admin/add_product.php';
-                            //$('#login_for_review').html(output).modal('show');
-                            //BootstrapDialog.alert(output);
+
                             Swal.fire({
                                 icon: 'error',
                                 text: output,
                                 timer: 1500
 
                             })
-                            //$("#brandlist1").load(window.location.href + " #brandlist1");
-                            //$("#brandlist1").load(" #brandlist1 > *");
+
                         }
-
-                    },
-                    error: function() {}
-
+                    }
                 });
-                //}
-            }));
+            });
         });
-
 
 
         function viewmodel(mid) {
@@ -742,158 +696,158 @@ session_start();
             });
         }
 
-        $(document).ready(function(e) {
-            $("#edit_tcp").on('submit', (function(e) {
-                e.preventDefault();
+        // $(document).ready(function(e) {
+        //     $("#edit_tcp").on('submit', (function(e) {
+        //         e.preventDefault();
        
-                $.ajax({
-                    type: "POST",
-                    url: "reports1/edit_Tcp_register.php",
-                    data: new FormData(this),
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function(data) {
-                        var obj = jQuery.parseJSON(data);
-                        console.log(obj);
-                        var string1 = obj.error;
-                        var output = obj.error_msg;
+        //         $.ajax({
+        //             type: "POST",
+        //             url: "reports1/edit_Tcp_register.php",
+        //             data: new FormData(this),
+        //             contentType: false,
+        //             cache: false,
+        //             processData: false,
+        //             success: function(data) {
+        //                 var obj = jQuery.parseJSON(data);
+        //                 console.log(obj);
+        //                 var string1 = obj.error;
+        //                 var output = obj.error_msg;
 
-                        if (obj.error == 0) {
+        //                 if (obj.error == 0) {
 
-                            Swal.fire({
-                                icon: 'success',
-                                text: output,
-                                timer: 3500
+        //                     Swal.fire({
+        //                         icon: 'success',
+        //                         text: output,
+        //                         timer: 3500
 
-                            })
-                            //alert(obj.error_msg);
+        //                     })
+        //                     //alert(obj.error_msg);
 
-                            //$("#brandlist1").load(" #brandlist1 > *");
-                            //$("#brandlist1").load(window.location.href + " #brandlist1");
-                            setTimeout(function() {
-                                window.location.href = 'TCPRegister.php?page=1';
-                                //$('#borderedTabJustified a[href=#bordered-justified-contact]').tab('show');
-
-
-                            }, 2000);
+        //                     //$("#brandlist1").load(" #brandlist1 > *");
+        //                     //$("#brandlist1").load(window.location.href + " #brandlist1");
+        //                     setTimeout(function() {
+        //                         window.location.href = 'TCPRegister.php?page=1';
+        //                         //$('#borderedTabJustified a[href=#bordered-justified-contact]').tab('show');
 
 
-                            // $("#storelist").load(" #storelist > *");
-                            //$("#bordered-justified-contact").load(window.location.href + " #bordered-justified-contact");
-
-                        } else if (obj.error == 3) {
-                            Swal.fire({
-                                icon: 'error',
-                                text: output,
-                                timer: 3500,
-                                //    loadlink();
-                            })
+        //                     }, 2000);
 
 
+        //                     // $("#storelist").load(" #storelist > *");
+        //                     //$("#bordered-justified-contact").load(window.location.href + " #bordered-justified-contact");
+
+        //                 } else if (obj.error == 3) {
+        //                     Swal.fire({
+        //                         icon: 'error',
+        //                         text: output,
+        //                         timer: 3500,
+        //                         //    loadlink();
+        //                     })
 
 
 
 
-                        } else {
-                            //$(".content").html(popup());
-                            //alert(obj.error_msg);
-                            // window.location.href = '../admin/add_product.php';
-                            //$('#login_for_review').html(output).modal('show');
-                            //BootstrapDialog.alert(output);
-                            Swal.fire({
-                                icon: 'error',
-                                text: output,
-                                timer: 1500
 
-                            })
-                            //$("#brandlist1").load(window.location.href + " #brandlist1");
-                            //$("#brandlist1").load(" #brandlist1 > *");
-                        }
 
-                    },
-                    error: function() {}
-                })
-            }))
-        })
+        //                 } else {
+        //                     //$(".content").html(popup());
+        //                     //alert(obj.error_msg);
+        //                     // window.location.href = '../admin/add_product.php';
+        //                     //$('#login_for_review').html(output).modal('show');
+        //                     //BootstrapDialog.alert(output);
+        //                     Swal.fire({
+        //                         icon: 'error',
+        //                         text: output,
+        //                         timer: 1500
+
+        //                     })
+        //                     //$("#brandlist1").load(window.location.href + " #brandlist1");
+        //                     //$("#brandlist1").load(" #brandlist1 > *");
+        //                 }
+
+        //             },
+        //             error: function() {}
+        //         })
+        //     }))
+        // })
     
 
 
 
-        $(document).ready(function(e) {
-            $("#delete_tcp").on('submit', (function(e) {
-                e.preventDefault();
+        // $(document).ready(function(e) {
+        //     $("#delete_tcp").on('submit', (function(e) {
+        //         e.preventDefault();
        
-                $.ajax({
-                    type: "POST",
-                    url: "reports1/delete_Tcp_register.php",
-                    data: new FormData(this),
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function(data) {
-                        var obj = jQuery.parseJSON(data);
-                        console.log(obj);
-                        var string1 = obj.error;
-                        var output = obj.error_msg;
+        //         $.ajax({
+        //             type: "POST",
+        //             url: "reports1/delete_Tcp_register.php",
+        //             data: new FormData(this),
+        //             contentType: false,
+        //             cache: false,
+        //             processData: false,
+        //             success: function(data) {
+        //                 var obj = jQuery.parseJSON(data);
+        //                 console.log(obj);
+        //                 var string1 = obj.error;
+        //                 var output = obj.error_msg;
 
-                        if (obj.error == 0) {
+        //                 if (obj.error == 0) {
 
-                            Swal.fire({
-                                icon: 'success',
-                                text: output,
-                                timer: 3500
+        //                     Swal.fire({
+        //                         icon: 'success',
+        //                         text: output,
+        //                         timer: 3500
 
-                            })
-                            //alert(obj.error_msg);
+        //                     })
+        //                     //alert(obj.error_msg);
 
-                            //$("#brandlist1").load(" #brandlist1 > *");
-                            //$("#brandlist1").load(window.location.href + " #brandlist1");
-                            setTimeout(function() {
-                                window.location.href = 'TCPRegister.php?page=1';
-                                //$('#borderedTabJustified a[href=#bordered-justified-contact]').tab('show');
-
-
-                            }, 2000);
+        //                     //$("#brandlist1").load(" #brandlist1 > *");
+        //                     //$("#brandlist1").load(window.location.href + " #brandlist1");
+        //                     setTimeout(function() {
+        //                         window.location.href = 'TCPRegister.php?page=1';
+        //                         //$('#borderedTabJustified a[href=#bordered-justified-contact]').tab('show');
 
 
-                            // $("#storelist").load(" #storelist > *");
-                            //$("#bordered-justified-contact").load(window.location.href + " #bordered-justified-contact");
-
-                        } else if (obj.error == 3) {
-                            Swal.fire({
-                                icon: 'error',
-                                text: output,
-                                timer: 3500,
-                                //    loadlink();
-                            })
+        //                     }, 2000);
 
 
+        //                     // $("#storelist").load(" #storelist > *");
+        //                     //$("#bordered-justified-contact").load(window.location.href + " #bordered-justified-contact");
+
+        //                 } else if (obj.error == 3) {
+        //                     Swal.fire({
+        //                         icon: 'error',
+        //                         text: output,
+        //                         timer: 3500,
+        //                         //    loadlink();
+        //                     })
 
 
 
 
-                        } else {
-                            //$(".content").html(popup());
-                            //alert(obj.error_msg);
-                            // window.location.href = '../admin/add_product.php';
-                            //$('#login_for_review').html(output).modal('show');
-                            //BootstrapDialog.alert(output);
-                            Swal.fire({
-                                icon: 'error',
-                                text: output,
-                                timer: 1500
 
-                            })
-                            //$("#brandlist1").load(window.location.href + " #brandlist1");
-                            //$("#brandlist1").load(" #brandlist1 > *");
-                        }
 
-                    },
-                    error: function() {}
-                })
-            }))
-        })
+        //                 } else {
+        //                     //$(".content").html(popup());
+        //                     //alert(obj.error_msg);
+        //                     // window.location.href = '../admin/add_product.php';
+        //                     //$('#login_for_review').html(output).modal('show');
+        //                     //BootstrapDialog.alert(output);
+        //                     Swal.fire({
+        //                         icon: 'error',
+        //                         text: output,
+        //                         timer: 1500
+
+        //                     })
+        //                     //$("#brandlist1").load(window.location.href + " #brandlist1");
+        //                     //$("#brandlist1").load(" #brandlist1 > *");
+        //                 }
+
+        //             },
+        //             error: function() {}
+        //         })
+        //     }))
+        // })
     
        
     </script>

@@ -1,6 +1,6 @@
 <?php
-require_once "controller/tcp_function.php";;
-require_once   "controller\device_datatables.php";
+require_once "controller/tcp_function.php";
+require_once   "controller/device_datatables.php";
 //Start the session.
 session_start();
 ?>
@@ -85,7 +85,7 @@ session_start();
                                                     foreach ($ptypes  as $ptype) {
 
                                                     ?>
-                                                        <option value="<?php echo $ptype['tcp_brand']; ?>"><?php echo $ptype['imei']; ?></option>
+                                                        <option value="<?php echo $ptype['imei']; ?>"><?php echo $ptype['imei']; ?></option>
                                                     <?php
                                                     }
                                                     ?>
@@ -144,14 +144,6 @@ session_start();
             </div>
 
 
-
-
-            <!-- Data between timestamps diplayed -->
-          
-
-
-
-            <!-- TCP Graph -->
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
@@ -336,14 +328,58 @@ session_start();
                     url: 'reports/tcp_chart.php',
                     data: data,
                     success: function(responce) {
-
+                        var temp1=[];timestamp=[];
                         // console.log(responce);
+                        //var obj =responce;
                         var obj = jQuery.parseJSON(responce);
-                        console.log(obj);
+                       // console.log(obj);
+                       // console.log(obj.imei);
                         var temp = obj.temp;
                         var timestamp = obj.dateInLocal;
+                        var low_threshold=obj.tcp_low_threshold;
+                        var high_threshold=obj.tcp_high_threshold;
 
-                        if (temp[0] != '') {
+                        var tempArray='';
+                        if(low_threshold == "")
+                        {
+                        for ( var i = 0; i < obj.imei.length; i++) {
+                            var imeiname=obj.imei[i];
+                        //     console.log("qqqqqqq",imeiname);
+                        //     console.log("qqqqqqq",obj);
+                        //    console.log("qqqqqqq",obj[imeiname].temp);
+                        if(obj[imeiname]!=null){
+                            temp1[i]=obj[imeiname].temp;
+                            //tempArray+="{name: 'Temprature '"+i+", data: "+temp[i]+"},";
+                            timestamp[i]=obj[imeiname].dateInLocal;
+                            tempArray+="{x:"+timestamp[i]+","+"y:"+temp1[i]+"},";
+                        }else{
+                            temp1[i]='';
+                            //tempArray+="{name: 'Temprature '"+i+", data: "+temp[i]+"},";
+                            timestamp[i]='';
+                            tempArray+="{x:"+timestamp[i]+","+"y:"+temp1[i]+"},";
+                        }
+                            
+                           // console.log(temp1);
+                      //     console.log(timestamp);
+                           
+                        }
+                       // console.log(temp1);
+                    }
+                    console.log("qqqqqq",temp);
+                   
+                
+
+
+
+                        // // console.log(responce);
+                        // var obj = jQuery.parseJSON(responce);
+                        // //console.log(obj);
+                        // var temp = obj.temp;
+                        // var timestamp = obj.dateInLocal;
+                        // var low_threshold=obj.tcp_low_threshold;
+                        // var high_threshold=obj.tcp_high_threshold;
+
+                        if (temp!= '') {
 
 
 
@@ -372,7 +408,7 @@ session_start();
                                     enabled: false
                                 },
                                 series: [{
-                                    name: 'Temperature',
+                                    name:'Temprature',
                                     data: temp
                                 }],
                                 markers: {
@@ -391,6 +427,13 @@ session_start();
                                     axisBorder: {
                                         show: false
                                     },
+                                    // datetimeFormatter: {
+                                    //         year: 'yyyy',
+                                    //         month: 'MM',
+                                    //         day: 'dd',
+                                    //         hour: 'HH:mm:ss'
+                                    //     },
+              
                                     axisTicks: {
                                         show: false
                                     }
@@ -412,7 +455,7 @@ session_start();
                                 },
                                 tooltip: {
                                     x: {
-                                        format: "dd MMM yyyy H:m:s"
+                                        format: "dd MM yyyy H:m:s"
                                     },
                                 },
                                 legend: {
@@ -422,12 +465,52 @@ session_start();
                                 fill: {
                                     type: "solid",
                                     fillOpacity: 0.7
+                                },
+                                annotations: {
+                                    yaxis: [
+                                        {
+                                            y: low_threshold,
+                                            y2: high_threshold,
+                                            strokeDashArray: 5,
+                                            borderColor: 'red',
+                                             fillColor: '',
+                                            borderWidth: '15px',
+                                            opacity: 0.3,
+                                            // offsetX: 0,
+                                            // offsetY: -3,
+                                            width: '100%',
+                                            label: {
+                                               // borderColor: '#c2c2c2',
+                                               // borderWidth: 1,
+                                               // borderRadius: 2,
+                                                text: 'Thresholds',
+                                                textAnchor: 'end',
+                                                position: 'right',
+                                               // offsetX: 0,
+                                               // offsetY: 0,
+                                               // mouseEnter: undefined,
+                                              //  mouseLeave: undefined,
+                                            // text: 'Y-axis range'
+                                            }
+                                        }
+                                    ]
                                 }
-                            };
 
+
+                            };
+                            
                             var chart = new ApexCharts(document.querySelector("#columnChart"), options);
 
                             chart.render();
+
+                            // var url = 'http://my-json-server.typicode.com/apexcharts/apexcharts.js/yearly';
+
+                            // $.getJSON(url, function(response) {
+                            // chart.updateSeries([{
+                            //     name: 'TEMPRATURE',
+                            //     data: tempArray
+                            // }])
+                            // });
 
                             // function generateDayWiseTimeSeries(s, count) {
                             //     var values = [

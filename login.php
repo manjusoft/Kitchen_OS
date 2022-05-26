@@ -126,6 +126,8 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 
                         $_SESSION['mid_user'] = $row['id'];
 
+                     //   $_SESSION['brand'] = $row['brand_name'];
+
                         header("Location: brand_user_manager/index.php");
 
                         exit();

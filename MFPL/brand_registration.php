@@ -229,6 +229,19 @@ session_start();
                                                     <label for="password">Password</label>
                                                 </div>
                                             </div>
+                                            <div class="col-md-12">
+                                                            <div class="form-floating">
+                                                                <input type="text" class="form-control" id="brandaddreason" name="brandaddreason" placeholder="Reason to Add">
+                                                                <label for="floatingEmail">Reason to Add</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-floating">
+                                                                <input type="text" class="form-control" id="brandaddby" name="brandaddby" placeholder="Add by">
+                                                                <label for="floatingEmail">Add by</label>
+                                                            </div>
+                                                        </div>
+
 
                                             <div id="display_error"></div>
 
@@ -282,6 +295,10 @@ session_start();
                                                                     <th scope="col">Designation</th>
                                                                     <th scope="col">Phone</th>
                                                                     <th scope="col">Email</th>
+                                                                    <th scope="col">Add Reason</th>
+                                                                    <th scope="col">Add by</th>
+
+                                                                    <th scope="col">Created_Timestamp</th>
 
                                                                     <th style="display:none"></th>
                                                                 </tr>
@@ -294,6 +311,13 @@ session_start();
                                                                 foreach ($result as $row) {
                                                                     $i++;
                                                                     // print_r($row);
+
+                                                                    $timezone = new DateTimeZone('Asia/Kolkata');
+
+                                                                    $date = new DateTime($row['timestamp']);
+                                                                    $date->setTimeZone($timezone);
+                                                                    $time = $date->format('D d M Y g:i:s A') . "\n";
+
                                                                     $countryname = getCountriesById($row['country']);
                                                                     $statename = getStatesById($row['state']);
                                                                     $cityname = getCityById($row['city']);
@@ -317,6 +341,10 @@ session_start();
                                                                         <td><?php echo $row['bp_designation']; ?></td>
                                                                         <td><?php echo $row['bp_phone']; ?></td>
                                                                         <td><?php echo $row['bp_email']; ?></td>
+                                                                        <td><?php echo $row['addreason']; ?></td>
+                                                                        <td><?php echo $row['addby']; ?></td>
+                                                                        <td><?php echo $time; ?></td>
+
                                                                         <td style="display:none"><?php echo $row['id']; ?></td>
                                                                         <td style="display:none"><?php echo $row['country']; ?></td>
                                                                         <td style="display:none"><?php echo $row['state']; ?></td>
@@ -366,6 +394,7 @@ session_start();
                                                                     <th scope="col">Email</th>
                                                                     <th scope="col">Reason</th>
                                                                     <th scope="col">Update by</th>
+                                                                    <th scope="col">Updated_Timestamp</th>
 
                                                                     <th style="display:none"></th>
                                                                 </tr>
@@ -380,6 +409,11 @@ session_start();
                                                                         $i++;
 
                                                                         // print_r($row);
+                                                                        $timezone = new DateTimeZone('Asia/Kolkata');
+
+                                                                        $date = new DateTime($row['timestamp']);
+                                                                        $date->setTimeZone($timezone);
+                                                                        $time = $date->format('D d M Y g:i:s A') . "\n";
                                                                         $countryname = getCountriesById($row['country']);
                                                                         $statename = getStatesById($row['state']);
                                                                         $cityname = getCityById($row['city']);
@@ -403,6 +437,8 @@ session_start();
                                                                             <td><?php echo $row['bp_email']; ?></td>
                                                                             <td><?php echo $row['reason']; ?></td>
                                                                             <td><?php echo $row['updateby']; ?></td>
+                                                                            <td><?php echo $time; ?></td>
+                                                                            
                                                                             <td style="display:none"><?php echo $row['id']; ?></td>
                                                                             <td style="display:none"><?php echo $row['country']; ?></td>
                                                                             <td style="display:none"><?php echo $row['state']; ?></td>
@@ -452,7 +488,8 @@ session_start();
                                                                     <th scope="col">Phone</th>
                                                                     <th scope="col">Email</th>
                                                                     <th scope="col">Reason</th>
-                                                                    <th scope="col">Update by</th>
+                                                                    <th scope="col">Removed by</th>
+                                                                    <th scope="col">Removed_Timestamp</th>
 
                                                                     <th style="display:none"></th>
                                                                 </tr>
@@ -465,6 +502,12 @@ session_start();
                                                                 foreach ($result as $row) {
                                                                     if ($row['record'] == 2) {
                                                                         $i++;
+
+                                                                        $timezone = new DateTimeZone('Asia/Kolkata');
+
+                                                                        $date = new DateTime($row['timestamp']);
+                                                                        $date->setTimeZone($timezone);
+                                                                        $time = $date->format('D d M Y g:i:s A') . "\n";
 
                                                                         // print_r($row);
                                                                         $countryname = getCountriesById($row['country']);
@@ -490,6 +533,8 @@ session_start();
                                                                             <td><?php echo $row['bp_email']; ?></td>
                                                                             <td><?php echo $row['reason']; ?></td>
                                                                             <td><?php echo $row['updateby']; ?></td>
+                                                                            <td><?php echo $time; ?></td>
+
                                                                             <td style="display:none"><?php echo $row['id']; ?></td>
                                                                             <td style="display:none"><?php echo $row['country']; ?></td>
                                                                             <td style="display:none"><?php echo $row['state']; ?></td>
@@ -640,13 +685,21 @@ session_start();
                                                             <label for="email">Email Id</label>
                                                         </div>
                                                     </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control" id="password1" name="password" placeholder="password" readonly>
+                                                            <label for="password">Password</label>
+                                                        </div>
+                                                    </div>
+                                                    
                                                     <div class="col-md-6">
                                                         <div class="form-floating">
                                                             <input type="hidden" class="form-control" id="id1" name="id" placeholder="id" readonly>
                                                             <!-- <label for="email">Email Id</label> -->
                                                         </div>
                                                     </div>
-
+                                                    
 
 
                                                     <div class="text-center">
@@ -949,11 +1002,22 @@ session_start();
                                                     <span id="storemessage"></span>
                                                 </div>
                                             </div>
-
+                                                          <div class="col-md-12">
+                                                            <div class="form-floating">
+                                                                <input type="text" class="form-control" id="storeaddreason" name="storeaddreason" placeholder="Reason to Add">
+                                                                <label for="floatingEmail">Reason to Add</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-floating">
+                                                                <input type="text" class="form-control" id="storeaddby" name="storeaddby" placeholder="Add by">
+                                                                <label for="floatingEmail">Add by</label>
+                                                            </div>
+                                                        </div>
 
 
                                             <div class="text-center">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary" id="storesubmit">Submit</button>
                                                 <button type="reset" class="btn btn-secondary">Reset</button>
                                             </div>
                                         </form>
@@ -1003,6 +1067,10 @@ session_start();
                                                                         <th scope="col">Country</th>
                                                                         <th scope="col">state</th>
                                                                         <th scope="col">city</th>
+                                                                        <th scope="col">Add Reason</th>
+                                                                        <th scope="col">Added By</th>
+                                                                        <th scope="col">Created_Timestamp</th>
+
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -1012,6 +1080,13 @@ session_start();
                                                                     $y = 0;
                                                                     foreach ($stores as $store) {
                                                                         $y++;
+
+                                                                        $timezone = new DateTimeZone('Asia/Kolkata');
+
+                                                                        $date = new DateTime($store['timestamp']);
+                                                                        $date->setTimeZone($timezone);
+                                                                        $time = $date->format('D d M Y g:i:s A') . "\n";
+
                                                                         $countryname = getCountriesById($store['country']);
                                                                         $statename = getStatesById($store['state']);
                                                                         $cityname = getCityById($store['city']);
@@ -1036,6 +1111,9 @@ session_start();
                                                                             <td><?php echo $countryname['name']; ?></td>
                                                                             <td><?php echo $statename['name']; ?></td>
                                                                             <td><?php echo $cityname['name']; ?></td>
+                                                                            <td><?php echo $store['addreason']; ?></td>
+                                                                            <td><?php echo $store['addby']; ?></td>
+                                                                            <td><?php echo $time; ?></td>
                                                                             <!-- <td>bapukhatavi@gmail.com</td> -->
                                                                             <!-- <td><i class="bi bi-pencil"></i></td>
                                                         <td><i class="bi bi-trash"></i></td> -->
@@ -1081,6 +1159,7 @@ session_start();
                                                                         <th scope="col">pincode</th>
                                                                         <th scope="col">reason</th>
                                                                         <th scope="col">Updated by</th>
+                                                                        <th scope="col">Updated_Timestamp</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -1093,6 +1172,15 @@ session_start();
 
 
                                                                             $y++;
+                                                                            $timezone = new DateTimeZone('Asia/Kolkata');
+
+                                                                            $date = new DateTime($store['timestamp']);
+                                                                            $date->setTimeZone($timezone);
+                                                                            $time = $date->format('D d M Y g:i:s A') . "\n";
+
+
+
+
                                                                             $countryname = getCountriesById($store['country']);
                                                                             $statename = getStatesById($store['state']);
                                                                             $cityname = getCityById($store['city']);
@@ -1116,6 +1204,7 @@ session_start();
                                                                                 <td><?php echo $store['pincode']; ?></td>
                                                                                 <td><?php echo $store['reason']; ?></td>
                                                                                 <td><?php echo $store['updateby']; ?></td>
+                                                                                <td><?php echo $time; ?></td>
                                                                                 <!-- <td>bapukhatavi@gmail.com</td> -->
                                                                                 <!-- <td><i class="bi bi-pencil"></i></td>
                                                         <td><i class="bi bi-trash"></i></td> -->
@@ -1161,7 +1250,8 @@ session_start();
                                                                         <th scope="col">city</th>
                                                                         <th scope="col">pincode</th>
                                                                         <th scope="col">reason</th>
-                                                                        <th scope="col">Updated by</th>
+                                                                        <th scope="col">Removed by</th>
+                                                                        <th scope="col">Removed_Timestamp</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -1174,6 +1264,14 @@ session_start();
 
 
                                                                             $y++;
+
+                                                                            $timezone = new DateTimeZone('Asia/Kolkata');
+
+                                                                            $date = new DateTime($store['timestamp']);
+                                                                            $date->setTimeZone($timezone);
+                                                                            $time = $date->format('D d M Y g:i:s A') . "\n";
+
+
                                                                             $countryname = getCountriesById($store['country']);
                                                                             $statename = getStatesById($store['state']);
                                                                             $cityname = getCityById($store['city']);
@@ -1197,6 +1295,7 @@ session_start();
                                                                                 <td><?php echo $store['pincode']; ?></td>
                                                                                 <td><?php echo $store['reason']; ?></td>
                                                                                 <td><?php echo $store['updateby']; ?></td>
+                                                                                <td><?php echo $time; ?></td>
                                                                                 <!-- <td>bapukhatavi@gmail.com</td> -->
                                                                                 <!-- <td><i class="bi bi-pencil"></i></td>
                                                                                        <td><i class="bi bi-trash"></i></td> -->
@@ -1654,6 +1753,57 @@ session_start();
 
 
 
+
+$(document).ready(function (){
+    //$('#submit').attr('disabled', true);
+    validate1();
+    $('#brandname, #outlets, #address,#pincode,#country,#state,#city,#personname,#designation,#phone,#email,#password').change(validate1);
+});
+
+function validate1(){
+    if ($('#brandname').val().length   >   0   &&
+        $('#outlets').val().length  >   0   &&
+        $('#address').val().length  >   0   &&
+        $('#pincode').val().length  >   0   &&
+        $('#country').val().length  >   0   &&
+        $('#state').val().length  >   0   &&
+        $('#city').val().length  >   0   &&
+        $('#personname').val().length  >   0   &&
+        $('#designation').val().length  >   0   &&
+        $('#phone').val().length  >   0   &&
+        $('#email').val().length  >   0   &&
+        $('#password').val().length    >   0) {
+        $("#submit").prop("disabled", false);
+    }
+    else {
+        $("#submit").prop("disabled", true);
+    }
+}
+
+$(document).ready(function (){
+    //$('#submit').attr('disabled', true);
+    validate();
+    $('#storebrandid, #storename, #storeperson,#storecontact,#storecountry,#storestate,#storecity,#storepincode').change(validate);
+});
+
+function validate(){
+    if ($('#storebrandid').val().length   >   0   &&
+        $('#storename').val().length  >   0   &&
+        $('#storeperson').val().length  >   0   &&
+        $('#storecontact').val().length  >   0   &&
+        $('#storecountry').val().length  >   0   &&
+        $('#storestate').val().length  >   0   &&
+        $('#storecity').val().length  >   0   &&
+        $('#storepincode').val().length    >   0) {
+        $("#storesubmit").prop("disabled", false);
+    }
+    else {
+        $("#storesubmit").prop("disabled", true);
+    }
+}
+
+
+
         $(document).ready(function(e) {
             $("#branddelete").on('submit', (function(e) {
                 e.preventDefault();
@@ -2100,7 +2250,7 @@ session_start();
             var badColor = "#FF9B37";
             var gc = "#FFFFFF";
             if (mobile.value != 0) {
-                if (mobile.value.length != 6) {
+                if ((mobile.value.length != 6) && (mobile.value.length != 7 )) {
 
                     mobile.style.backgroundColor = gc;
                     message.style.color = badColor;

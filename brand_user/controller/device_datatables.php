@@ -250,7 +250,7 @@ function gettcpdata_ses($managerbrandid)
     $i=0;
     $products=[];
     if ($con) {
-        $stmt = "SELECT `tcp_assign_machine`.`tcp_brand` , `tcp_register`.`imei` FROM `tcp_assign_machine` JOIN `tcp_register` ON tcp_assign_machine.tcp_machineid= tcp_register.id WHERE tcp_assign_machine.tcp_brand='$managerbrandid' ;";
+        $stmt = "SELECT `tcp_assign_machine`.`tcp_brand` , `tcp_assign_machine`.`tcp_pri_user`, `tcp_register`.`imei` FROM `tcp_assign_machine` JOIN `tcp_register` ON tcp_assign_machine.tcp_machineid= tcp_register.id WHERE tcp_assign_machine.tcp_pri_user='$managerbrandid' ;";
 
         // print_r($stmt);exit;
         $data = mysqli_query($con, $stmt);

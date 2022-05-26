@@ -2,19 +2,11 @@
 
 require_once "../controller/functions.php";
 
-
-
-
-
-
-
-
-
-
-
 $id = $_POST["id"];
 
 $brandusers = getBrandUsers($id);
+
+
 //print_r($brandusers);exit;
 if($brandusers==false){
     ?>
@@ -34,7 +26,6 @@ if($brandusers==false){
         }
         
 }
-
 
 
 

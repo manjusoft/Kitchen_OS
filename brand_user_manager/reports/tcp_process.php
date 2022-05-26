@@ -86,9 +86,12 @@ $searchValue = mysqli_real_escape_string($con, $_POST['search']['value']); // Se
 $searchQuery = " ";
 if ($searchValue != '') {
     $searchQuery = " and (date like '%" . $searchValue . "%' or 
-        imei like '%" . $searchValue . "%' or 
-        temp like'%" . $searchValue . "%' or 
-        bv like'%" . $searchValue . "%') ";
+    imei like '%" . $searchValue . "%' or 
+    temp like'%" . $searchValue . "%' or 
+    battery_voltage like'%" . $searchValue . "%' or 
+    wifi like'%" . $searchValue . "%'  or 
+    alarm_type like'%" . $searchValue . "%'  or 
+    wifistatus like'%" . $searchValue . "%') ";
 }
 
 ## Total number of records without filtering

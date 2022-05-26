@@ -78,7 +78,17 @@ if (empty($_POST['brandname'])) {
     $response["error"] = 3;
     $response["error_msg"] = "Email Format not valid";
     echo json_encode($response);
-} else if (!empty($_POST['brandname'])  && !empty($_POST['address'])  && !empty($_POST['personname']) && !empty($_POST['phone']) && !empty($_POST['email']) && !empty($_POST['password'])) {
+}else if (empty($_POST['brandaddreason'])) {
+    $response["error"] = 3;
+
+    $response["error_msg"] = "Enter Reason to Add ";
+    echo json_encode($response);
+}else if (empty($_POST['brandaddby'])) {
+    $response["error"] = 3;
+
+    $response["error_msg"] = "Enter Add By ";
+    echo json_encode($response);
+} else if (!empty($_POST['brandname'])  && !empty($_POST['address'])  && !empty($_POST['personname']) && !empty($_POST['phone']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['brandaddreason']) && !empty($_POST['brandaddby'])) {
 
     // receiving the post params
     $brandname = $_POST['brandname'];
@@ -96,8 +106,11 @@ if (empty($_POST['brandname'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+    $brandaddreason =$_POST['brandaddreason'];
+    $brandaddby = $_POST['brandaddby'];
 
-    $x = addBrand($brandname, $outlets, $address, $pincode, $country, $state, $city, $personname, $designation, $phone, $email,$password);
+
+    $x = addBrand($brandname, $outlets, $address, $pincode, $country, $state, $city, $personname, $designation, $phone, $email,$password,$brandaddreason,$brandaddby);
     //echo($x);exit;
     if ($x == 0) {
         // user already existed

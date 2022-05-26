@@ -7,8 +7,10 @@ if(isset($_POST)){
     $machine_type = $_POST['tcp_machine_type'];
     $tcp_sr = $_POST['tcp_sr'];
     $tcp_instaldate = $_POST['tcp_instaldate'];
+    $tcp_low_threshold =$_POST['tcp_low_threshold'];
+    $tcp_high_threshold =$_POST['tcp_high_threshold'];
 
-    $x=tcp_register_function($imei,$machine_type,$tcp_sr,$tcp_instaldate);
+    $x=tcp_register_function($imei,$machine_type,$tcp_sr,$tcp_instaldate,$tcp_low_threshold,$tcp_high_threshold);
     // print_r($x);exit;
     if ($x == 0) {
         // user already existed

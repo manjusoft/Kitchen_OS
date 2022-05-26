@@ -78,7 +78,7 @@ session_start();
                                                 <label for="floatingSelect">Machine Type</label>
                                             </div>
                                         </div>
-                                        <!-- <div class="col-md-3">
+                                         <div class="col-md-3">
                                             <div class="form-floating mb-3">
                                                 <select class="form-select" id="machine" name="machine" aria-label="">
                                                     <option value=""></option>
@@ -100,7 +100,7 @@ session_start();
                                                 <label for="floatingSelect">Machines</label>
                                             </div>
                                         </div>
-                                        <br>-->
+                                        <br>
                                         <!-- <div class="col-md-3">
                                             <div class="form-floating mb-3">
                                                 <select class="form-select" id="brand" name="brand" aria-label="">

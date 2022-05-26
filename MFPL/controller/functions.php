@@ -1,5 +1,6 @@
 <?php
 //session_start();
+require_once 'controller/tcp_function.php';
 function connectDB()
 {
 
@@ -8,6 +9,69 @@ function connectDB()
 
     return $con;
 }
+
+function totalcountoftcpdata()
+{
+
+                $data[0] = 0;
+                $data[1] = 0;
+                $data[2] = 0;
+
+                $i = 0;
+                $k = 0;
+                $x = 0;
+                $imei=0;
+
+                $tcpdata = getnooftcpdata();
+                foreach ($tcpdata as $tcpd) {
+                //   print_r($tcpd . " wer");
+                $i++;
+                $time = strtotime($tcpd['timestamp']);
+                $imei+=$tcpd['imei'];
+                //   print_r($time . " qqq");
+                // print_r($imei . " ");
+                $resultl = getLivemachinestcpdata($imei);
+                if($resultl>0)
+                {
+                    date_default_timezone_set("Asia/Kolkata");
+
+                $local = date("Y-m-d H:i:s", $time);
+                // print_r($local);
+                //exit;
+
+                $datetime1 = new DateTime();
+                //print_r($datetime1);
+                $datetime2 = new DateTime($local);
+                //print_r($datetime2);
+                $interval = $datetime1->diff($datetime2);
+                //print_r($interval);//exit;
+                $elapsed = $interval->format('%y years %m months %a days %h hours %i minutes %s seconds');
+                
+                if ($interval->days > 3) {
+
+                    $data[2] += 1;
+                    $x++;
+                } else if ($interval->days >= 1) {
+                    $data[1] += 1;
+                    $x++;
+                } else {
+                    $data[0] += 1;
+                    $x++;
+                }
+                //$name = ['live ('.$data[0].')', 'Idle ('.$data[1].')', 'Down ('.$data[2].')'];
+                }
+
+                }
+                if($x>0){
+                $total = $x;
+                $name = [$data[0],$data[1],$data[2],$total];
+                return $name;
+                }
+                else {
+                    return $name;
+                }
+
+ }
 
 function insertraw($slnum, $software_v, $app_v, $recipe_v, $app_name, $app_location, $Serial_number, $heartbeat, $error_count, $recipe_count, $cleaning_counter, $eod_cleaning_counter)
 {
@@ -508,7 +572,7 @@ function brandname_check($sid)
 }
 
 
-function addBrand($brandname, $outlets, $address, $pincode, $country, $state, $city, $personname, $designation, $phone, $email, $password)
+function addBrand($brandname, $outlets, $address, $pincode, $country, $state, $city, $personname, $designation, $phone, $email, $password,$brandaddreason,$brandaddby)
 {
     $con = connectDB();
     $data = "";
@@ -522,8 +586,8 @@ function addBrand($brandname, $outlets, $address, $pincode, $country, $state, $c
         $data = mysqli_query($con, $stmt);
         // print_r($data);exit;
         if ($data->num_rows == 0) {
-            $stmt = "INSERT INTO `brand_tbl`(`brand_name`, `outlets`, `address`, `pincode`, `country`, `state`, `city`, `bp_name`, `bp_designation`, `bp_phone`, `bp_email`,`password`) 
-    VALUES ('$brandname','$outlets','$address','$pincode','$country','$state','$city','$personname','$designation','$phone','$email','$password')";
+            $stmt = "INSERT INTO `brand_tbl`(`brand_name`, `outlets`, `address`, `pincode`, `country`, `state`, `city`, `bp_name`, `bp_designation`, `bp_phone`, `bp_email`,`password`,`addreason`,`addby`) 
+    VALUES ('$brandname','$outlets','$address','$pincode','$country','$state','$city','$personname','$designation','$phone','$email','$password','$brandaddreason','$brandaddby')";
             $done = mysqli_query($con, $stmt);
             //print_r($stmt);exit;
             if ($done) {
@@ -752,7 +816,7 @@ function getAssignedDeviceBrandWise($brandid)
 }
 
 
-function addStore($brandname, $storename, $storeperson, $storecontact, $country, $state, $city, $pincode)
+function addStore($brandname, $storename, $storeperson, $storecontact, $country, $state, $city, $pincode,$storeaddreason,$storeaddby)
 {
     $con = connectDB();
     $data = "";
@@ -766,8 +830,8 @@ function addStore($brandname, $storename, $storeperson, $storecontact, $country,
         $data = mysqli_query($con, $stmt);
         // print_r($data);exit;
         if ($data->num_rows == 0) {
-            $stmt = "INSERT INTO `store`(`brand_id`, `store_name`, `p_name`, `p_phone`, `country`, `state`, `city`, `pincode`) 
-            VALUES ('$brandname','$storename','$storeperson','$storecontact','$country','$state','$city','$pincode')";
+            $stmt = "INSERT INTO `store`(`brand_id`, `store_name`, `p_name`, `p_phone`, `country`, `state`, `city`, `pincode`,`addreason`,`addby`) 
+            VALUES ('$brandname','$storename','$storeperson','$storecontact','$country','$state','$city','$pincode','$storeaddreason','$storeaddby')";
             $done = mysqli_query($con, $stmt);
             //print_r($stmt);exit;
             if ($done) {
@@ -2045,7 +2109,7 @@ function removeDevice_TCP($id, $machine, $brand, $user, $store, $reason, $update
         // print_r($stmt);
         $data2 = mysqli_query($con, $stmt);
         if ($data2) {
-            $stmt2 = "UPDATE `tcp_register` SET `status`='0'";
+            $stmt2 = "UPDATE `tcp_register` SET `active`='0' WHERE `id`='$machine'";
             // print_r($stmt);exit;
 
 
@@ -2585,6 +2649,38 @@ function getLivemachines($value)
     mysqli_close($con);
 }
 
+function getLivemachinestcpdata( $imei)
+{
+
+    $con = connectDB();
+    $data = "";
+
+    if ($con) {
+       // $stmt = "SELECT `tcpdata`.`imei`,MAX(`tcpdata`.`timestamp`) AS `timestamp` FROM `tcpdata` JOIN `tcp_register` ON `tcp_register`.`imei`=`tcpdata`.`imei` JOIN `tcp_assign_machine` ON `tcp_register`.`id`=`tcp_assign_machine`.`tcp_machineid` JOIN `brand_tbl` ON `brand_tbl`.`id`=`tcp_assign_machine`.`tcp_brand` JOIN `store` ON `store`.`id`=`tcp_assign_machine`.`tcp_store` JOIN `users` ON `users`.`user_id`=`tcp_assign_machine`.`tcp_pri_user` GROUP BY `tcpdata`.`imei` ";
+        $stmt = "SELECT `tcp_register`.`imei`,`tcp_register`.`id` from `tcp_register` JOIN `tcp_assign_machine` ON `tcp_register`.`id`=`tcp_assign_machine`.`tcp_machineid` JOIN `brand_tbl` ON `brand_tbl`.`id`=`tcp_assign_machine`.`tcp_brand` JOIN `store` ON `store`.`id`=`tcp_assign_machine`.`tcp_store` JOIN `users` ON `users`.`user_id`=`tcp_assign_machine`.`tcp_pri_user` WHERE `tcp_register`.`imei`=$imei ";
+       // print_r($stmt);exit;
+        $i = 0;
+        $products = [];
+        $data = mysqli_query($con, $stmt);
+        // print_r($data);exit;
+        if ($data) {
+            while ($row = mysqli_fetch_assoc($data)) {
+                $i++;
+
+                $products[$i] = $row;
+                //print_r($row['id']);
+
+            }
+            //print_r($products);exit;
+            return $products;
+        } else {
+            return false;
+        }
+    } else {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    mysqli_close($con);
+}
 
 function getCountReport($query)
 {
@@ -3356,7 +3452,7 @@ function getRecipeCountFromMachinePacketReport($query, $date)
         $data = mysqli_query($con, $stmt);
         //$row = mysqli_fetch_assoc($data);
         //  print_r($row);
-        if ($data) {
+        if ($data->num_rows > 0) {
 
 
             $row = mysqli_fetch_assoc($data);
@@ -3369,7 +3465,7 @@ function getRecipeCountFromMachinePacketReport($query, $date)
 
             return $products;
         } else {
-            return false;
+            return $products;;
         }
     } else {
         die("Connection failed: " . mysqli_connect_error());
@@ -3415,3 +3511,45 @@ function getRecipeCountFromMachinePacketMaxRcReport($query, $date)
     }
     mysqli_close($con);
 }
+
+
+function gettcpthresholds($imei)
+{
+    $con = connectDB();
+    $data = "";
+    $products=[];
+    if ($con) {
+        $stmt ="SELECT `tcp_low_threshold`,`tcp_high_threshold` FROM `tcp_register` WHERE `imei`=$imei";    
+       //print_r($stmt);
+       // exit;
+        $i = 0;
+
+        $data = mysqli_query($con, $stmt); 
+        //$row = mysqli_fetch_assoc($data);
+       //  print_r($row);
+     // print_r($row);exit;
+      if ($data) {
+        while ($row = mysqli_fetch_assoc($data)) {
+            $i++;
+
+            $products[$i] = $row;
+           // print_r($row);
+
+
+
+   
+
+        }
+        //print_r($products);exit;
+        return $products;
+    } else {
+        return false;
+    }
+    }
+     if(!$con) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    mysqli_close($con);
+}
+
+

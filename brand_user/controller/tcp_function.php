@@ -177,7 +177,7 @@ function getRcpGraphData($query){
 
 }
 
-function getnooftcpdatabranduser($brandimei){
+function getnooftcpdatauser($brandimei){
     $con = connect();
     $data = "";
     $i=0;
@@ -214,5 +214,8 @@ function getnooftcpdatabranduser($brandimei){
 
 
 }
+
+
+
 
 ?>
